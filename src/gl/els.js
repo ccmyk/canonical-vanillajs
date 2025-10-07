@@ -1,56 +1,51 @@
 import {  Camera, Plane, Triangle,  Mesh, Geometry, Texture, Text, Renderer, Transform, Program,Post, Vec2 } from 'ogl'
-//ASSETS
-
-const PUBLIC_ROOT_URL = new URL('../../public/', import.meta.url)
-
-const resolvePublicPath = (relativePath) => new URL(relativePath, PUBLIC_ROOT_URL).pathname
 
 //LOADER
 
 import Loader from './Loader/base.js'
-import LoaderF from './Loader/Loader.fragment.main.glsl'
-import LoaderV from './Loader/Loader.vertex.main.glsl'
+import LoaderF from './Loader/Loader.fragment.main.glsl?raw'
+import LoaderV from './Loader/Loader.vertex.main.glsl?raw'
 
 //OIS
 
 import Base from './Media/base.js'
-import fractalF from './Media/Media.fragment.main.glsl'
-import fractalV from './Media/Media.vertex.main.glsl'
+import fractalF from './Media/Media.fragment.main.glsl?raw'
+import fractalV from './Media/Media.vertex.main.glsl?raw'
 
 import Bg from './Bg/base.js'
-import BgF from './Bg/Bg.fragment.main.glsl'
-import BgV from './Bg/Bg.vertex.main.glsl'
+import BgF from './Bg/Bg.fragment.main.glsl?raw'
+import BgV from './Bg/Bg.vertex.main.glsl?raw'
 
 import Tt from './Tt/base.js'
-import textF from './Tt/Tt.fragment.msdf.glsl'
-import textV from './Tt/Tt.vertex.msdf.glsl'
+import textF from './Tt/Tt.fragment.msdf.glsl?raw'
+import textV from './Tt/Tt.vertex.msdf.glsl?raw'
 
 import TtF from './TtF/base.js'
-import textFF from './TtF/TtF.fragment.msdf.glsl'
-import textpF from './TtF/TtF.fragment.parent.glsl'
+import textFF from './TtF/TtF.fragment.msdf.glsl?raw'
+import textpF from './TtF/TtF.fragment.parent.glsl?raw'
 
 import TtA from './TtA/base.js'
-import textFA from './TtA/TtA.fragment.msdf.glsl'
-import textpA from './TtA/TtA.fragment.parent.glsl'
+import textFA from './TtA/TtA.fragment.msdf.glsl?raw'
+import textpA from './TtA/TtA.fragment.parent.glsl?raw'
 
 import Sl from './Slider/base.js'
-import SlF from './Slider/Slider.fragment.main.glsl'
-import SlV from './Slider/Slider.vertex.main.glsl'
-import SlPF from './Slider/Slider.fragment.parent.glsl'
+import SlF from './Slider/Slider.fragment.main.glsl?raw'
+import SlV from './Slider/Slider.vertex.main.glsl?raw'
+import SlPF from './Slider/Slider.fragment.parent.glsl?raw'
 
 import Roll from './Roll/base.js'
-import SlSF from './Roll/Roll.fragment.single.glsl'
-import SlVF from './Roll/Roll.vertex.single.glsl'
+import SlSF from './Roll/Roll.fragment.single.glsl?raw'
+import SlVF from './Roll/Roll.vertex.single.glsl?raw'
 
 import PG from './Pg/base.js'
-import PGs from './Pg/Pg.fragment.main.glsl'
-import PGv from './Pg/Pg.vertex.main.glsl'
+import PGs from './Pg/Pg.fragment.main.glsl?raw'
+import PGv from './Pg/Pg.vertex.main.glsl?raw'
 
 export async function createMSDF () {
 
   const assetRoot = this.main.assetRoot || ''
-  const mapTexSrc = assetRoot ? `${assetRoot}/public/PPNeueMontreal-Medium.png` : resolvePublicPath('PPNeueMontreal-Medium.png')
-  const jsonTexSrc = assetRoot ? `${assetRoot}/public/PPNeueMontreal-Medium.json` : resolvePublicPath('PPNeueMontreal-Medium.json')
+  const mapTexSrc = assetRoot ? `${assetRoot}/PPNeueMontreal-Medium.png` : '/PPNeueMontreal-Medium.png'
+  const jsonTexSrc = assetRoot ? `${assetRoot}/PPNeueMontreal-Medium.json` : '/PPNeueMontreal-Medium.json'
 
   let rt = []
 
@@ -76,7 +71,7 @@ export async function createAssets (texs) {
   this.fontMSDF = fntAss[0]
 
   const assetRoot = this.main.assetRoot || ''
-  const mapTexSrc = assetRoot ? `${assetRoot}/public/PPNeueMontreal-Medium.png` : resolvePublicPath('PPNeueMontreal-Medium.png')
+  const mapTexSrc = assetRoot ? `${assetRoot}/PPNeueMontreal-Medium.png` : '/PPNeueMontreal-Medium.png'
   this.fontTex = await this.loadImage(mapTexSrc)
   
 

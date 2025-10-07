@@ -4,6 +4,8 @@
   "type": "module",
   "scripts": {
     "sanitize": "node scripts/sanitize-wp-data.js",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "dev": "vite",
     "vite": "vite",
     "build": "vite build",
@@ -17,6 +19,8 @@
     "ogl": "^1.0.6"
   },
   "devDependencies": {
+    "prettier": "^3.6.2",
+    "prettier-plugin-glsl": "^0.2.2",
     "vite": "^5.4.8"
   }
 }

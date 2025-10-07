@@ -113,9 +113,7 @@ export async function loadVideo(elem,url) {
     
     elem.oncanplay = () => {
       if (elem && elem.isPlaying) {
-        if (elem.classList) {
-          elem.classList.add('Ldd')
-        }
+        elem.classList?.add('Ldd')
         cleanVid(elem)
         resolve(elem)
       }
