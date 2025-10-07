@@ -138,18 +138,22 @@ export async function createEls(el = null) {
     //❗ HABRÁ QUE HACER UN IF PARA LOS TAMAÑOS
     //❗ HABRÁ QUE HACER UNA CALCULADORA DE TAMAÑOS
 
+    // Get the canvas container (.cCover) for proper sizing
+    const canvasContainer = el.parentNode.querySelector('.cCover');
+    const containerBounds = canvasContainer.getBoundingClientRect();
+
     const renderer = new Renderer({
       alpha: true,
       dpr: Math.max(window.devicePixelRatio, 2),
 
-      width: el.offsetWidth,
-      height: el.offsetHeight,
+      width: containerBounds.width || el.offsetWidth,
+      height: containerBounds.height || el.offsetHeight,
     });
 
     const { gl } = renderer;
 
     gl.canvas.classList.add('glF');
-    el.parentNode.querySelector('.cCover').appendChild(gl.canvas);
+    canvasContainer.appendChild(gl.canvas);
     //📽️📽️📽️📽️📽️📽️📽️📽️
     const cam = this.createCamera(gl);
 
@@ -520,13 +524,17 @@ export async function createEls(el = null) {
     //SliderSliderSliderSliderSliderSliderSliderSliderSliderSliderSliderSliderSliderSliderSlider
 
     //Inits
+    
+    // Get the canvas container (.cCover) for proper sizing
+    const canvasContainer = el.parentNode.querySelector('.cCover');
+    const containerBounds = canvasContainer.getBoundingClientRect();
 
     const renderer = new Renderer({
       alpha: true,
       dpr: Math.max(window.devicePixelRatio, 2),
 
-      width: el.offsetWidth,
-      height: el.offsetWidth,
+      width: containerBounds.width || el.offsetWidth,
+      height: containerBounds.height || el.offsetWidth,
     });
 
     const { gl } = renderer;
@@ -534,7 +542,7 @@ export async function createEls(el = null) {
     const scene = new Transform();
 
     gl.canvas.classList.add('glSlider');
-    el.parentNode.querySelector('.cCover').appendChild(gl.canvas);
+    canvasContainer.appendChild(gl.canvas);
 
     //📽️📽️📽️📽️📽️📽️📽️📽️
     const cam = this.createCamera(gl);

@@ -29,52 +29,48 @@ class Loader {
     this.DOM.cnt = this.DOM.el.querySelector('.loader_cnt');
     this.DOM.n = this.DOM.el.querySelector('.loader_tp');
 
+    // Initialize animation object for number counter
+    this.obj = { num: 0 };
+
     this.createAnim();
   }
 
   createAnim() {
-    this.obj = {
-      num: 0,
-    };
-    this.anim = gsap
-      .timeline({ paused: true })
-      .fromTo(
-        this.obj,
-        { num: 0 },
+    this.anim = gsap.timeline({ delay: 0.1, repeat: -1, yoyo: true })
+      .to(
+        this.DOM.bg,
         {
-          num: 42,
-          ease: 'none',
-          duration: 2,
-          onUpdate: () => {
-            let num = this.obj.num.toFixed(0);
-            this.calcNum(num);
-          },
+          scaleX: () => gsap.utils.random(0.8, 1.8),
+          scaleY: () => gsap.utils.random(0.8, 1.8),
+          duration: () => gsap.utils.random(1.1, 3.8),
+          ease: Power1.easeInOut,
         },
         0,
       )
       .to(
-        this.obj,
+        this.DOM.bg,
         {
-          num: 90,
-          ease: 'power2.inOut',
-          duration: 8,
-          onUpdate: () => {
-            let num = this.obj.num.toFixed(0);
-            this.calcNum(num);
-          },
+          rotation: () => gsap.utils.random(-20, 20),
+          duration: () => gsap.utils.random(0.8, 2.2),
+          ease: Power1.easeInOut,
         },
         2.2,
       );
 
     let aw = this.DOM.el.querySelectorAll('.Awrite');
 
-    this.main.events.anim.detail.state = 0;
-    this.main.events.anim.detail.el = aw[0];
-    document.dispatchEvent(this.main.events.anim);
+    // Safety check - only dispatch events if elements exist
+    if (aw && aw.length > 0) {
+      this.main.events.anim.detail.state = 0;
+      this.main.events.anim.detail.el = aw[0];
+      document.dispatchEvent(this.main.events.anim);
 
-    this.main.events.anim.detail.state = 0;
-    this.main.events.anim.detail.el = aw[1];
-    document.dispatchEvent(this.main.events.anim);
+      if (aw.length > 1) {
+        this.main.events.anim.detail.state = 0;
+        this.main.events.anim.detail.el = aw[1];
+        document.dispatchEvent(this.main.events.anim);
+      }
+    }
   }
 
   calcNum(num) {
@@ -92,14 +88,21 @@ class Loader {
   async start() {
     let aw = this.DOM.el.querySelectorAll('.Awrite');
 
-    this.main.events.anim.detail.state = 1;
-    this.main.events.anim.detail.el = aw[0];
-    document.dispatchEvent(this.main.events.anim);
+    // Safety check - only dispatch events if elements exist
+    if (aw && aw.length > 0) {
+      this.main.events.anim.detail.state = 1;
+      this.main.events.anim.detail.el = aw[0];
+      document.dispatchEvent(this.main.events.anim);
 
-    this.main.events.anim.detail.state = 1;
-    this.main.events.anim.detail.el = aw[1];
-    document.dispatchEvent(this.main.events.anim);
-    this.anim.play();
+      if (aw.length > 1) {
+        this.main.events.anim.detail.state = 1;
+        this.main.events.anim.detail.el = aw[1];
+        document.dispatchEvent(this.main.events.anim);
+      }
+    }
+    if (this.anim) {
+      this.anim.play();
+    }
   }
 
   async showPop() {
@@ -114,7 +117,9 @@ class Loader {
   }
 
   async hideIntro(template = '') {
-    this.anim.pause();
+    if (this.anim) {
+      this.anim.pause();
+    }
 
     gsap.to(this.obj, {
       num: 100,
