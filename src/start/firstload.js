@@ -1,9 +1,10 @@
-import { options } from '../data/wpData.js';
-
-const clone = (value) =>
-  typeof structuredClone === 'function'
-    ? structuredClone(value)
-    : JSON.parse(JSON.stringify(value));
+// Simple data loading without WordPress complexity
+const templateData = {
+  fields: {
+    base: "/",
+    template: ""
+  }
+};
 
 const computeAssetRoot = () => {
   const raw = (document.body?.dataset?.js ?? '').trim();
@@ -19,20 +20,14 @@ const computeAssetRoot = () => {
 };
 
 export async function loadBootstrapData() {
-  const assetRoot = computeAssetRoot();         // '' if you serve at /
-  const uploadsPrefix = '/public/uploads/';
-  const uploadsTarget = assetRoot
-    ? `${assetRoot}${uploadsPrefix}`
-    : uploadsPrefix;
+  const assetRoot = computeAssetRoot();
 
-  const normalized = JSON.parse(
-    JSON.stringify(clone(options)).replaceAll(uploadsPrefix, uploadsTarget)
-  );
-
-  if (normalized?.fields) {
-    normalized.fields.base = assetRoot;
-    normalized.fields.template = assetRoot || '';
-  }
+  const normalized = {
+    fields: {
+      base: assetRoot || "/",
+      template: assetRoot || ""
+    }
+  };
 
   return normalized;
 }

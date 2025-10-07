@@ -4,8 +4,10 @@ import { loadBootstrapData } from './firstload.js'
 import App from '../main/index.js'
 import { IS_DEV } from '../utils/env.js'
 
-import gsap from "gsap"
-import SplitType from 'split-type'
+// Import from CDN for vanilla.js compatibility
+// These will be loaded from CDN in index.html instead
+
+console.log('Constructor.js loaded');
 
 // import { Power2,Power4 } from "./ease.js"
 
@@ -24,6 +26,9 @@ if(IS_DEV){
 }
 
 const global = browser.browserCheck()
+// Re-enable WebGL for proper site operation
+
+// Original WebGL detection code (restored)
 if(browser.glCheck()==false){
   global.webgl = 0
   document.documentElement.classList.add('AND')
@@ -32,18 +37,16 @@ else{
   if(navigator.userAgent.toLowerCase().indexOf("android") > -1){
     global.webgl = 0
     document.documentElement.classList.add('AND')
-
   }
   else{
     global.webgl = 1
-
   }
 }
 
-window.gsap = gsap
+window.gsap = window.gsap || gsap
 gsap.ticker.remove(gsap.updateRoot)
 
-window.SplitType = SplitType
+window.SplitType = window.SplitType || SplitType
 
 const datasetValue = (document.body.dataset.js ?? '').trim()
 const isAbsoluteBase = /^https?:\/\//.test(datasetValue)
@@ -113,9 +116,14 @@ else{
 }
 
 const bootstrap = async () => {
+  console.log('Bootstrap starting...');
   try {
+    console.log('Loading bootstrap data...');
     const data = await loadBootstrapData()
+    console.log('Bootstrap data loaded:', data);
+    console.log('Creating App...');
     new App([global, data])
+    console.log('App created successfully');
   } catch (error) {
     console.error('Failed to initialise app', error)
   }

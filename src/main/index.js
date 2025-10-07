@@ -1,15 +1,14 @@
-import AutoBind from 'auto-bind'
-import Lenis from 'lenis'
+// Lenis will be available globally from CDN
 //Basic
-import Nav from '../components/Nav'
-import Loader from '../components/Loader'
+import Nav from '../components/Nav.js'
+import Loader from '../components/Loader.js'
 
-import gl from '../gl/gl.js'
+import gl from '../gl/gl.js' // Re-enabled for proper WebGL operation
 
 import { IS_DEV } from '../utils/env.js'
 
 //Mouse
-import Mouse from '../components/Mouse'
+import Mouse from '../components/Mouse.js'
 
 import {
   createViews
@@ -39,7 +38,13 @@ import {
 
 class App {
   constructor (info) {
-   AutoBind(this)
+    // Bind methods manually instead of using auto-bind
+    this.onPopState = this.onPopState.bind(this)
+    this.onRequest = this.onRequest.bind(this)
+    this.onChange = this.onChange.bind(this)
+    this.onResize = this.onResize.bind(this)
+    this.update = this.update.bind(this)
+    
     this.content = document.querySelector('#content')
     this.main = info[0]
     const fields = info[1]?.fields ?? {}
@@ -91,7 +96,7 @@ class App {
     this.addEvents()
 
     //Lenis
-    this.lenis = new Lenis({
+    this.lenis = new window.Lenis({
       wheelEventsTarget:document.documentElement,
       lerp:.04,
       duration:.8,

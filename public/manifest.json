@@ -1,0 +1,17 @@
+{
+  "name": "Chris Hall - Portfolio",
+  "short_name": "Chris Hall",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "background_color": "#000000",
+  "theme_color": "#F8F6F2",
+  "display": "standalone",
+  "scope": "/"
+}

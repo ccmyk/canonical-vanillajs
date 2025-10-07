@@ -1,4 +1,3 @@
-import { pages, projects } from '../data/wpData.js'
 import { IS_DEV } from '../utils/env.js'
 
 const clone = (value) => {
@@ -12,55 +11,24 @@ export function timeout(ms){
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
-export async function loadRestApi(request='',id='',template=''){
-  let type
-  let targetId
-  let targetTemplate
+export async function loadContent(request='',id='',template=''){
+  let targetId = id || '2' // default to home page
 
-  if (typeof request === 'object' && request !== null && !Array.isArray(request)) {
-    type = request.type
-    targetId = request.id ?? ''
-    targetTemplate = request.template ?? ''
-  } else {
-    type = String(request || '')
-    targetId = id
-    targetTemplate = template
+  if (typeof request === 'object' && request !== null) {
+    targetId = request.id ?? '2'
   }
 
-  if (!type) {
-    type = 'pages'
-  }
-
-  const lookup = type.startsWith('project') ? projects : pages
-  const entry = lookup[targetId]
-
-  if (!entry) {
-    if (IS_DEV) {
-      console.warn(`loadRestApi: missing data for type "${type}" and id "${targetId}"`)
-    }
+  // Load from clean JSON content files
+  try {
+    const response = await fetch(`/content/pages/${targetId}.json`)
+    const data = await response.json()
+    
+    // Return the data - it has csskfields.main with the HTML your system needs
+    return data
+  } catch (error) {
+    console.error('Failed to load content:', error)
     return null
   }
-
-  const assetRoot = this.main?.assetRoot || ''
-  const uploadPrefix = '/wp-content/uploads/'
-  const themePrefix = '/wp-content/themes/csskiller_wp'
-  const uploadTarget = `${assetRoot}/public/uploads/`
-  const themeTarget = assetRoot || ''
-
-  const normalized = JSON.parse(
-    JSON.stringify(clone(entry))
-      .replaceAll(uploadPrefix, uploadTarget)
-      .replaceAll(themePrefix, themeTarget)
-  )
-
-  if (targetTemplate && normalized?.fields) {
-    normalized.fields.template = targetTemplate
-  }
-  if (normalized?.fields) {
-    normalized.fields.base = assetRoot
-  }
-
-  return normalized
 }
 //Images
 export async function loadImages(){

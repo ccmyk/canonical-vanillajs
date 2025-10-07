@@ -1,4 +1,9 @@
+#version 300 es
 precision highp float;
+#define varying in
+#define texture2D texture
+#define gl_FragColor FragColor
+out vec4 FragColor;
 
 uniform vec2 uCover;
 uniform vec2 uTextureSize;
@@ -8,8 +13,8 @@ uniform float uStart1;
 uniform float uTime;
 uniform vec2 uMouse;
 
-varying vec2 vUv;
-varying float vPos;
+in vec2 vUv;
+in float vPos;
 
 // vec2 fade(vec2 t) {return t*t*t*(t*(t*6.0-15.0)+10.0);}
 // vec4 permute(vec4 x){return mod(((x*34.0)+1.0)*x, 289.0);}

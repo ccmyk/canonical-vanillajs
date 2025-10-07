@@ -35,7 +35,7 @@ showIos,
 //loads
 import {
 timeout,
-loadRestApi,
+loadContent,
 loadImage,
 loadImages,
 newImages,
@@ -119,7 +119,7 @@ Page.prototype.inViewAddClass=inViewAddClass
 Page.prototype.showIos=showIos
 //loads
 Page.prototype.timeout=timeout
-Page.prototype.loadRestApi=loadRestApi
+Page.prototype.loadContent=loadContent
 Page.prototype.loadImage=loadImage
 Page.prototype.loadImages=loadImages
 Page.prototype.newImages=newImages

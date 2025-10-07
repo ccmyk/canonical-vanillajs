@@ -1,6 +1,10 @@
+#version 300 es
+precision highp float;
+#define attribute in
+#define varying out
 
-attribute vec3 uv;
-attribute vec3 position;
+in vec3 uv;
+in vec3 position;
 
 uniform mat4 modelViewMatrix;
 uniform mat4 projectionMatrix;
@@ -10,7 +14,7 @@ uniform vec2 uCover;
 uniform float uZoom;
 uniform float uMove;
 
-varying vec3 vUv;
+out vec3 vUv;
 
 void main() {
 

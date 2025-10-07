@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="540" viewBox="0 0 720 540">
+  <rect width="720" height="540" fill="#000" opacity="0.9"/>
+  <polygon points="280,200 280,340 420,270" fill="#fff" opacity="0.8"/>
+  <circle cx="360" cy="270" r="80" fill="none" stroke="#fff" stroke-width="3" opacity="0.6"/>
+  <text x="360" y="400" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="16" opacity="0.8">Placeholder Video</text>
+</svg>

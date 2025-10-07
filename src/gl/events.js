@@ -88,7 +88,14 @@ function cleanVid(elem){
 export async function loadVideo(elem,url) {
 
   return new Promise((resolve, reject) => {
-    if(elem.dataset.loop){
+    // Safety check for elem parameter
+    if (!elem) {
+      console.warn('loadVideo called with undefined element');
+      resolve(null);
+      return;
+    }
+    
+    if(elem.dataset && elem.dataset.loop){
       elem.loop = false
     }
     else{
@@ -105,8 +112,10 @@ export async function loadVideo(elem,url) {
     }
     
     elem.oncanplay = () => {
-      if (elem.isPlaying) {
-        elem.classList.add('Ldd')
+      if (elem && elem.isPlaying) {
+        if (elem.classList) {
+          elem.classList.add('Ldd')
+        }
         cleanVid(elem)
         resolve(elem)
       }

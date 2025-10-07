@@ -981,14 +981,14 @@ section.fake {
 @font-face {
     font-family: montreal;
     font-display: swap;
-    src: url(/fonts/montreal.woff2) format("woff2");
-    font-weight: 530;
+    src: url(./public/fonts/PPNeueMontreal-Medium.woff2) format("woff2");
+    font-weight: 500;
     font-style: normal;
 }
 @font-face {
     font-family: montrealbook;
     font-display: swap;
-    src: url(/fonts/montrealbook.woff2) format("woff2");
+    src: url(./public/fonts/PPNeueMontrealMono-Book.woff2) format("woff2");
     font-weight: 400;
     font-style: normal;
 }

@@ -1,4 +1,9 @@
+#version 300 es
 precision highp float;
+#define varying in
+#define texture2D texture
+#define gl_FragColor FragColor
+out vec4 FragColor;
 
 uniform sampler2D tMap;
 uniform vec2 uCover;
@@ -7,7 +12,7 @@ uniform vec2 uTextureSize;
 uniform float uLoad;
 uniform float uZoom;
 uniform float uMove;
-varying vec3 vUv;
+in vec3 vUv;
 
 vec2 coverTexture( vec2 imgSize, vec2 ouv, float mouse) {
   vec2 s = uCover;

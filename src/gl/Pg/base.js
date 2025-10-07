@@ -10,8 +10,8 @@ import {
 
 } from './position.js'
 
-import PGs from './Slider.fragment.main.glsl'
-import PGv from './Slider.vertex.main.glsl'
+import PGs from './Pg.fragment.main.glsl'
+import PGv from './Pg.vertex.main.glsl'
 
 import {  Triangle,Program,  Mesh, Vec2, Texture } from 'ogl'
 

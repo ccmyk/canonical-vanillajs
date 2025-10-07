@@ -9,7 +9,17 @@ class Loader {
     
   }
   async create(){
-    document.querySelector('body').insertAdjacentHTML('afterbegin',this.temp.init)
+    // Fallback loader HTML if template is missing
+    const loaderHTML = this.temp.init || `
+      <div class="loader">
+        <div class="loader_bg"></div>
+        <div class="loader_cnt">
+          <div class="loader_tp">Loading...</div>
+        </div>
+      </div>
+    `;
+    
+    document.querySelector('body').insertAdjacentHTML('afterbegin', loaderHTML)
     
     this.DOM = {
       el: document.documentElement.querySelector('.loader'),

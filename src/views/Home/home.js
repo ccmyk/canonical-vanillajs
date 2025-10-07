@@ -11,14 +11,11 @@ class Home extends Page {
   async create(content,main,temp=undefined) {
     super.create(content,main)
     if(temp!=undefined){
-
       document.querySelector('#content').insertAdjacentHTML('afterbegin',temp)
     }
     else{
-      let data = await this.loadRestApi({
-        type:'pages',
-        id:content.dataset.id,
-        template:content.dataset.template
+      let data = await this.loadContent({
+        id:content.dataset.id
       })
       document.querySelector('#content').insertAdjacentHTML('afterbegin',data.csskfields.main)
     }

@@ -1,5 +1,5 @@
-import lazyVideo from '../ios/lazyVideo'
-import lazyImg from '../ios/lazyImg'
+import lazyVideo from '../ios/lazyVideo.js'
+import lazyImg from '../ios/lazyImg.js'
 
 export function buildThresholdList(numSteps) {
   var thresholds = []

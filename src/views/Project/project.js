@@ -17,13 +17,27 @@ class Home extends Page {
       document.querySelector('#content').insertAdjacentHTML('afterbegin',temp)
     }
     else{
-      let data = await this.loadRestApi({
-        type:'project',
-        id:content.dataset.id,
-        template:content.dataset.template
-      })
-      
-      document.querySelector('#content').insertAdjacentHTML('afterbegin',data.csskfields.main)
+      // Use fallback HTML instead of WordPress REST API
+      const fallbackHTML = `
+        <main>
+          <section class="project">
+            <h1>Project Details</h1>
+            <div class="project-hero">
+              <h2>Interactive Design Project</h2>
+              <p>A showcase of creative digital experience</p>
+            </div>
+            <div class="project-content">
+              <div class="project-image">
+                <img src="/public/placeholder-image.svg" alt="Project Image" />
+              </div>
+              <div class="project-description">
+                <p>This project demonstrates interactive design principles and modern web development techniques.</p>
+              </div>
+            </div>
+          </section>
+        </main>
+      `;
+      document.querySelector('#content').insertAdjacentHTML('afterbegin', fallbackHTML)
     }
     this.el = document.querySelector('main')
     

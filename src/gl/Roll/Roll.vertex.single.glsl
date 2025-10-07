@@ -1,6 +1,10 @@
+#version 300 es
+precision highp float;
+#define attribute in
+#define varying out
 
-attribute vec2 uv;
-attribute vec2 position;
+in vec2 uv;
+in vec2 position;
 
 uniform sampler2D tMap;
 uniform sampler2D tMap2;
@@ -12,9 +16,9 @@ uniform float uStart;
 uniform float uEnd;
 uniform float uPos;
 
-varying vec2 vUv;
-varying vec2 vUv1;
-varying vec2 vUv2;
+out vec2 vUv;
+out vec2 vUv1;
+out vec2 vUv2;
 
 vec2 resizeUvCover(vec2 uv, vec2 size, vec2 resolution) {
     vec2 ratio = vec2(

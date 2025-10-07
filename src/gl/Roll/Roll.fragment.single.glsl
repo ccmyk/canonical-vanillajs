@@ -1,4 +1,10 @@
+#version 300 es
 precision highp float;
+#define varying in
+#define texture2D texture
+#define gl_FragColor FragColor
+out vec4 FragColor;
+
 uniform float uStart;
 uniform float uEnd;
 uniform float uPos;
@@ -9,9 +15,9 @@ uniform vec2 uTextureSize2;
 uniform sampler2D tMap;
 uniform sampler2D tMap2;
 
-varying vec2 vUv;
-varying vec2 vUv1;
-varying vec2 vUv2;
+in vec2 vUv;
+in vec2 vUv1;
+in vec2 vUv2;
 
 void main() {
   // float timer = sin(uTime * .0005);

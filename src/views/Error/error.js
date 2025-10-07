@@ -1,7 +1,7 @@
 import Page from '../../js/pagemain.js'
 
 //COMPS
-import Intro from './0Intro'
+import Intro from './0Intro/index.js'
 
 class Home extends Page {
   constructor (main) {
@@ -15,12 +15,17 @@ class Home extends Page {
       document.querySelector('#content').insertAdjacentHTML('afterbegin',temp)
     }
     else{
-      let data = await this.loadRestApi({
-        type:'pages',
-        id:content.dataset.id,
-        template:content.dataset.template
-      })
-      document.querySelector('#content').insertAdjacentHTML('afterbegin',data.csskfields.main)
+      // Use fallback HTML instead of WordPress REST API
+      const fallbackHTML = `
+        <main>
+          <section class="error">
+            <h1>404 - Page Not Found</h1>
+            <p>The page you're looking for doesn't exist.</p>
+            <a href="/">Return Home</a>
+          </section>
+        </main>
+      `;
+      document.querySelector('#content').insertAdjacentHTML('afterbegin', fallbackHTML)
     }
     this.el = document.querySelector('main')
     

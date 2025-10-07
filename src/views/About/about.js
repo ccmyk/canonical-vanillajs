@@ -1,7 +1,7 @@
 import Page from '../../js/pagemain.js'
 
 //COMPS
-import Intro from './0Intro'
+import Intro from './0Intro/index.js'
 import Scr from './1Dual/io.js'
 
 class Home extends Page {
@@ -16,12 +16,31 @@ class Home extends Page {
       document.querySelector('#content').insertAdjacentHTML('afterbegin',temp)
     }
     else{
-      let data = await this.loadRestApi({
-        type:'pages',
-        id:content.dataset.id,
-        template:content.dataset.template
-      })
-      document.querySelector('#content').insertAdjacentHTML('afterbegin',data.csskfields.main)
+      // Use fallback HTML instead of WordPress REST API
+      const fallbackHTML = `
+        <main>
+          <section class="about">
+            <h1>About Me</h1>
+            <div class="about-content">
+              <div class="about-text">
+                <p>I'm a passionate designer and developer creating engaging digital experiences.</p>
+                <h3>Skills</h3>
+                <ul>
+                  <li>Interactive Design</li>
+                  <li>Web Development</li>
+                  <li>Animation</li>
+                  <li>UX/UI</li>
+                </ul>
+                <p><strong>Experience:</strong> 5+ years designing and developing interactive websites</p>
+              </div>
+              <div class="about-image">
+                <img src="/public/placeholder-image.svg" alt="About Image" />
+              </div>
+            </div>
+          </section>
+        </main>
+      `;
+      document.querySelector('#content').insertAdjacentHTML('afterbegin', fallbackHTML)
     }
     this.el = document.querySelector('main')
     

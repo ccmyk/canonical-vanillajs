@@ -1,9 +1,14 @@
-attribute vec2 uv;
-attribute vec2 position;
+#version 300 es
+precision highp float;
+#define attribute in
+#define varying out
+
+in vec2 uv;
+in vec2 position;
 
 uniform vec2 uResolution;
 
-varying vec2 vUv;
+out vec2 vUv;
 
 void main() {
   vUv = uv;

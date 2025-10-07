@@ -1,0 +1,22 @@
+{
+  "name": "canonical-context",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "sanitize": "node scripts/sanitize-wp-data.js",
+    "dev": "vite",
+    "vite": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "validate": "node scripts/validate-project.js"
+  },
+  "dependencies": {
+    "gsap": "^3.12.5",
+    "split-type": "^0.3.4",
+    "lenis": "^1.1.13",
+    "ogl": "^1.0.6"
+  },
+  "devDependencies": {
+    "vite": "^5.4.8"
+  }
+}

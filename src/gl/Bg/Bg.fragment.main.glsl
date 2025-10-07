@@ -1,4 +1,9 @@
+#version 300 es
 precision highp float;
+#define varying in
+#define texture2D texture
+#define gl_FragColor FragColor
+out vec4 FragColor;
 
 uniform vec2 uResolution;
 uniform float uTime;
@@ -11,7 +16,7 @@ uniform float uStartY;
 uniform float uMultiX;
 uniform float uMultiY;
 
-varying vec2 vUv;
+in vec2 vUv;
 vec2 fade(vec2 t) {return t*t*t*(t*(t*6.0-15.0)+10.0);}
 vec4 permute(vec4 x){return mod(((x*34.0)+1.0)*x, 289.0);}
 float cnoise(vec2 P){
