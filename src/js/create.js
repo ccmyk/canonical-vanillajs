@@ -1,82 +1,63 @@
-export async function create (content,main,temp=undefined) {
+export async function create(content, main, temp = undefined) {
+  this.ios = [];
+  this.iosupdaters = [];
+  this.updaters = [];
 
-    this.ios = []
-    this.iosupdaters = []
-    this.updaters = []
-    
-    this.components = {
+  this.components = {};
+  this.main = main;
 
-    }
-    this.main=main
-    
-    if(this.main.isTouch){
-      this.scroll = {
-        target: 0,
-        current:0,
-        limit:0,
-        last:0,
-        down:1
-      }
-      
-    }
-    else{
-      this.scroll = {
-        target:0,
-        last:0,
-        limit:0,
-        down:1
-      }
-    }
-    
-
-    
+  if (this.main.isTouch) {
+    this.scroll = {
+      target: 0,
+      current: 0,
+      limit: 0,
+      last: 0,
+      down: 1,
+    };
+  } else {
+    this.scroll = {
+      target: 0,
+      last: 0,
+      limit: 0,
+      down: 1,
+    };
+  }
 }
 
 //* Función crear componentes
-export async function createComps(){
-
-  if(this.main.device > 1){
-    if(this.DOM.el.querySelectorAll('.footer')){
-      for(let a of this.DOM.el.querySelectorAll('.footer .Awrite .iO')){
-
-        a.parentNode.classList.add('ivi')
-        a.parentNode.classList.add('nono')
-        a.parentNode.classList.add('stview')
-        
-        
-        
-
+export async function createComps() {
+  if (this.main.device > 1) {
+    if (this.DOM.el.querySelectorAll('.footer')) {
+      for (let a of this.DOM.el.querySelectorAll('.footer .Awrite .iO')) {
+        a.parentNode.classList.add('ivi');
+        a.parentNode.classList.add('nono');
+        a.parentNode.classList.add('stview');
+      }
     }
-    }
-
   }
-
 }
 
-export  function cleanP(){
-    if(this.DOM.el.querySelector('p:empty')){
-      for(let p of this.DOM.el.querySelectorAll('p:empty')){
-        p.remove()
-      }
+export function cleanP() {
+  if (this.DOM.el.querySelector('p:empty')) {
+    for (let p of this.DOM.el.querySelectorAll('p:empty')) {
+      p.remove();
     }
+  }
 }
 
-export function cleanWysi(){
-    for(let a of this.DOM.el.querySelectorAll('.wysi img')){
-      a.removeAttribute('loading')
-      let src = a.src
-      a.dataset.src = src
-      a.removeAttribute('src')
-      a.removeAttribute('width')
-      a.removeAttribute('height')
+export function cleanWysi() {
+  for (let a of this.DOM.el.querySelectorAll('.wysi img')) {
+    a.removeAttribute('loading');
+    let src = a.src;
+    a.dataset.src = src;
+    a.removeAttribute('src');
+    a.removeAttribute('width');
+    a.removeAttribute('height');
 
-      let parent = a.parentNode
-      if(parent.tagName=='P'){
-
-        parent.parentNode.insertBefore(a, parent)
-        parent.remove()
-
-      }
-
+    let parent = a.parentNode;
+    if (parent.tagName == 'P') {
+      parent.parentNode.insertBefore(a, parent);
+      parent.remove();
     }
+  }
 }

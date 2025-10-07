@@ -1,20 +1,18 @@
-import Page from '../../js/pagemain.js'
+import Page from '../../js/pagemain.js';
 
 //COMPS
-import Intro from './0Intro/index.js'
+import Intro from './0Intro/index.js';
 
 class Home extends Page {
-  constructor (main) {
-    super(main)
+  constructor(main) {
+    super(main);
   }
 
-  async create(content,main,temp=undefined) {
-    super.create(content,main)
-    if(temp!=undefined){
-
-      document.querySelector('#content').insertAdjacentHTML('afterbegin',temp)
-    }
-    else{
+  async create(content, main, temp = undefined) {
+    super.create(content, main);
+    if (temp != undefined) {
+      document.querySelector('#content').insertAdjacentHTML('afterbegin', temp);
+    } else {
       // Use fallback HTML instead of WordPress REST API
       const fallbackHTML = `
         <main>
@@ -25,61 +23,44 @@ class Home extends Page {
           </section>
         </main>
       `;
-      document.querySelector('#content').insertAdjacentHTML('afterbegin', fallbackHTML)
+      document.querySelector('#content').insertAdjacentHTML('afterbegin', fallbackHTML);
     }
-    this.el = document.querySelector('main')
-    
+    this.el = document.querySelector('main');
 
     this.DOM = {
-      el:this.el
+      el: this.el,
+    };
+
+    await this.createComps();
+    await this.createIos();
+
+    await this.getReady();
+  }
+  iOpage(animobj) {
+    return animobj;
+  }
+
+  async createComps() {
+    await super.createComps();
+    if (this.DOM.el.querySelector('.error_intro')) {
+      this.components.intro = new Intro(
+        this.DOM.el.querySelector('.error_intro'),
+        this.main.device,
+      );
+    }
+  }
+
+  async animIntro(val) {
+    if (this.components.intro) {
+      this.components.intro.start();
     }
 
-    
-
-    await this.createComps()
-    await this.createIos()
-    
-
-    await this.getReady()
-  }
-  iOpage(animobj){
-   
-    
-    return animobj
+    return val;
   }
 
-  
-  
-  async createComps(){
-   
-
-    await super.createComps()
-    if(this.DOM.el.querySelector('.error_intro')){
-      this.components.intro = new Intro(this.DOM.el.querySelector('.error_intro'),this.main.device)
-    
-    }
-    
-    
-
+  async animOut() {
+    super.animOut();
   }
-
-  async animIntro(val){
-
-    
-    if(this.components.intro){
-      this.components.intro.start()
-    }
-
-    return val
-   
-  }
-
-  async animOut(){
-    
-    super.animOut()
-
-  }
-
 }
 
-export default Home
+export default Home;

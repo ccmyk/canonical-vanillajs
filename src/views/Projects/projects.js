@@ -1,20 +1,18 @@
-import Page from '../../js/pagemain.js'
+import Page from '../../js/pagemain.js';
 
 //COMPS
-import Intro from './0Intro/index.js'
+import Intro from './0Intro/index.js';
 
 class Home extends Page {
-  constructor (main) {
-    super(main)
+  constructor(main) {
+    super(main);
   }
 
-  async create(content,main,temp=undefined) {
-    super.create(content,main)
-    if(temp!=undefined){
-
-      document.querySelector('#content').insertAdjacentHTML('afterbegin',temp)
-    }
-    else{
+  async create(content, main, temp = undefined) {
+    super.create(content, main);
+    if (temp != undefined) {
+      document.querySelector('#content').insertAdjacentHTML('afterbegin', temp);
+    } else {
       // Use fallback HTML instead of WordPress REST API
       const fallbackHTML = `
         <main>
@@ -41,186 +39,159 @@ class Home extends Page {
           </section>
         </main>
       `;
-      document.querySelector('#content').insertAdjacentHTML('afterbegin', fallbackHTML)
+      document.querySelector('#content').insertAdjacentHTML('afterbegin', fallbackHTML);
     }
-    this.el = document.querySelector('main')
-    
+    this.el = document.querySelector('main');
 
     this.DOM = {
-      el:this.el
+      el: this.el,
+    };
+
+    if (this.main.webgl == 0) {
+      await this.loadImages();
+      await this.loadVideos();
     }
 
-    if(this.main.webgl == 0){
-      await this.loadImages()
-      await this.loadVideos()
-    }
-    
+    await this.createComps();
+    await this.createIos();
 
-    await this.createComps()
-    await this.createIos()
-    
-
-    await this.getReady()
+    await this.getReady();
   }
-  iOpage(animobj){
-    if(animobj.el.classList.contains('iO-scroll')){
-      animobj.class = new Scroll(animobj,this.main.device) 
-      
-
+  iOpage(animobj) {
+    if (animobj.el.classList.contains('iO-scroll')) {
+      animobj.class = new Scroll(animobj, this.main.device);
     }
 
-    
-    return animobj
+    return animobj;
   }
 
-  
-  
-  async createComps(){
-   
-
-    await super.createComps()
-    if(this.DOM.el.querySelector('.projects_intro')){
-      this.components.intro = new Intro(this.DOM.el.querySelector('.projects_intro'),this.main.device)
-    
+  async createComps() {
+    await super.createComps();
+    if (this.DOM.el.querySelector('.projects_intro')) {
+      this.components.intro = new Intro(
+        this.DOM.el.querySelector('.projects_intro'),
+        this.main.device,
+      );
     }
-    this.components.accordion = this.DOM.el.querySelector('.toAc')
-    this.components.list = this.DOM.el.querySelector('.toLs')
+    this.components.accordion = this.DOM.el.querySelector('.toAc');
+    this.components.list = this.DOM.el.querySelector('.toLs');
 
-    this.components.list.onclick = () =>{
-      this.components.accordion.classList.remove('act')
-      
-      //Esto mejor al final, que le dé drama y te dé la sensación de 
+    this.components.list.onclick = () => {
+      this.components.accordion.classList.remove('act');
+
+      //Esto mejor al final, que le dé drama y te dé la sensación de
       //que se está cargando
 
-      this.main.events.anim.detail.state = 1
-      this.main.events.anim.detail.style = 1
-      document.dispatchEvent(this.main.events.anim)
-      this.main.events.anim.detail.style = 0
-      
-      this.components.list.classList.add('act')
-    }
-    
+      this.main.events.anim.detail.state = 1;
+      this.main.events.anim.detail.style = 1;
+      document.dispatchEvent(this.main.events.anim);
+      this.main.events.anim.detail.style = 0;
 
-    this.components.accordion.onclick = () =>{
-      this.components.list.classList.remove('act')
-      
+      this.components.list.classList.add('act');
+    };
 
-      this.main.events.anim.detail.state = 0
-      this.main.events.anim.detail.style = 1
-      document.dispatchEvent(this.main.events.anim)
-      this.main.events.anim.detail.style = 0
-      
-      this.components.accordion.classList.add('act')
-    }
+    this.components.accordion.onclick = () => {
+      this.components.list.classList.remove('act');
+
+      this.main.events.anim.detail.state = 0;
+      this.main.events.anim.detail.style = 1;
+      document.dispatchEvent(this.main.events.anim);
+      this.main.events.anim.detail.style = 0;
+
+      this.components.accordion.classList.add('act');
+    };
   }
 
-  async start(val = 0){
+  async start(val = 0) {
+    this.isVisible = 1;
+    this.callIos();
+    let result = await this.animIntro(val);
+    return result;
+  }
+  async animIntro(val) {
+    this.components.accordion.classList.add('act');
+    document.querySelector('.nav_blur').classList.add('up');
+    if (this.DOM.el.querySelector('.fCanvas')) {
+      this.DOM.el.querySelector('.fCanvas').classList.remove('fCanvas');
 
-    this.isVisible = 1
-    this.callIos()
-    let result = await this.animIntro(val)
-    return result
-
-}
-  async animIntro(val){
-
-    this.components.accordion.classList.add('act')
-    document.querySelector('.nav_blur').classList.add('up')
-    if(this.DOM.el.querySelector('.fCanvas')){
-      this.DOM.el.querySelector('.fCanvas').classList.remove('fCanvas')
-
-      await window.waiter(1100)
+      await window.waiter(1100);
     }
-    return val
-   
+    return val;
   }
 
-  async animOut(btn,lenis){
-    let t = ''
-    let n = ''
-    let time = 1200
-    const anim = gsap.timeline({paused:true})
-    if(btn == null){
-        super.animOut()
-        document.querySelector('.nav_blur').classList.remove('up')
-        return true
-  
-    }
-    else if(btn.dataset.ids){
-      if(this.main.device < 2){
-      
-        if(btn.classList.contains('single')){
-          btn = this.DOM.el.querySelector('.cnt_el[data-ids="'+btn.dataset.ids+'"]')
-          n = btn.querySelector('.nfo_n')
-          t = btn.querySelector('.nfo_t')
+  async animOut(btn, lenis) {
+    let t = '';
+    let n = '';
+    let time = 1200;
+    const anim = gsap.timeline({ paused: true });
+    if (btn == null) {
+      super.animOut();
+      document.querySelector('.nav_blur').classList.remove('up');
+      return true;
+    } else if (btn.dataset.ids) {
+      if (this.main.device < 2) {
+        if (btn.classList.contains('single')) {
+          btn = this.DOM.el.querySelector('.cnt_el[data-ids="' + btn.dataset.ids + '"]');
+          n = btn.querySelector('.nfo_n');
+          t = btn.querySelector('.nfo_t');
           anim
-          .to(n,{x:+0+'rem',duration:.8,ease:'power2.inOut'},.7)
-          .to(t,{x:+34.4+'rem',duration:.4,ease:'power2.inOut'},.6)
-          time = 1400
-        }
-        else if(btn.classList.contains('cnt_el_sld')){
-          
-          btn = this.DOM.el.querySelector('.cnt_el[data-ids="'+btn.dataset.ids+'"]')
-          n = btn.querySelector('.nfo_n')
-          t = btn.querySelector('.nfo_t')
+            .to(n, { x: +0 + 'rem', duration: 0.8, ease: 'power2.inOut' }, 0.7)
+            .to(t, { x: +34.4 + 'rem', duration: 0.4, ease: 'power2.inOut' }, 0.6);
+          time = 1400;
+        } else if (btn.classList.contains('cnt_el_sld')) {
+          btn = this.DOM.el.querySelector('.cnt_el[data-ids="' + btn.dataset.ids + '"]');
+          n = btn.querySelector('.nfo_n');
+          t = btn.querySelector('.nfo_t');
 
-          if(this.components.accordion.classList.contains('act')){
-
+          if (this.components.accordion.classList.contains('act')) {
+            anim.to(t, { x: +34.4 + 'rem', duration: 0.6, ease: 'power2.inOut' }, 0.2);
+            time = 1000;
+          } else {
             anim
-            .to(t,{x:+34.4+'rem',duration:.6,ease:'power2.inOut'},.2)
-            time = 1000
+              .to(n, { x: +0 + 'rem', duration: 1, ease: 'power2.inOut' }, 0.2)
+              .to(t, { x: +34.4 + 'rem', duration: 0.8, ease: 'power2.inOut' }, 0.2);
           }
-          else{
-            anim
-            .to(n,{x:+0+'rem',duration:1,ease:'power2.inOut'},.2)
-            .to(t,{x:+34.4+'rem',duration:.8,ease:'power2.inOut'},.2)
-          }
-        }
-        else{
-          n = btn.querySelector('.nfo_n')
-          t = btn.querySelector('.nfo_t')
+        } else {
+          n = btn.querySelector('.nfo_n');
+          t = btn.querySelector('.nfo_t');
 
           anim
-          .to(n,{x:+0+'rem',duration:1,ease:'power2.inOut'},.2)
-          .to(t,{x:+34.4+'rem',duration:.8,ease:'power2.inOut'},.2)
+            .to(n, { x: +0 + 'rem', duration: 1, ease: 'power2.inOut' }, 0.2)
+            .to(t, { x: +34.4 + 'rem', duration: 0.8, ease: 'power2.inOut' }, 0.2);
+        }
+      } else {
+        if (!btn.classList.contains('cnt_el_sld')) {
+          btn = btn.parentNode.parentNode.parentNode;
+        } else {
+          btn = btn.parentNode;
         }
 
-      }
-      else{
-        if(!btn.classList.contains('cnt_el_sld')){
-          
-          btn = btn.parentNode.parentNode.parentNode
-        }
-        else{
-          btn = btn.parentNode
-        }
-
-        n = btn.querySelector('.nfo_n')
-        t = btn.querySelector('.nfo_t')
+        n = btn.querySelector('.nfo_n');
+        t = btn.querySelector('.nfo_t');
       }
 
-      btn.classList.add('noOut')
+      btn.classList.add('noOut');
 
-      super.animOut()
+      super.animOut();
 
-      lenis.scrollTo(btn,{force:true,offset:document.querySelector('.Size').clientHeight*-1,duration:.9})
-      
-      anim.play()
+      lenis.scrollTo(btn, {
+        force: true,
+        offset: document.querySelector('.Size').clientHeight * -1,
+        duration: 0.9,
+      });
 
-      await window.waiter(time)
+      anim.play();
 
-      document.querySelector('.nav_blur').classList.remove('up')
-      const arr = [n,t]
-      return arr
+      await window.waiter(time);
+
+      document.querySelector('.nav_blur').classList.remove('up');
+      const arr = [n, t];
+      return arr;
+    } else {
+      super.animOut();
+      return true;
     }
-    else{
-      super.animOut()
-      return true
-
-    }
-    
   }
-
 }
 
-export default Home
+export default Home;

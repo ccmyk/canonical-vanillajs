@@ -1,21 +1,19 @@
-import Page from '../../js/pagemain.js'
+import Page from '../../js/pagemain.js';
 
 //COMPS
-import Intro from './0Intro/index.js'
-import Scr from './1Dual/io.js'
+import Intro from './0Intro/index.js';
+import Scr from './1Dual/io.js';
 
 class Home extends Page {
-  constructor (main) {
-    super(main)
+  constructor(main) {
+    super(main);
   }
 
-  async create(content,main,temp=undefined) {
-    super.create(content,main)
-    if(temp!=undefined){
-
-      document.querySelector('#content').insertAdjacentHTML('afterbegin',temp)
-    }
-    else{
+  async create(content, main, temp = undefined) {
+    super.create(content, main);
+    if (temp != undefined) {
+      document.querySelector('#content').insertAdjacentHTML('afterbegin', temp);
+    } else {
       // Use fallback HTML instead of WordPress REST API
       const fallbackHTML = `
         <main>
@@ -40,90 +38,74 @@ class Home extends Page {
           </section>
         </main>
       `;
-      document.querySelector('#content').insertAdjacentHTML('afterbegin', fallbackHTML)
+      document.querySelector('#content').insertAdjacentHTML('afterbegin', fallbackHTML);
     }
-    this.el = document.querySelector('main')
-    
+    this.el = document.querySelector('main');
 
     this.DOM = {
-      el:this.el
+      el: this.el,
+    };
+
+    if (this.main.webgl == 0) {
+      await this.loadImages();
+      await this.loadVideos();
     }
 
-    if(this.main.webgl == 0){
-      
-      await this.loadImages()
-      await this.loadVideos()
-      
-    }
-    
-    
+    await this.createComps();
+    await this.createIos();
 
-    await this.createComps()
-    await this.createIos()
-    
-
-    await this.getReady()
+    await this.getReady();
   }
-  iOpage(animobj){
-   
-		if (animobj.el.classList.contains('iO-scr')) {
-			animobj.class = new Scr(animobj, this.main.device,this.main.touch)
-		}
-    return animobj
+  iOpage(animobj) {
+    if (animobj.el.classList.contains('iO-scr')) {
+      animobj.class = new Scr(animobj, this.main.device, this.main.touch);
+    }
+    return animobj;
   }
 
-  
-  
-  async createComps(){
-   
-
-    await super.createComps()
-    if(this.DOM.el.querySelector('.about_intro')){
-      this.components.intro = new Intro(this.DOM.el.querySelector('.about_intro'),this.main.device)
-    
-    }
-    
-    const i = this.DOM.el.querySelector('.about_list .Awrite i')
-    
-
-    for(let a of this.DOM.el.querySelectorAll('.about_dual .cnt_t a')){
-      
-      a.insertAdjacentElement('beforeend',i.cloneNode(true))
+  async createComps() {
+    await super.createComps();
+    if (this.DOM.el.querySelector('.about_intro')) {
+      this.components.intro = new Intro(
+        this.DOM.el.querySelector('.about_intro'),
+        this.main.device,
+      );
     }
 
-    if(this.main.device>1){
-    for(let a of this.DOM.el.querySelectorAll('.about_list .Awrite .iO')){
-      a.parentNode.classList.add('ivi')
-      a.parentNode.classList.add('nono')
+    const i = this.DOM.el.querySelector('.about_list .Awrite i');
 
-      a.remove()
-
-      
-
+    for (let a of this.DOM.el.querySelectorAll('.about_dual .cnt_t a')) {
+      a.insertAdjacentElement('beforeend', i.cloneNode(true));
     }
-    
+
+    if (this.main.device > 1) {
+      for (let a of this.DOM.el.querySelectorAll('.about_list .Awrite .iO')) {
+        a.parentNode.classList.add('ivi');
+        a.parentNode.classList.add('nono');
+
+        a.remove();
+      }
     }
   }
 
-  async animIntro(val){
-
-    
-    return val
-   
+  async animIntro(val) {
+    return val;
   }
 
-  async animOut(){
-    if(this.DOM.el.querySelector('.iO.goout')){
-      this.ios[this.DOM.el.querySelector('.iO.goout').dataset.io].class.active = 0
-      gsap.to(this.ios[this.DOM.el.querySelector('.iO.goout').dataset.io].class.anim,{progress:0,duration:.8,ease:'Power2.inOut'})
-    }
-    else{
-      gsap.to('.about_dual .cnt_t',{opacity:0,duration:.8,ease:'Power2.inOut'})
+  async animOut() {
+    if (this.DOM.el.querySelector('.iO.goout')) {
+      this.ios[this.DOM.el.querySelector('.iO.goout').dataset.io].class.active = 0;
+      gsap.to(this.ios[this.DOM.el.querySelector('.iO.goout').dataset.io].class.anim, {
+        progress: 0,
+        duration: 0.8,
+        ease: 'Power2.inOut',
+      });
+    } else {
+      gsap.to('.about_dual .cnt_t', { opacity: 0, duration: 0.8, ease: 'Power2.inOut' });
     }
 
-    super.animOut()
+    super.animOut();
   }
-
 }
 
-export default Home
+export default Home;

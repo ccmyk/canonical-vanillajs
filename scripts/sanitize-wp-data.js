@@ -13,20 +13,20 @@ const config = {
   wpJsonDir: path.join(projectRoot, 'wp-json'),
   dataOutputFile: path.join(projectRoot, 'src/data/wpData.js'),
   publicUploadsDir: path.join(projectRoot, 'public/uploads'),
-  
+
   // Path transformations
   oldPaths: {
     domain: 'https://evansanchez.info',
     wpUploads: '/wp-content/uploads/',
     wpThemes: '/wp-content/themes/csskiller_wp',
-    wpApi: '/wp-json/wp/v2/'
+    wpApi: '/wp-json/wp/v2/',
   },
   newPaths: {
     domain: '',
     uploads: '/public/uploads/',
     themes: '',
-    api: '/wp-json/wp/v2/'
-  }
+    api: '/wp-json/wp/v2/',
+  },
 };
 
 /**
@@ -34,14 +34,14 @@ const config = {
  */
 function findWpJsonFiles(dir) {
   const files = [];
-  
+
   function traverse(currentDir) {
     const items = fs.readdirSync(currentDir);
-    
+
     for (const item of items) {
       const fullPath = path.join(currentDir, item);
       const stat = fs.statSync(fullPath);
-      
+
       if (stat.isDirectory()) {
         traverse(fullPath);
       } else if (item.endsWith('.html')) {
@@ -49,7 +49,7 @@ function findWpJsonFiles(dir) {
       }
     }
   }
-  
+
   traverse(dir);
   return files;
 }
@@ -60,13 +60,13 @@ function findWpJsonFiles(dir) {
 function extractJsonFromHtml(filePath) {
   try {
     const content = fs.readFileSync(filePath, 'utf8').trim();
-    
+
     // Skip empty files
     if (!content) {
       console.warn(`⚠️  Empty file: ${filePath}`);
       return null;
     }
-    
+
     // Try to parse as JSON directly
     const parsed = JSON.parse(content);
     return parsed;
@@ -81,9 +81,9 @@ function extractJsonFromHtml(filePath) {
  */
 function sanitizePaths(data) {
   if (!data) return data;
-  
+
   let jsonString = JSON.stringify(data);
-  
+
   // Replace all WordPress-specific paths
   jsonString = jsonString
     .replaceAll(config.oldPaths.domain, config.newPaths.domain)
@@ -93,7 +93,7 @@ function sanitizePaths(data) {
     .replaceAll('https://api.w.org/', '')
     .replaceAll('evansanchez.info', '')
     .replaceAll('\\/', '/'); // Fix escaped slashes
-  
+
   return JSON.parse(jsonString);
 }
 
@@ -102,25 +102,25 @@ function sanitizePaths(data) {
  */
 function processWpJsonFiles() {
   console.log('🔍 Scanning wp-json directory...');
-  
+
   const files = findWpJsonFiles(config.wpJsonDir);
   console.log(`📁 Found ${files.length} files`);
-  
+
   const data = {
     pages: {},
     projects: {},
-    options: {}
+    options: {},
   };
-  
+
   for (const filePath of files) {
     const relativePath = path.relative(config.wpJsonDir, filePath);
     console.log(`📄 Processing: ${relativePath}`);
-    
+
     const rawData = extractJsonFromHtml(filePath);
     if (!rawData) continue;
-    
+
     const sanitizedData = sanitizePaths(rawData);
-    
+
     // Categorize by file path
     if (relativePath.includes('wp/v2/pages/')) {
       const id = path.basename(filePath, '.html');
@@ -132,11 +132,11 @@ function processWpJsonFiles() {
       data.options = sanitizedData;
     }
   }
-  
+
   console.log(`✅ Processed ${Object.keys(data.pages).length} pages`);
   console.log(`✅ Processed ${Object.keys(data.projects).length} projects`);
   console.log(`✅ Processed options: ${data.options ? 'Yes' : 'No'}`);
-  
+
   return data;
 }
 
@@ -145,7 +145,7 @@ function processWpJsonFiles() {
  */
 function generateDataFile(data) {
   console.log('📝 Generating wpData.js...');
-  
+
   const content = `// Auto-generated from wp-json files - do not edit manually
 // Generated on: ${new Date().toISOString()}
 
@@ -172,9 +172,9 @@ export default {
  */
 function validateAssets(data) {
   console.log('🔍 Validating asset paths...');
-  
+
   const missingAssets = [];
-  
+
   function checkPaths(obj, parentKey = '') {
     if (typeof obj === 'string' && obj.includes('/public/uploads/')) {
       const assetPath = path.join(projectRoot, obj.replace(/^\//, ''));
@@ -182,7 +182,7 @@ function validateAssets(data) {
         missingAssets.push({
           path: obj,
           fullPath: assetPath,
-          context: parentKey
+          context: parentKey,
         });
       }
     } else if (typeof obj === 'object' && obj !== null) {
@@ -191,12 +191,12 @@ function validateAssets(data) {
       }
     }
   }
-  
+
   checkPaths(data);
-  
+
   if (missingAssets.length > 0) {
     console.warn(`⚠️  Found ${missingAssets.length} missing assets:`);
-    missingAssets.slice(0, 10).forEach(asset => {
+    missingAssets.slice(0, 10).forEach((asset) => {
       console.warn(`   - ${asset.path}`);
     });
     if (missingAssets.length > 10) {
@@ -205,7 +205,7 @@ function validateAssets(data) {
   } else {
     console.log('✅ All asset paths validated');
   }
-  
+
   return missingAssets;
 }
 
@@ -214,26 +214,25 @@ function validateAssets(data) {
  */
 function main() {
   console.log('🚀 Starting WordPress data sanitization...\n');
-  
+
   try {
     // Process wp-json files
     const data = processWpJsonFiles();
-    
+
     // Validate assets
     const missingAssets = validateAssets(data);
-    
+
     // Generate data file
     generateDataFile(data);
-    
+
     console.log('\n✅ Sanitization complete!');
-    
+
     if (missingAssets.length > 0) {
       console.log('\n⚠️  Note: Some assets are missing. You may need to:');
       console.log('1. Copy missing files from your WordPress uploads directory');
       console.log('2. Update paths in wp-json files');
       console.log('3. Remove references to missing assets');
     }
-    
   } catch (error) {
     console.error('❌ Sanitization failed:', error);
     process.exit(1);

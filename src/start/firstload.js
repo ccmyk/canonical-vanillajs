@@ -1,9 +1,9 @@
 // Simple data loading without WordPress complexity
 const templateData = {
   fields: {
-    base: "/",
-    template: ""
-  }
+    base: '/',
+    template: '',
+  },
 };
 
 const computeAssetRoot = () => {
@@ -24,9 +24,9 @@ export async function loadBootstrapData() {
 
   const normalized = {
     fields: {
-      base: assetRoot || "/",
-      template: assetRoot || ""
-    }
+      base: assetRoot || '/',
+      template: assetRoot || '',
+    },
   };
 
   return normalized;

@@ -1,32 +1,20 @@
 export default class {
-  constructor (el,device) {
-
+  constructor(el, device) {
     this.DOM = {
-      el:el,
-    }
-    this.device = device
-    this.active = 0
+      el: el,
+    };
+    this.device = device;
+    this.active = 0;
 
-    this.create()
-    
+    this.create();
   }
 
-  async create(){
-    
+  async create() {}
 
-  
-  }
-  
-  async start(){
-  }
-  initEvents(){
+  async start() {}
+  initEvents() {}
 
-  }
+  removeEvents() {}
 
-  removeEvents(){
-    
-  }
-
-  onResize(){
-  }
+  onResize() {}
 }
