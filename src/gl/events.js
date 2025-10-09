@@ -38,17 +38,38 @@ export function timeout(ms) {
 export async function loadImage(url) {
   return new Promise((resolve, reject) => {
     let img = new Image();
-    img.crossOrigin = '';
+    img.crossOrigin = 'anonymous';
 
+    // For MSDF font textures, we need special handling
+    const isMSDFTexture = url.includes('PPNeueMontreal-Medium');
+    
     img.onload = () => {
+      if (isMSDFTexture) {
+        console.log('MSDF texture loaded successfully:', url);
+      }
       resolve(img);
     };
-
-    img.src = url;
 
     img.onerror = (e) => {
-      resolve(img);
+      console.warn(`Failed to load image: ${url}`, e);
+      // For MSDF textures, this is critical - create a placeholder
+      if (isMSDFTexture) {
+        console.error('MSDF texture failed to load, creating fallback');
+        // Create a small placeholder texture for MSDF to prevent shader errors
+        const canvas = document.createElement('canvas');
+        canvas.width = 512;
+        canvas.height = 512;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, 512, 512);
+        img.src = canvas.toDataURL();
+      } else {
+        resolve(img);
+      }
     };
+
+    // Set the source after establishing event handlers
+    img.src = url;
   });
 }
 

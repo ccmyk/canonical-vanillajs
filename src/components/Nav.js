@@ -5,19 +5,37 @@ class Nav {
   }
 
   async create(temp) {
-    document.querySelector('body').insertAdjacentHTML('afterbegin', temp);
-
-    let el = document.querySelector('.nav');
-    this.DOM = {
-      el: el,
-      burger: el.querySelector('.nav_burger'),
-      els: el.querySelectorAll('.nav_right a'),
-      city: el.querySelector('.nav_clock_p'),
-      c: el.querySelector('.nav_logo'),
-      h: el.querySelector('.nav_clock_h'),
-      m: el.querySelector('.nav_clock_m'),
-      a: el.querySelector('.nav_clock_a'),
-    };
+    if (!temp) {
+      console.error('[Nav] No navigation HTML template provided');
+      return;
+    }
+    
+    try {
+      document.querySelector('body').insertAdjacentHTML('afterbegin', temp);
+      
+      let el = document.querySelector('.nav');
+      if (!el) {
+        console.error('[Nav] Could not find .nav element after injection');
+        return;
+      }
+      
+      this.DOM = {
+        el: el,
+        burger: el.querySelector('.nav_burger'),
+        els: el.querySelectorAll('.nav_right a'),
+        city: el.querySelector('.nav_clock_p'),
+        c: el.querySelector('.nav_logo'),
+        h: el.querySelector('.nav_clock_h'),
+        m: el.querySelector('.nav_clock_m'),
+        a: el.querySelector('.nav_clock_a')
+      };
+      
+      // Verify critical elements
+      if (!this.DOM.c) console.warn('[Nav] Missing nav_logo element');
+      if (!this.DOM.h || !this.DOM.m || !this.DOM.a) console.warn('[Nav] Missing clock elements');
+    } catch (error) {
+      console.error('[Nav] Error creating navigation:', error);
+    }
 
     this.DOM.el.style.opacity = 0;
 
@@ -64,17 +82,28 @@ class Nav {
     this.initEvents();
   }
   setTime(hour = null, minute = null) {
+    console.log('setTime called with:', hour, minute);
+    
     let m = minute;
     if (minute == null) {
-      m = parseInt(
-        this.DOM.m.querySelectorAll('.char')[0].querySelector('.n').innerHTML +
-          this.DOM.m.querySelectorAll('.char')[1].querySelector('.n').innerHTML,
-      );
-      m++;
+      console.log('Trying to read minute from DOM...');
+      const charElements = this.DOM.m.querySelectorAll('.char');
+      console.log('Found', charElements.length, 'char elements in minute element');
+      
+      if (charElements.length < 2) {
+        console.log('Not enough char elements, using current time');
+        m = new Date().getMinutes();
+      } else {
+        m = parseInt(
+          this.DOM.m.querySelectorAll('.char')[0].querySelector('.n').innerHTML +
+            this.DOM.m.querySelectorAll('.char')[1].querySelector('.n').innerHTML,
+        );
+        m++;
 
-      let mi = new Date().getMinutes();
-      if (mi != m) {
-        m = mi;
+        let mi = new Date().getMinutes();
+        if (mi != m) {
+          m = mi;
+        }
       }
     }
 
@@ -94,10 +123,18 @@ class Nav {
 
     m = m.toString();
 
-    this.DOM.m.querySelectorAll('.char')[0].querySelector('.n').classList.add('eee1');
-
-    this.DOM.m.querySelectorAll('.char')[0].querySelector('.n').innerHTML = m[0];
-    this.DOM.m.querySelectorAll('.char')[1].querySelector('.n').innerHTML = m[1];
+    console.log('Setting minute to:', m);
+    const minuteCharElements = this.DOM.m.querySelectorAll('.char');
+    
+    if (minuteCharElements.length >= 2) {
+      console.log('Updating minute char elements');
+      this.DOM.m.querySelectorAll('.char')[0].querySelector('.n').classList.add('eee1');
+      this.DOM.m.querySelectorAll('.char')[0].querySelector('.n').innerHTML = m[0];
+      this.DOM.m.querySelectorAll('.char')[1].querySelector('.n').innerHTML = m[1];
+    } else {
+      console.log('No char elements found, setting textContent directly');
+      this.DOM.m.textContent = m;
+    }
 
     if (this.clockact == 1) {
       this.main.events.anim.detail.state = 1;

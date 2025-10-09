@@ -1,4 +1,4 @@
-import Page from '../../js/pagemain.js';
+import Page from '@/js/pagemain.js';
 
 //COMPS
 import Intro from './0Intro/index.js';
@@ -10,7 +10,8 @@ class Home extends Page {
 
   async create(content, main, temp = undefined) {
     super.create(content, main);
-    if (temp != undefined) {
+    const base = (window.__BASE_PATH__ || import.meta.env.BASE_URL || '/').replace(/\/$/, '');
+    if (temp !== undefined) {
       document.querySelector('#content').insertAdjacentHTML('afterbegin', temp);
     } else {
       // Use fallback HTML instead of WordPress REST API
@@ -19,7 +20,7 @@ class Home extends Page {
           <section class="error">
             <h1>404 - Page Not Found</h1>
             <p>The page you're looking for doesn't exist.</p>
-            <a href="/">Return Home</a>
+            <a href="${base}/">Return Home</a>
           </section>
         </main>
       `;

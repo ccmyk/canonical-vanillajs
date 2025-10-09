@@ -259,14 +259,17 @@ class Title {
   }
 
   onResize(viewport, screen) {
+    // Get the bounds of the container
     let bound = this.cnt.getBoundingClientRect();
     this.bound = [bound.x, bound.y, bound.width, bound.height];
-
     this.screen = [bound.width, bound.height];
-
+    
+    // Set the renderer size to match the container
     this.renderer.setSize(bound.width, bound.height);
+    
+    // Update the camera aspect ratio based on the new canvas dimensions
     this.camera.perspective({
-      aspect: this.renderer.gl.canvas.clientWidth / this.renderer.gl.canvas.clientHeight,
+      aspect: this.renderer.gl.canvas.width / this.renderer.gl.canvas.height,
     });
     this.camera.fov = 45;
     this.camera.position.set(0, 0, 7);

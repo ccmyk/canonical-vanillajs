@@ -95,31 +95,11 @@ class Slides {
             delete this.animin;
           },
         })
-        .fromTo(
-          this.canvas,
-          {
-            webkitFilter: 'blur(' + 6 + 'px)',
-            filter: 'blur(' + 6 + 'px)',
-          },
-          {
-            webkitFilter: 'blur(' + 0 + 'px)',
-            filter: 'blur(' + 0 + 'px)',
-            duration: 0.8,
-            ease: 'power2.inOut',
-          },
-          0,
-        )
 
         .fromTo(
-          this.canvas,
-          {
-            opacity: 0,
-          },
-          {
-            opacity: 1,
-            duration: 0.6,
-            ease: 'power2.inOut',
-          },
+          this.post.passes[0].program.uniforms.uStart,
+          { value: 1.5 },
+          { value: 0, duration: 0.6, ease: 'power2.inOut' },
           0,
         );
 
@@ -241,24 +221,13 @@ class Slides {
         0,
       )
       .to(
-        this.canvas,
+        this.post.passes[0].program.uniforms.uStart,
         {
-          webkitFilter: 'blur(' + 6 + 'px)',
-          filter: 'blur(' + 6 + 'px)',
+          value: 1.5,
           duration: 1,
           ease: 'power2.inOut',
         },
         0,
-      )
-
-      .to(
-        this.canvas,
-        {
-          opacity: 0,
-          duration: 0.6,
-          ease: 'power2.inOut',
-        },
-        0.4,
       );
   }
 
@@ -561,30 +530,9 @@ class Slides {
                     },
                   })
                   .fromTo(
-                    this.canvas,
-                    {
-                      webkitFilter: 'blur(' + 6 + 'px)',
-                      filter: 'blur(' + 6 + 'px)',
-                    },
-                    {
-                      webkitFilter: 'blur(' + 0 + 'px)',
-                      filter: 'blur(' + 0 + 'px)',
-                      duration: 0.8,
-                      ease: 'power2.inOut',
-                    },
-                    0,
-                  )
-
-                  .fromTo(
-                    this.canvas,
-                    {
-                      opacity: 0,
-                    },
-                    {
-                      opacity: 1,
-                      duration: 0.6,
-                      ease: 'power2.inOut',
-                    },
+                    this.post.passes[0].program.uniforms.uStart,
+                    { value: 1.5 },
+                    { value: 0.5, duration: 0.8, ease: 'power2.inOut' },
                     0,
                   )
                   .fromTo(

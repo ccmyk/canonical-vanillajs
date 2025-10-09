@@ -1,25 +1,9 @@
-import {
-  Camera,
-  Plane,
-  Triangle,
-  Mesh,
-  Geometry,
-  Texture,
-  Text,
-  Renderer,
-  Transform,
-  Program,
-  Post,
-  Vec2,
-} from 'ogl';
+import {  Camera, Plane, Triangle,  Mesh, Geometry, Texture, Text, Renderer, Transform, Program,Post, Vec2 } from 'ogl';
 
-//LOADER
 
 import Loader from './Loader/base.js';
 import LoaderF from './Loader/Loader.fragment.main.glsl?raw';
 import LoaderV from './Loader/Loader.vertex.main.glsl?raw';
-
-//OIS
 
 import Base from './Media/base.js';
 import fractalF from './Media/Media.fragment.main.glsl?raw';
@@ -65,18 +49,15 @@ export async function createMSDF() {
 
   let rt = [];
 
-  //🔠🔠🔠🔠
   let fJson = await (await fetch(jsonTexSrc)).json();
 
   rt.push(fJson);
-
-  //🔚🔚🔚🔚🔚
 
   return rt;
 }
 
 export async function createAssets(texs) {
-  //TtTtTtTtTtTt
+
   const fntAss = await this.createMSDF();
 
   this.fontMSDF = fntAss[0];
@@ -96,6 +77,23 @@ export async function createAssets(texs) {
   video.muted = true;
   video.loop = true;
   video.dataset.auto = true;
+  video.preload = 'auto'; // Ensure video preloading
+
+  // Helper function to safely load a video with fallback
+  const safeLoadVideo = async (vidElement, src) => {
+    try {
+      // Check if the source is valid before trying to load it
+      const response = await fetch(src, { method: 'HEAD' });
+      if (!response.ok) {
+        console.warn(`Video source not found or not accessible: ${src}`);
+        return this.loadImage('/public/favicon.svg'); // Fallback to a static image
+      }
+      return this.loadVideo(vidElement, src);
+    } catch (e) {
+      console.warn(`Error loading video ${src}:`, e);
+      return this.loadImage('/public/favicon.svg'); // Fallback to a static image
+    }
+  };
 
   let promiseswait = [];
   let lnt = Object.values(texs).length - 1;
@@ -107,7 +105,7 @@ export async function createAssets(texs) {
           promiseswait.push(this.loadImage(texs[a][b].i));
         } else if (texs[a][b].v) {
           let vidclone = video.cloneNode();
-          promiseswait.push(this.loadVideo(vidclone, texs[a][b].v));
+          promiseswait.push(safeLoadVideo(vidclone, texs[a][b].v));
         }
       }
     } else {
@@ -115,7 +113,7 @@ export async function createAssets(texs) {
         promiseswait.push(this.loadImage(texs[a].i));
       } else if (texs[a].v) {
         let vidclone = video.cloneNode();
-        promiseswait.push(this.loadVideo(vidclone, texs[a].v));
+        promiseswait.push(safeLoadVideo(vidclone, texs[a].v));
       }
     }
   }
@@ -132,29 +130,22 @@ export async function createEls(el = null) {
   const temp = el.dataset.temp || 'base';
   const pos = el.dataset.oi;
 
-  //TtTtTtTtTtTt
   if (temp == 'tt' || temp == 'foot' || temp == 'about') {
-    //🅰️🅰️🅰️🅰️
-    //❗ HABRÁ QUE HACER UN IF PARA LOS TAMAÑOS
-    //❗ HABRÁ QUE HACER UNA CALCULADORA DE TAMAÑOS
 
-    // Get the canvas container (.cCover) for proper sizing
     const canvasContainer = el.parentNode.querySelector('.cCover');
+
     const containerBounds = canvasContainer.getBoundingClientRect();
 
     const renderer = new Renderer({
       alpha: true,
-      dpr: Math.max(window.devicePixelRatio, 2),
-
-      width: containerBounds.width || el.offsetWidth,
-      height: containerBounds.height || el.offsetHeight,
-    });
-
-    const { gl } = renderer;
+      dpr: Math.min(Math.max(window.devicePixelRatio, 1), 2),
+      width: containerBounds.width,
+      height: containerBounds.height,
+    });    const { gl } = renderer;
 
     gl.canvas.classList.add('glF');
     canvasContainer.appendChild(gl.canvas);
-    //📽️📽️📽️📽️📽️📽️📽️📽️
+
     const cam = this.createCamera(gl);
 
     let text = '';
@@ -233,11 +224,18 @@ export async function createEls(el = null) {
     let program = '';
 
     if (temp == 'foot') {
+      // Get the innerHTML length with a safer approach
+      const oielElement = el.parentNode.querySelector('.Oiel');
+      const charCount = oielElement ? oielElement.innerHTML.length : 10; // Fallback to 10 if element not found
+      
+      // Ensure we have a valid character count
+      const safeCharCount = Math.max(1, charCount);
+      
       let shaderMod = textFF;
-      shaderMod = shaderMod.replaceAll(
-        'PITO',
-        el.parentNode.querySelector('.Oiel').innerHTML.length,
-      );
+      // Replace the placeholder with the character count
+      shaderMod = shaderMod.replaceAll('PITO', safeCharCount);
+      
+      console.log(`Initializing foot shader with ${safeCharCount} characters`);
 
       program = new Program(gl, {
         vertex: textV,
@@ -252,12 +250,19 @@ export async function createEls(el = null) {
         depthWrite: false,
       });
     } else if (temp == 'about') {
+      // Get the innerHTML length with a safer approach
+      const oielElement = el.parentNode.querySelector('.Oiel');
+      const charCount = oielElement ? oielElement.innerHTML.length : 10; // Fallback to 10 if element not found
+      
+      // Ensure we have a valid character count
+      const safeCharCount = Math.max(1, charCount);
+      
       let shaderMod = textFA;
-      shaderMod = shaderMod.replaceAll(
-        'PITO',
-        el.parentNode.querySelector('.Oiel').innerHTML.length,
-      );
-
+      // Replace the placeholder with the character count
+      shaderMod = shaderMod.replaceAll('PITO', safeCharCount);
+      
+      console.log(`Initializing about shader with ${safeCharCount} characters`);
+      
       program = new Program(gl, {
         vertex: textV,
         fragment: shaderMod,
@@ -272,12 +277,18 @@ export async function createEls(el = null) {
         depthWrite: false,
       });
     } else {
-      let shaderMod = textF;
-      shaderMod = shaderMod.replaceAll(
-        'PITO',
-        el.parentNode.querySelector('.Oiel').innerHTML.length,
-      );
 
+      const oielElement = el.parentNode.querySelector('.Oiel');
+      const charCount = oielElement ? oielElement.innerHTML.length : 10; // Fallback to 10 if element not found
+
+      const safeCharCount = Math.max(1, charCount);
+      
+      let shaderMod = textF;
+
+      shaderMod = shaderMod.replaceAll('PITO', safeCharCount);
+      
+      console.log(`Initializing title shader with ${safeCharCount} characters`);
+      
       program = new Program(gl, {
         vertex: textV,
         fragment: shaderMod,
@@ -305,7 +316,6 @@ export async function createEls(el = null) {
     const scene = new Transform();
     mesh.setParent(scene);
 
-    //❗ Posible borrada o reajuste para meterlo en medio
     let post = '';
     if (temp == 'foot') {
       mesh.position.y = text.height * 0.58;
@@ -362,7 +372,6 @@ export async function createEls(el = null) {
       return new Tt(obj);
     }
   } else if (temp == 'bg' || temp == 'loader') {
-    //LoaderLoaderLoaderLoaderLoaderLoaderLoaderLoaderLoaderLoaderLoader
 
     const renderer = new Renderer({
       alpha: true,
@@ -384,9 +393,7 @@ export async function createEls(el = null) {
         fragment: LoaderF,
         uniforms: {
           uTime: { value: 0 },
-          //BORRAR
           uStart1: { value: 0.5 },
-          //BORRAR
           uStart0: { value: 1 },
           uStart2: { value: 1 },
           uStartX: { value: 0 },
@@ -410,16 +417,19 @@ export async function createEls(el = null) {
       return new Loader(obj);
     } else {
       gl.canvas.id = 'glBg';
-      document.body.insertBefore(gl.canvas, document.querySelector('.Mbg'));
+      const mbgElement = document.querySelector('.Mbg');
 
+      mbgElement.parentNode.insertBefore(gl.canvas, mbgElement.nextSibling);
+  
+      const mbgBounds = mbgElement.getBoundingClientRect();
+      renderer.setSize(mbgBounds.width, mbgBounds.height);
+      
       const program = new Program(gl, {
         vertex: BgV,
         fragment: BgF,
         uniforms: {
           uTime: { value: 0 },
-          //BORRAR
           uStart1: { value: 0.5 },
-          //BORRAR
           uStart0: { value: 1 },
           uStart2: { value: 1 },
           uStartX: { value: 0 },
@@ -430,7 +440,7 @@ export async function createEls(el = null) {
         },
       });
 
-      const mesh = new Mesh(gl, { geometry, program: program });
+      const mesh = new Mesh(gl, { geometry, program });
 
       const obj = {
         el,
@@ -529,25 +539,23 @@ export async function createEls(el = null) {
     const canvasContainer = el.parentNode.querySelector('.cCover');
     const containerBounds = canvasContainer.getBoundingClientRect();
 
+    // Set up responsive canvas sizing for slider
     const renderer = new Renderer({
       alpha: true,
-      dpr: Math.max(window.devicePixelRatio, 2),
-
+      dpr: Math.min(Math.max(window.devicePixelRatio, 1.5), 2),
+      // Ensure the canvas size matches the container size for proper rendering
       width: containerBounds.width || el.offsetWidth,
-      height: containerBounds.height || el.offsetWidth,
+      height: containerBounds.height || el.offsetHeight,
     });
 
     const { gl } = renderer;
-    //Slider
+
     const scene = new Transform();
 
     gl.canvas.classList.add('glSlider');
     canvasContainer.appendChild(gl.canvas);
 
-    //📽️📽️📽️📽️📽️📽️📽️📽️
     const cam = this.createCamera(gl);
-
-    //📐📐📐📐📐📐📐
 
     const geometry = new Plane(gl, {
       heightSegments: 1,

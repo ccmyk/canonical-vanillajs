@@ -6,10 +6,5 @@ build
 # Large content JSON files from WordPress migration
 content/
 wp-json/
-
-# Generated files
-public/uploads/
-
-# GLSL shader files - these have their own format and the plugin has issues with ES 3.00
-*.glsl
-**/*.glsl
+scripts/
+reference-original/

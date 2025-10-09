@@ -133,7 +133,11 @@ class Base {
     this.viewport = [viewport.w, viewport.h];
     this.screen = [screen.w, screen.h];
 
+    // Get both the element and the Mbg element
     let bound = this.el.getBoundingClientRect();
+    const mbgElement = document.querySelector('.Mbg');
+    const mbgBounds = mbgElement ? mbgElement.getBoundingClientRect() : bound;
+    
     this.bound = [bound.x, bound.y, bound.width, bound.height];
     let calc = 0;
 
@@ -141,8 +145,14 @@ class Base {
     this.ctr.limit = parseInt(bound.height + calc);
 
     if (this.renderer) {
-      this.renderer.setSize(screen.w, screen.h);
-      this.program.uniforms.uResolution.value = [screen.w, screen.h];
+      // Match canvas size to the Mbg element's dimensions
+      if (mbgElement) {
+        const dpr = Math.min(Math.max(window.devicePixelRatio, 1.5), 2);
+        this.renderer.setSize(mbgBounds.width, mbgBounds.height);
+      } else {
+        this.renderer.setSize(screen.w, screen.h);
+      }
+      this.program.uniforms.uResolution.value = [this.renderer.width, this.renderer.height];
     }
   }
 }

@@ -97,4 +97,8 @@ Thumbs.db
 .DS_Store
 
 # Bun
-bun.lockb
+bun.lock
+
+scripts/
+reference-original/
+public/uploads/

@@ -1,10 +1,10 @@
 //VIEWS
-import Home from '../views/Home/home.js';
-import Projects from '../views/Projects/projects.js';
-import Project from '../views/Project/project.js';
-import About from '../views/About/about.js';
-import Error from '../views/Error/error.js';
-import Playground from '../views/Playground/playground.js';
+import Home from '@/views/Home/home.js';
+import Projects from '@/views/Projects/projects.js';
+import Project from '@/views/Project/project.js';
+import About from '@/views/About/about.js';
+import Error from '@/views/Error/error.js';
+import Playground from '@/views/Playground/playground.js';
 
 export function createViews() {
   this.pages = new Map();

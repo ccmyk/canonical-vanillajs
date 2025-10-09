@@ -1,4 +1,4 @@
-import { IS_DEV } from '../utils/env.js';
+import { IS_DEV } from '@/utils/env.js';
 
 export function addPop() {}
 

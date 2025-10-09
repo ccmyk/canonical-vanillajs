@@ -157,10 +157,9 @@ class About {
         0,
       )
       .to(
-        this.canvas,
+        this.post.passes[0].program.uniforms.uStart,
         {
-          webkitFilter: 'blur(' + 6 + 'px)',
-          filter: 'blur(' + 6 + 'px)',
+          value: -2,
           duration: 1,
           ease: 'power2.inOut',
         },

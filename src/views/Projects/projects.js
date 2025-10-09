@@ -1,4 +1,4 @@
-import Page from '../../js/pagemain.js';
+import Page from '@/js/pagemain.js';
 
 //COMPS
 import Intro from './0Intro/index.js';
@@ -12,34 +12,6 @@ class Home extends Page {
     super.create(content, main);
     if (temp != undefined) {
       document.querySelector('#content').insertAdjacentHTML('afterbegin', temp);
-    } else {
-      // Use fallback HTML instead of WordPress REST API
-      const fallbackHTML = `
-        <main>
-          <section class="projects">
-            <h1>Index of Work</h1>
-            <p>A collection of interactive projects and digital experiences</p>
-            <div class="projects-grid">
-              <div class="project-card">
-                <h3>Gemini Microsite</h3>
-                <p>Interactive website for Google Gemini, introducing their new AI era</p>
-                <span class="project-year">2025</span>
-              </div>
-              <div class="project-card">
-                <h3>Banjo Soundscapes Portfolio</h3>
-                <p>Website environment for Banjo, a sound design studio</p>
-                <span class="project-year">2024</span>
-              </div>
-              <div class="project-card">
-                <h3>Ciclope Fest Website</h3>
-                <p>Web platform to promote the event and gather registrations</p>
-                <span class="project-year">2024</span>
-              </div>
-            </div>
-          </section>
-        </main>
-      `;
-      document.querySelector('#content').insertAdjacentHTML('afterbegin', fallbackHTML);
     }
     this.el = document.querySelector('main');
 

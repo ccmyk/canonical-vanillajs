@@ -1,14 +1,14 @@
-// Lenis will be available globally from CDN
+// Libraries loaded via ES modules and exposed globally
 //Basic
-import Nav from '../components/Nav.js';
-import Loader from '../components/Loader.js';
+import Nav from '@/components/Nav.js';
+import Loader from '@/components/Loader.js';
 
 import gl from '../gl/gl.js'; // Re-enabled for proper WebGL operation
 
-import { IS_DEV } from '../utils/env.js';
+import { IS_DEV } from '@/utils/env.js';
 
 //Mouse
-import Mouse from '../components/Mouse.js';
+import Mouse from '@/components/Mouse.js';
 
 import { createViews } from './view.js';
 
@@ -20,6 +20,13 @@ import { writeFn, writeCt } from './anims.js';
 
 class App {
   constructor(info) {
+    console.log('[App] Constructor started with:', {
+      hasInfo0: !!info[0],
+      hasInfo1: !!info[1],
+      hasTexs: info[1] && !!info[1].texs,
+      hasTextures: info[1] && !!info[1].textures,
+    });
+    
     // Bind methods manually instead of using auto-bind
     this.onPopState = this.onPopState.bind(this);
     this.onRequest = this.onRequest.bind(this);
@@ -71,6 +78,13 @@ class App {
     this.resizevar = '';
     this.url = window.location.pathname;
 
+    // Make sure texs exists
+    if (info[1] && !info[1].texs && info[1].textures) {
+      console.log('[App] Adding texs from textures for backward compatibility');
+      info[1].texs = info[1].textures;
+    }
+    
+    console.log('[App] Initializing with texs:', info[1].texs ? Object.keys(info[1].texs).length + ' textures' : 'undefined');
     this.initApp(info[1], info[1].texs);
   }
 
@@ -102,11 +116,10 @@ class App {
     }
     this.template = this.content.dataset.template;
 
-    this.loader = new Loader(this.main, temps.loader, this.main.device);
-
-    await this.loader.create();
-
-    this.loader.start();
+  console.log('[App] temps.loader:', temps.loader);
+  this.loader = new Loader(this.main, temps.loader, this.main.device);
+  await this.loader.create();
+  this.loader.start();
 
     let firsttemp = undefined;
     if (temps.main) {

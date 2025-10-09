@@ -1,4 +1,4 @@
-import Page from '../../js/pagemain.js';
+import Page from '@/js/pagemain.js';
 
 //COMPS
 import Intro from './0Intro/index.js';
@@ -12,7 +12,8 @@ class Home extends Page {
 
   async create(content, main, temp = undefined) {
     super.create(content, main);
-    if (temp != undefined) {
+    const base = (window.__BASE_PATH__ || import.meta.env.BASE_URL || '/').replace(/\/$/, '');
+    if (temp !== undefined) {
       document.querySelector('#content').insertAdjacentHTML('afterbegin', temp);
     } else {
       // Use fallback HTML instead of WordPress REST API
@@ -26,7 +27,7 @@ class Home extends Page {
             </div>
             <div class="project-content">
               <div class="project-image">
-                <img src="/public/placeholder-image.svg" alt="Project Image" />
+                <img src="${base}/public/placeholder-image.svg" alt="Project Image" />
               </div>
               <div class="project-description">
                 <p>This project demonstrates interactive design principles and modern web development techniques.</p>
@@ -82,14 +83,12 @@ class Home extends Page {
   }
 
   async animOut(btn, lenis) {
-    let lds = this.DOM.el.querySelectorAll('.ivi.Ldd');
-    for (let a of lds) {
+    const lds = this.DOM.el.querySelectorAll('.ivi.Ldd');
+    for (const a of lds) {
       a.classList.remove('Ldd');
     }
     let t = '';
     let n = '';
-    let time = 1200;
-    const anim = gsap.timeline({ paused: true });
     if (btn == null) {
       super.animOut();
       return true;
