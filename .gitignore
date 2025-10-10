@@ -102,3 +102,22 @@ bun.lock
 scripts/
 reference-original/
 public/uploads/
+
+# Additional recommended ignores
+# Package manager lockfiles (if you don't commit them)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Bun artifacts
+bun.lockb
+.bun/
+
+# Vite / dev cache
+node_modules/.vite
+.vite
+
+# OS artifacts
+Icon\r
+__MACOSX/
+desktop.ini
