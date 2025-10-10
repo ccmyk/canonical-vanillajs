@@ -121,3 +121,6 @@ node_modules/.vite
 Icon\r
 __MACOSX/
 desktop.ini
+
+# Generated types
+src/types/
