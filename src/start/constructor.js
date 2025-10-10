@@ -4,7 +4,7 @@ import {
   loadBootstrapData
 } from './firstload.debug.js';
 
-import App from '@/main/index.js';
+import App from '../main/index.js';
 import FontFaceObserver from 'fontfaceobserver';
 
 import gsap from 'gsap';

@@ -3,6 +3,9 @@ import { check, start, stop, updateX, updateY, updateScale, updateAnim } from '.
 import { Vec2 } from 'ogl';
 
 class Base {
+  /**
+   * @param {{ el: HTMLElement; pos: any; mesh: any; texture: any; renderer: any; touch: any; canvas: any; }} obj
+   */
   constructor(obj) {
     this.el = obj.el;
     this.pos = obj.pos;

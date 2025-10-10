@@ -1,22 +1,27 @@
+/**
+ * @param {IntersectionObserverEntry} entry
+ * @this {import('./base.js').default}
+ */
 export function check(entry) {
-  let vis = false;
+  const vis = entry.isIntersecting;
 
-  vis = entry.isIntersecting;
-
-  if (vis == 1) {
+  if (vis) {
     this.start();
-  } else if (vis == 0) {
+  } else {
     this.stop();
   }
   return vis;
 }
 
+/**
+ * @this {import('./base.js').default}
+ */
 export function start() {
-  if (this.active == 1) {
-    return false;
+  if (this.active === 1) {
+    return;
   }
 
-  if (this.active == -1) {
+  if (this.active === -1) {
     let arr = [0.8, 2, 2];
     if (this.el.dataset.nome) {
       arr = [0.8, 2, 2];
@@ -62,19 +67,28 @@ export function start() {
   this.active = 1;
 }
 
+/**
+ * @this {import('./base.js').default}
+ */
 export function stop() {
   if (this.animstart) {
-    if (this.animstart.progress() != 1) {
-      return false;
+    if (this.animstart.progress() !== 1) {
+      return;
     }
   }
   if (this.active < 1) {
-    return false;
+    return;
   }
 
   this.active = 0;
 }
+/**
+ * @param {number} x
+ */
 export function updateX(x = 0) {}
+/**
+ * @param {number} y
+ */
 export function updateY(y = 0) {}
 
 export function updateScale() {}
