@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "sanitize": "node scripts/sanitize-wp-data.js",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "dev": "vite",
@@ -12,7 +11,6 @@
     "vite": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "validate": "node scripts/validate-project.js",
     "lint": "eslint . --ext .js,.css,.glsl",
     "precommit": "lint-staged"
   },
@@ -25,13 +23,19 @@
     "swiper": "^12.0.2"
   },
   "devDependencies": {
+    "@eslint/js": "^9.37.0",
+    "@rollup/pluginutils": "^5.3.0",
     "eslint": "^9.37.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
+    "globals": "^16.4.0",
     "prettier": "^3.6.2",
     "prettier-plugin-glsl": "^0.2.2",
+    "stylelint": "^16.25.0",
+    "stylelint-config-standard": "^39.0.1",
     "typescript": "^5.9.3",
     "vite": "^5.4.20",
+    "vite-plugin-glsl": "^1.5.4",
     "vite-plugin-prettier-format": "^1.0.0"
   }
 }

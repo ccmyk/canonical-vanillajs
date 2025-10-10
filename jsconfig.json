@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "nodenext",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "allowJs": true,
+    "checkJs": true,
+    "strict": true
+  },
+  "include": ["src", "index.html", "src/types"],
+  "exclude": ["dist", "node_modules", "scripts", "reference-original"]
+}
