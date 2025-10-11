@@ -2060,7 +2060,7 @@ body {
 
 .Atitle {
   position: relative;
-  display: inline-flex;
+  display: block;
   justify-content: flex-start;
 }
 
@@ -3305,11 +3305,10 @@ body {
     height: 100vh;
     height: 100svh;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
     flex-direction: column;
     position: relative;
-    overflow: hidden;
     padding-bottom: 20rem
 }
 
@@ -6030,7 +6029,7 @@ body {
 }
 
 .about_intro .Atitle {
-  margin: 4rem auto 0;
+  margin: 4rem;
 }
 
 :root.D .about_intro .Atitle {
