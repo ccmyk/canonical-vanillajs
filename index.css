@@ -100,7 +100,7 @@ img {
 }
 
 svg:not(:root) {
-  overflow: hidden;
+  overflow: overflow;
 }
 
 figure {
@@ -445,7 +445,7 @@ input[type="number"] {
   margin-left: auto;
   margin-right: auto;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   list-style: none;
   padding: 0;
   z-index: 1;
@@ -1149,7 +1149,7 @@ button.swiper-pagination-bullet {
 }
 
 details {
-  overflow: hidden;
+  overflow: visible;
   position: relative;
 }
 
@@ -1164,7 +1164,7 @@ details .detX_hold {
 }
 
 details .detX_box {
-  overflow: hidden;
+  overflow: visible;
   opacity: 0;
   transition: 0.6s opacity cubic-bezier(0.55, 0, 0.1, 1);
 }
@@ -1253,7 +1253,7 @@ html.lenis:scrollbar {
 
 html.touch body main {
   position: relative;
-  overflow: clip;
+  overflow: visible;
 }
 
 @media only screen and (min-width: 1441px) {
@@ -2106,7 +2106,7 @@ body {
   position: absolute;
   left: 2rem;
   top: -0.8rem;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .mouse_el .Awrite {
@@ -2125,7 +2125,7 @@ body {
   margin-top: 24rem;
   padding-bottom: 5.6rem;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 :root.D .footer_cm {
@@ -4001,7 +4001,7 @@ body {
 }
 
 .home_about .cnt {
-  overflow: hidden;
+  overflow: visible;
 }
 
 .home_about .cnt_tp {
