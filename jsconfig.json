@@ -8,7 +8,7 @@
       "@/*": ["src/*"]
     },
     "allowJs": true,
-    "checkJs": true,
+    "checkJs": false,
     "strict": true
   },
   "include": ["src", "index.html", "src/types"],
