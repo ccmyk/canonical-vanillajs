@@ -41,10 +41,10 @@ import PGv from './Pg/Pg.vertex.main.glsl?raw';
 export async function createMSDF() {
   const assetRoot = this.main.assetRoot || '';
   const mapTexSrc = assetRoot
-    ? `${assetRoot}/PPNeueMontreal-Medium.png`
+    ? `${assetRoot}/PPNeueMontreal-Medium.png` 
     : '/PPNeueMontreal-Medium.png';
   const jsonTexSrc = assetRoot
-    ? `${assetRoot}/PPNeueMontreal-Medium.json`
+    ? `${assetRoot}/PPNeueMontreal-Medium.json` 
     : '/PPNeueMontreal-Medium.json';
 
   let rt = [];
@@ -64,7 +64,7 @@ export async function createAssets(texs) {
 
   const assetRoot = this.main.assetRoot || '';
   const mapTexSrc = assetRoot
-    ? `${assetRoot}/PPNeueMontreal-Medium.png`
+    ? `${assetRoot}/PPNeueMontreal-Medium.png` 
     : '/PPNeueMontreal-Medium.png';
   this.fontTex = await this.loadImage(mapTexSrc);
 
