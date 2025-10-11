@@ -81,8 +81,12 @@ export async function createAssets(texs) {
 
   // Helper function to safely load a video with fallback
   const safeLoadVideo = async (vidElement, src) => {
+    if (!src || typeof src !== 'string') {
+      console.warn('safeLoadVideo: a valid video source was not provided.');
+      return this.loadImage('/public/favicon.svg'); // Fallback to a static image
+    }
     try {
-      // Check if the source is valid before trying to load it
+      console.log('[safeLoadVideo] Attempting to load video:', src);
       const response = await fetch(src, { method: 'HEAD' });
       if (!response.ok) {
         console.warn(`Video source not found or not accessible: ${src}`);
@@ -481,20 +485,24 @@ export async function createEls(el = null) {
       });
 
       let url = a.dataset.src || a.dataset.oi;
+      console.log(`[Roll] Attempting to load media: ${url}`);
+      if (!url || typeof url !== 'string') {
+        console.warn('No valid source found for element:', a);
+        continue; // Skip this iteration if the url is invalid
+      }
+
       let exists = this.texs.find((element) => element.src == url);
 
       if (url.includes('.mp4')) {
         if (exists) {
           texture.image = exists;
         } else {
-          console.log('no fun');
           texture.image = await this.loadVideo(a, url);
         }
       } else {
         if (exists) {
           texture.image = exists;
         } else {
-          console.log('no fun');
           texture.image = await this.loadImage(url);
         }
       }
@@ -575,20 +583,24 @@ export async function createEls(el = null) {
       });
 
       let url = a.dataset.src || a.dataset.oi;
+      console.log(`[Slider] Attempting to load media: ${url}`);
+      if (!url || typeof url !== 'string') {
+        console.warn('No valid source found for element:', a);
+        continue; // Skip this iteration if the url is invalid
+      }
+
       let exists = this.texs.find((element) => element.src == url);
 
       if (url.includes('.mp4')) {
         if (exists) {
           texture.image = exists;
         } else {
-          console.log('no fun' + url);
           texture.image = await this.loadVideo(a, url);
         }
       } else {
         if (exists) {
           texture.image = exists;
         } else {
-          console.log('no fun' + url);
           texture.image = await this.loadImage(url);
         }
       }
@@ -718,22 +730,29 @@ export async function createEls(el = null) {
     });
 
     let url = el.dataset.src;
-
-    let exists = this.texs.find((element) => element.src == url);
-
-    if (url.includes('.mp4')) {
-      if (exists) {
-        texture.image = exists;
-      } else {
-        console.log('no fun');
-        texture.image = await this.loadVideo(el.parentNode.querySelector('video'), url);
-      }
+    console.log(`[Media] Attempting to load media: ${url}`);
+    if (!url || typeof url !== 'string') {
+      console.warn('No valid source found for element:', el);
+      // Create a placeholder texture to avoid a crash
+      const canvas = document.createElement('canvas');
+      canvas.width = 1;
+      canvas.height = 1;
+      texture.image = canvas;
     } else {
-      if (exists) {
-        texture.image = exists;
+      let exists = this.texs.find((element) => element.src == url);
+
+      if (url.includes('.mp4')) {
+        if (exists) {
+          texture.image = exists;
+        } else {
+          texture.image = await this.loadVideo(el.parentNode.querySelector('video'), url);
+        }
       } else {
-        console.log('no fun');
-        texture.image = await this.loadImage(url);
+        if (exists) {
+          texture.image = exists;
+        } else {
+          texture.image = await this.loadImage(url);
+        }
       }
     }
 
