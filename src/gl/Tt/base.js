@@ -1,6 +1,12 @@
 import { check, start, stop, updateX, updateY, updateScale } from './position.js';
 
-import { Vec2, lerp } from 'ogl/math';
+import {
+  Vec2,
+  Renderer,
+  Mesh,
+  Transform,
+  Camera
+} from 'ogl';
 
 class Title {
   /**
@@ -52,6 +58,16 @@ class Title {
 
     this.change = 0;
     this.stopt = 0;
+    this.animstart = 0;
+
+    /** @type {HTMLElement | null} */
+    this.tt = null;
+    /** @type {NodeListOf<Element> | null} */
+    this.chars = null;
+    /** @type {gsap.core.Timeline | null} */
+    this.animin = null;
+    /** @type {gsap.core.Timeline | null} */
+    this.animout = null;
 
     this.initEvents();
   }
@@ -290,6 +306,7 @@ class Title {
   onResize() {
     if (!this.cnt) return;
     const bound = this.cnt.getBoundingClientRect();
+    console.log(`[Tt onResize] Element: ${this.text}`, 'Bounds:', bound);
     this.bound = [bound.x, bound.y, bound.width, bound.height];
     this.screen = [bound.width, bound.height];
 
@@ -314,7 +331,7 @@ class Title {
    * @param {any} value1
    * @param {any} value2
    * @param {number} t
-   * @param {any} out
+   * @param {any} [out]
    */
   lerpArr(value1, value2, t, out) {
     if (typeof value1 === 'number' && typeof value2 === 'number') return lerp(value1, value2, t);
