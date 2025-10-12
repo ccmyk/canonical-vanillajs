@@ -75,81 +75,30 @@ void main() {
       time3 = .0;
       halfanim = 1.;
 
-        // for( float i = 0.; i <= count; i+= 1.0 ){
-
-        //       mPos = uPowers[index] * -2. + (i * .2);
-        //       mPower = abs(uPowers[index] * 2.);
-              
-            
-        // }
           mPos = uPowers[index] * -2.;
           mPower = abs(uPowers[index] * (2. - abs(time2 * .5) ));
 
-          // NEGATIVO A LA IZQ LA DISTO
-          // mPos = -.3 * -2.;
-          // mPower = abs(-.3 * 2.);
-          // CENTRO ES IGUAL A 0
-          // mPos = 0. * -2.;
-          // mPower = abs(0. * 2.);
-          // POSITIVO A LA DERECHA LA DISTO
-          // mPos = .3 * -2.;
-          // mPower = abs(.3 * 2.);
-
-          // if(vId == uKey){
-          //   mPos = uMouse.x * -2.;
-          //   mPower = abs(uMouse.x * 2.);
-          // }
-          // else if((vId+1.) == uKey){
-
-          //   mPos = -1.;
-          //   // time3 = .5 + abs(uMouse.x * 2.);
-          //   mPower = 1.;
-
-          // }
-          // else if((vId-1.) == uKey){
-
-          //   mPos = 1.;
-          //   // time3 = .5 + abs(uMouse.x * 2.);
-          //   mPower = 1.;
-            
-          // }
-          // else{
-          //   mPos = 0.;
-          //   mPower = 1.;
-          // }
           sumac = (ripple(vUvR.y ,mPos, cols) * ( (.2 * (1. - mPower)  ) * ( 1. - mPower  ) ) );
-          //EFECTO QUE PARECE FRACTAL
-          // sumac = (ripple(vUvR.y ,mPos, cols) * ( (.2 * (1. - mPower)  ) * ( .5 - mPower  ) ) );
-
           
           rippleUV = (vUv.x) + sumac;
           tex = texture2D(tMap, vec2(rippleUV, vUv.y) ).rgb;
       
-      
     }
     else if(uKey ==  -1.){
-
       
           mPos = uPowers[index] * -2.;
           mPower = abs(uPowers[index] *(2. - abs(time2 * .5) ));
           sumac = (ripple(vUv.y ,mPos, cols) * ( (.2 * (1. - mPower)  ) * ( 1. - mPower  ) ) );
           rippleUV = (vUv.x) + sumac;
           tex = texture2D(tMap, vec2(rippleUV, vUv.y) ).rgb;
-      // time2 = uMouse.x * -2. ;
-      // rippleUV = (vUv.x) + (ripple(vUvR.y ,mPos, cols) * ( (.2 ) * ( uPower  ) ) );
-      // tex = texture2D(tMap, vec2(rippleUV, vUv.y) ).rgb;
     }
 
     float signedDist = max(min(tex.r, tex.g), min(max(tex.r, tex.g), tex.b)) - 0.5;
     float d = fwidth(signedDist);
     float alpha = smoothstep(-d, d, signedDist);
-
     
     gl_FragColor.rgb = vec3(uColor);
-    // gl_FragColor.r += distance(uMouse.x + .5 ,vUvR.y * .5);
-    
 
-      // gl_FragColor.r =abs(mPower);
     gl_FragColor.a = alpha * (1. - uStart * 1.9);
     if(uKey ==  -2.){
     gl_FragColor.a -= abs(sumac * 8.);
@@ -158,5 +107,4 @@ void main() {
     gl_FragColor.a -= abs(sumac * 8.);
 
     }
-
 }

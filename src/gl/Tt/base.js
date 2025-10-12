@@ -218,14 +218,19 @@ class Title {
       this.animin?.pause();
     };
 
-    if (this.touch === 0) {
-      this.tt?.addEventListener('mouseenter', this.inFn);
-      this.tt?.addEventListener('mousemove', this.mvFn);
-      this.tt?.addEventListener('mouseleave', this.lvFn);
+    console.log('[Tt base.js] this.touch value:', this.touch, 'for element:', this.text);
+    if (this.touch == 0) {
+      if (this.tt) {
+        this.tt.onmouseenter = (e) => this.inFn(e);
+        this.tt.onmousemove = (e) => this.mvFn(e);
+        this.tt.onmouseleave = (e) => this.lvFn(e);
+      }
     } else {
-      this.tt?.addEventListener('touchstart', this.inFn);
-      this.tt?.addEventListener('touchmove', this.mvFn);
-      this.tt?.addEventListener('touchend', this.lvFn);
+      if (this.tt) {
+        this.tt.ontouchstart = (e) => this.inFn(e);
+        this.tt.ontouchmove = (e) => this.mvFn(e);
+        this.tt.ontouchend = (e) => this.lvFn(e);
+      }
     }
 
     /**
@@ -239,8 +244,11 @@ class Title {
 
     if (this.chars) {
       for (const [i, a] of this.chars.entries()) {
-        a.addEventListener('mouseenter', (e) => this.charFn(e, i));
-        a.addEventListener('touchstart', (e) => this.charFn(e, i));
+        if (this.touch == 0) {
+          a.onmouseenter = (e) => this.charFn(e, i);
+        } else {
+          a.ontouchstart = (e) => this.charFn(e, i);
+        }
       }
     }
   }
@@ -337,9 +345,9 @@ class Title {
     if (typeof value1 === 'number' && typeof value2 === 'number') return lerp(value1, value2, t);
     else {
       //assume array
-      var len = Math.min(value1.length, value2.length);
+      const len = Math.min(value1.length, value2.length);
       out = out || new Array(len);
-      for (var i = 0; i < len; i++) out[i] = lerp(value1[i], value2[i], t);
+      for (let i = 0; i < len; i++) out[i] = lerp(value1[i], value2[i], t);
       return out;
     }
   }
