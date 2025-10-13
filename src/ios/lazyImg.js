@@ -68,7 +68,6 @@ export default class {
     this.DOM.img.classList.add('ivi');
     this.active = 1;
   }
-
   stop() {
     this.DOM.img.classList.remove('ivi');
     this.active = 0;

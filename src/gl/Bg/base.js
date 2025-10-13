@@ -13,7 +13,6 @@ class Base {
 
     this.active = -1;
     this.isready = 0;
-
     this.ctr = {
       actual: 0,
       current: 0,
@@ -23,9 +22,10 @@ class Base {
       progt: 0,
       stop: 0,
     };
-
     this.initEvents();
   }
+  
+
 
   update(time, speed, pos) {
     if (!this.renderer) {

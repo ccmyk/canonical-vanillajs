@@ -1,3 +1,5 @@
+
+
 class Nav {
   constructor(main) {
     this.main = main;
@@ -29,6 +31,8 @@ class Nav {
         m: el.querySelector('.nav_clock_m'),
         a: el.querySelector('.nav_clock_a')
       };
+      
+
       
       // Verify critical elements
       if (!this.DOM.c) console.warn('[Nav] Missing nav_logo element');

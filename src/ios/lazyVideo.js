@@ -96,6 +96,7 @@ export default class {
     let isPlaying = false;
 
     if (entry.isIntersecting == undefined) {
+      // this.DOM.video.pause()
       return false;
     } else if (entry.isIntersecting == true) {
       this.start();

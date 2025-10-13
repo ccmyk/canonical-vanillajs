@@ -1,9 +1,9 @@
 # Claude.md - AI Assistant Context Guide
 
-**Last Updated:** October 12, 2025  
-**Project:** Chris Hall Portfolio – Canonical Vanilla JS Implementation  
+**Last Updated:** October 13, 2025
+**Project:** Chris Hall Portfolio
 **Developer:** Chris Hall  
-**Original Source:** `/reference-original/` - WordPress theme
+**Original Source:** `/reference-original/`
 
 ---
 
@@ -13,10 +13,10 @@ This is a high-performance, visually sophisticated portfolio website featuring c
 
 ### Core Characteristics
 
-- **Single Page Application (SPA)** with custom routing
+- **Multi-page Application**
 - **WebGL-powered text rendering** using MSDF (Multi-channel Signed Distance Fields) via OGL library
 - **GSAP-driven animations** for smooth transitions and interactions
-- **Fully static** — no backend, CMS, or API dependencies
+- **Currently static** — no backend, CMS, or API dependencies (would like to find a free headless CMS service or provider)
 - **Performance-optimized** with Vite build system
 - **Touch and mouse event handling** with device detection
 
@@ -29,15 +29,13 @@ This is a high-performance, visually sophisticated portfolio website featuring c
 ```json
 {
   "runtime": "Vanilla JavaScript (ES6+)",
-  "graphics": "OGL 1.0 (WebGL library)",
-  "animations": "GSAP 3.13",
-  "scrolling": "Lenis 1.3 (smooth scroll)",
-  "text": "SplitType 0.3 (text splitting)",
-  "fonts": "FontFaceObserver 2.3",
-  "bundler": "Vite 5.4",
+  "graphics": "OGL",
+  "animations": "GSAP",
+  "scrolling": "Lenis",
+  "text": "SplitType",
+  "bundler": "Vite",
   "package_manager": "Bun",
-  "styling": "PostCSS",
-  "code_quality": ["ESLint 9", "Prettier 3.6"]
+  "styling": "CSS",
 }
 ```
 
@@ -62,8 +60,8 @@ This is a high-performance, visually sophisticated portfolio website featuring c
 │   ├── options.json              # Global UI (navigation, loader, footer)
 │   ├── pages/
 │   │   ├── 2.json                # Home page content
-│   │   ├── 55.json               # About page content
-│   │   ├── 240.json              # Projects listing
+│   │   ├── 55.json               # Index page content
+│   │   ├── 240.json              # About listing
 │   │   └── 308.json              # Playground page
 │   └── project/
 │       └── [id].json             # Individual project data
@@ -82,30 +80,33 @@ This is a high-performance, visually sophisticated portfolio website featuring c
 │   │   └── firstload.js          # Initial content loading
 │   ├── main/                     # Core application logic & routing
 │   ├── views/                    # Page-specific view controllers
-│   │   ├── Home/                 # Home page view
-│   │   ├── About/                # About page view
-│   │   ├── Projects/             # Projects listing view
-│   │   ├── Project/              # Single project view
-│   │   └── Playground/           # Playground view
+│   │   ├── Home/                 # Home page scripts
+│   │   ├── About/                # About page scripts
+│   │   ├── Projects/             # Index (Projects) page scripts
+│   │   ├── Project/              # Project page scripts
+│   │   └── Playground/           # Playground page scripts
 │   ├── gl/                       # WebGL components
-│   │   ├── Bg/                   # Background effects
-│   │   ├── Loader/               # Loading animations
-│   │   ├── Media/                # Image/video rendering
-│   │   ├── Pg/                   # Playground graphics
-│   │   ├── Roll/                 # Rolling text effects
-│   │   ├── Slider/               # Image slider effects
-│   │   ├── Tt/                   # Standard text rendering (MSDF)
-│   │   ├── TtA/                  # Animated text rendering
-│   │   ├── TtF/                  # Fancy text rendering
-│   │   ├── create.js             # WebGL object creation
-│   │   ├── els.js                # Element management
+│   │   ├── Bg/                   # Bg component
+│   │   ├── Loader/               # Loading component
+│   │   ├── Media/                # Media component
+│   │   ├── Pg/                   # Pg component (Playground page only)
+│   │   ├── Roll/                 # Roll component (Index page only)
+│   │   ├── Slider/               # Slider component (Index page only)
+│   │   ├── Tt/                   # Tt component (MSDF)
+│   │   ├── TtA/                  # TtA component (About page only)
+│   │   ├── TtF/                  # TtF component
+│   │   ├── create.js             # WebGL Initiation
+│   │   ├── els.js                # WebGL elements
 │   │   ├── events.js             # Event handling
-│   │   ├── gl.js                 # WebGL context setup
-│   │   └── ios.js                # Intersection observers
+│   │   ├── gl.js                 # WebGL logic
+│   │   └── ios.js                # WebGL Intersection observer
 │   ├── components/               # UI components
-│   │   ├── Mouse.js              # Custom cursor component
-│   │   └── Footer/               # Footer component
-│   ├── ios/                      # Intersection observer utilities
+│   │   ├── Loader.js             # Loader component
+│   │   ├── Mouse.js              # Custom component
+│   │   └── Nav.ja                # Nav component
+│   ├── ios/                      # Lazy
+│   │   ├── lazyImg.js            # Lazy image loading
+│   │   └── lazyVideo.js          # Lazy video loading
 │   ├── js/                       # Shared JavaScript utilities
 │   └── utils/                    # Environment configuration
 │
@@ -763,7 +764,7 @@ void main() {
 1. **⚠️ DO NOT regenerate `content/options.json`** unless absolutely necessary
 2. **Keep relative URLs** - all paths use `/index/`, `/about/`, etc. (not absolute URLs)
 3. **Maintain "CHRIS HALL" branding** throughout
-4. **Preserve JSON structure** - match original WordPress REST API format
+4. **Preserve JSON structure**
 5. **Verify `data-text` attributes** match actual text content for proper character splitting
 
 ---
@@ -785,7 +786,7 @@ void main() {
 
 ### Original Project
 
-- **Reference Website:** https://evasanchez.info (CSS Killer portfolio)
+- **Reference Website:** https://evasanchez.info
 - **Local Reference:** `/reference-original/` (read-only)
 
 ---

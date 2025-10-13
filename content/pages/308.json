@@ -7132,7 +7132,7 @@
             }
           }
         ],
-        "savee": "https://savee.it/chrisryanhall/",
+        "savee": "https://drive.google.com/file/d/1wc46fxHbb2AgoNOu4dyDVxxVjjE_XZ1z/",
         "base": "/",
         "blog": "/playground/",
         "template": "/wp-content/themes/csskiller_wp",
@@ -7178,7 +7178,7 @@
   "_links": {
     "self": [
       {
-        "href": "/wp-json/wp/v2/pages/308",
+        "href": "/content/pages/308",
         "targetHints": {
           "allow": [
             "GET"
@@ -7188,7 +7188,7 @@
     ],
     "collection": [
       {
-        "href": "/wp-json/wp/v2/pages"
+        "href": "/content/pages"
       }
     ],
     "about": [
@@ -7211,13 +7211,13 @@
     "version-history": [
       {
         "count": 16,
-        "href": "/wp-json/wp/v2/pages/308/revisions"
+        "href": "/content/pages/308/revisions"
       }
     ],
     "predecessor-version": [
       {
         "id": 377,
-        "href": "/wp-json/wp/v2/pages/308/revisions/377"
+        "href": "/content/pages/308/revisions/377"
       }
     ],
     "wp:attachment": [
