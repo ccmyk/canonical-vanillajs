@@ -3,16 +3,43 @@ export function timeout(ms){
 }
 
 export async function loadAppData(url,id='',temp=''){
-  
+
   if(import.meta.env.DEV == true){
-    console.log(url+id+'?device='+this.main.device+'&webp='+this.main.webp+'&template='+temp)
+    console.log('Loading page data for ID:', id, 'from URL:', url)
   }
 
-  return {
-    device:this.main.device,
-    webp:this.main.webp,
-    webgl:this.main.webgl,
-    template:temp
+  // Fetch the page-specific JSON content
+  // NOTE: The 'url' parameter is provided for compatibility with original WordPress code
+  // but we ignore it and use our static JSON files instead
+  try {
+    const response = await fetch(`/content/pages/${id}.json`);
+    if (!response.ok) {
+      throw new Error(`Failed to load page ${id}: ${response.status}`);
+    }
+    const pageData = await response.json();
+
+    // Return the page data matching the structure the original WordPress version returned
+    // The original returned: { csskfields: { main: "...", textures: {...} }, ... }
+    return {
+      ...pageData,
+      device: this.main?.device || 0,
+      webp: this.main?.webp || 0,
+      webgl: this.main?.webgl || 1,
+      template: temp || pageData.template || ''
+    };
+  } catch (error) {
+    console.error('Error loading page data:', error);
+    // Return minimal data to prevent complete failure
+    return {
+      device: this.main?.device || 0,
+      webp: this.main?.webp || 0,
+      webgl: this.main?.webgl || 1,
+      template: temp || '',
+      csskfields: {
+        main: '',
+        textures: {}
+      }
+    };
   }
 }
 
