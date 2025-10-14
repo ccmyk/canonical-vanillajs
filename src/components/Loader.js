@@ -10,10 +10,10 @@ class Loader {
   }
   async create(){
     document.querySelector('body').insertAdjacentHTML('afterbegin',this.temp.init)
-    
+
     this.DOM = {
-      el: document.documentElement.querySelector('.loader'),
-      
+      el: document.querySelector('.loader'),
+
     }
 
     this.DOM.bg = this.DOM.el.querySelector('.loader_bg')
