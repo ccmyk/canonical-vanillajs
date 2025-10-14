@@ -26,6 +26,10 @@ export default defineConfig({
     },
   },
   assetsInclude: ['**/*.glsl'],
+  // Disable CSS source maps to prevent duplicate file listings
+  css: {
+    devSourcemap: false,
+  },
   plugins: [
     glsl({
       include: /\.(glsl|vs|fs)$/i,
