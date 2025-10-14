@@ -1,4 +1,5 @@
 // Libraries loaded via ES modules and exposed globally
+import Lenis from 'lenis';
 //Basic
 import Nav from '@/components/Nav.js';
 import Loader from '@/components/Loader.js';
@@ -93,7 +94,7 @@ class App {
     this.addEvents();
 
     //Lenis
-    this.lenis = new window.Lenis({
+    this.lenis = new Lenis({
       wheelEventsTarget: document.documentElement,
       lerp: 0.04,
       duration: 0.8,

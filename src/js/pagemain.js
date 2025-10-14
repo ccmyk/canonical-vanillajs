@@ -27,7 +27,7 @@ import {
 //loads
 import {
   timeout,
-  loadContent,
+  loadAppData,
   loadImage,
   loadImages,
   newImages,
@@ -94,7 +94,7 @@ Page.prototype.inViewAddClass = inViewAddClass;
 Page.prototype.showIos = showIos;
 //loads
 Page.prototype.timeout = timeout;
-Page.prototype.loadContent = loadContent;
+Page.prototype.loadAppData = loadAppData;
 Page.prototype.loadImage = loadImage;
 Page.prototype.loadImages = loadImages;
 Page.prototype.newImages = newImages;

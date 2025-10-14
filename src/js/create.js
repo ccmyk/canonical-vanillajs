@@ -2,7 +2,6 @@ export async function create(content, main, temp = undefined) {
   this.ios = [];
   this.iosupdaters = [];
   this.updaters = [];
-
   this.components = {};
   this.main = main;
 
@@ -24,7 +23,6 @@ export async function create(content, main, temp = undefined) {
   }
 }
 
-//* Función crear componentes
 export async function createComps() {
   if (this.main.device > 1) {
     if (this.DOM.el.querySelectorAll('.footer')) {

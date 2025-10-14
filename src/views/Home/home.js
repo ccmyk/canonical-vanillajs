@@ -13,7 +13,7 @@ class Home extends Page {
     if (temp != undefined) {
       document.querySelector('#content').insertAdjacentHTML('afterbegin', temp);
     } else {
-      let data = await this.loadContent({
+      let data = await this.loadAppData({
         id: content.dataset.id,
       });
       document.querySelector('#content').insertAdjacentHTML('afterbegin', data.csskfields.main);

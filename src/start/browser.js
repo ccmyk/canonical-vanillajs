@@ -1,12 +1,7 @@
 function browserCheck() {
-  //No memoria scroll
   if (window.history.scrollRestoration) {
     window.history.scrollRestoration = 'manual';
   }
-
-  //Mobile
-
-  //Imágenes
 
   const isTouch =
     /Mobi|Andrdoid|Tablet|iPad|iPhone/.test(navigator.userAgent) ||
@@ -44,7 +39,6 @@ function browserCheck() {
   console.log(devnum);
 
   //WebP
-
   const element = document.createElement('canvas');
   let isWebPCheck = false;
   let isWebgl = false;
@@ -147,16 +141,10 @@ function glCheck() {
   try {
     var canvas = document.createElement('canvas');
 
-    if (
-      !!window.WebGL2RenderingContext &&
-      (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
-    ) {
+    if (!!window.WebGL2RenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))) {
       return 'webgl2';
     }
-    if (
-      !!window.WebGLRenderingContext &&
-      (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
-    ) {
+    if (!!window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))) {
       return 'webgl';
     }
   } catch (e) {

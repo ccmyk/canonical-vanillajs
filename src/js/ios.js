@@ -1,5 +1,5 @@
-import lazyVideo from '@/ios/lazyVideo.js';
 import lazyImg from '@/ios/lazyImg.js';
+import lazyVideo from '@/ios/lazyVideo.js';
 
 export function buildThresholdList(numSteps) {
   var thresholds = [];
@@ -12,7 +12,7 @@ export function buildThresholdList(numSteps) {
   thresholds.push(0);
   return thresholds;
 }
-//* función que se lanza en el callback de un io, solo se lanza si el IO tiene una clase
+
 export function checkIo(pos, entry) {
   let check = false;
   check = this.ios[pos].class.check(entry, this.scroll.current);
@@ -104,7 +104,6 @@ export function callIos() {
   }
 }
 
-//* Hace la query de los ios, y lanza la fn iO, para seleccionar el tipo de iO
 export function createIos() {
   this.DOM.ios = this.DOM.el.querySelectorAll('.iO');
   if (this.DOM.ios) {
@@ -114,11 +113,8 @@ export function createIos() {
 
       this.ios.push(animobj);
     }
-    //* El sort este, no sé si sirve
   }
 }
-
-//* Para las cargas de Ajax que genera nuevos elementos, buscar los Ios nuevos y elimina los que ya no están
 
 export async function newIos(fromel = null) {
   let newios = null;
@@ -161,9 +157,7 @@ export async function newIos(fromel = null) {
   }
 
   this.ios = this.ios.filter((x) => x !== undefined);
-  //Se borran los antiguos que ya no existen y se limpia el array
 
-  //se buscan los nuevos
   for (let [i, a] of newios.entries()) {
     let foundio = oldios.find((element) => element === a);
 
@@ -186,7 +180,7 @@ export async function newIos(fromel = null) {
 export function iOpage(animobj) {
   return animobj;
 }
-//* Búsqueda de elementos Ios, lanza ioPage para buscar los específicos por page
+
 export function iO(index, anim) {
   if (anim.dataset.io) {
     return false;
@@ -199,12 +193,7 @@ export function iO(index, anim) {
   };
 
   if (anim.classList.contains('iO-lazyV')) {
-    animobj.class = new lazyVideo(
-      animobj,
-      this.main.isTouch,
-      this.main.vidauto,
-      this.main.events.anim,
-    );
+    animobj.class = new lazyVideo(animobj, this.main.isTouch, this.main.vidauto, this.main.events.anim);
   } else if (anim.classList.contains('iO-lazyI')) {
     animobj.class = new lazyImg(animobj, this.main.device, this.main.isTouch);
   } else {
@@ -235,10 +224,7 @@ export function iO(index, anim) {
 
 export function inViewAddClass(entry) {
   entry.target.parentNode.classList.add('inview');
-  if (
-    !entry.target.parentNode.dataset.bucle &&
-    entry.target.parentNode.classList.contains('stview')
-  ) {
+  if (!entry.target.parentNode.dataset.bucle && entry.target.parentNode.classList.contains('stview')) {
     return false;
   }
   entry.target.parentNode.classList.add('stview');
@@ -250,14 +236,10 @@ export function inViewAddClass(entry) {
 
     if (entry.target.parentNode.dataset.bucle) {
       entry.target.parentNode.classList.add('okF');
-
       return false;
     }
   }
 }
-
-//* Para mostrar los ios,lanza el show por si en el create se tiene que poner una animación de los ios a 0
-//* y se respetan delays y demás
 export function showIos() {
   this.waitres = 0;
   for (let a of this.ios) {
@@ -330,5 +312,3 @@ export function showIos() {
   }
   this.waitres += 24;
 }
-
-//* Para animar los ios cuando se hace scroll

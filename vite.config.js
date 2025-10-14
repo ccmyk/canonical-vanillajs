@@ -1,6 +1,5 @@
 // vite.config.js
 import { defineConfig } from 'vite';
-import path from 'node:path';
 import glsl from 'vite-plugin-glsl';
 import { prettierFormat } from 'vite-plugin-prettier-format';
 
@@ -22,7 +21,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),
+      '@': new URL('./src', import.meta.url).pathname,
     },
   },
   assetsInclude: ['**/*.glsl'],

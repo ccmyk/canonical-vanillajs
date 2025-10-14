@@ -56,6 +56,13 @@ This is a high-performance, visually sophisticated portfolio website featuring c
 
 ```
 /
+├── claude.md                     # This file
+├── index.html                    # Main HTML file
+├── index.css                     # Global styles
+├── vite.config.js                # Build configuration
+├── package.json                  # Dependencies
+├── jsconfig.json                 # JS/TS configuration
+│
 ├── content/
 │   ├── options.json              # Global UI (navigation, loader, footer)
 │   ├── pages/
@@ -73,52 +80,263 @@ This is a high-performance, visually sophisticated portfolio website featuring c
 │   └── PPNeueMontreal-Medium.json# MSDF font data
 │
 ├── src/
-│   ├── app.js                    # Application entry point
-│   ├── start/                    # Bootstrap & initialization
-│   │   ├── constructor.js        # Main constructor & global setup
-│   │   ├── browser.js            # Device/browser detection
-│   │   └── firstload.js          # Initial content loading
-│   ├── main/                     # Core application logic & routing
-│   ├── views/                    # Page-specific view controllers
-│   │   ├── Home/                 # Home page scripts
-│   │   ├── About/                # About page scripts
-│   │   ├── Projects/             # Index (Projects) page scripts
-│   │   ├── Project/              # Project page scripts
-│   │   └── Playground/           # Playground page scripts
-│   ├── gl/                       # WebGL components
-│   │   ├── Bg/                   # Bg component
-│   │   ├── Loader/               # Loading component
-│   │   ├── Media/                # Media component
-│   │   ├── Pg/                   # Pg component (Playground page only)
-│   │   ├── Roll/                 # Roll component (Index page only)
-│   │   ├── Slider/               # Slider component (Index page only)
-│   │   ├── Tt/                   # Tt component (MSDF)
-│   │   ├── TtA/                  # TtA component (About page only)
-│   │   ├── TtF/                  # TtF component
-│   │   ├── create.js             # WebGL Initiation
-│   │   ├── els.js                # WebGL elements
-│   │   ├── events.js             # Event handling
-│   │   ├── gl.js                 # WebGL logic
-│   │   └── ios.js                # WebGL Intersection observer
-│   ├── components/               # UI components
-│   │   ├── Loader.js             # Loader component
-│   │   ├── Mouse.js              # Custom component
-│   │   └── Nav.ja                # Nav component
-│   ├── ios/                      # Lazy
-│   │   ├── lazyImg.js            # Lazy image loading
-│   │   └── lazyVideo.js          # Lazy video loading
-│   ├── js/                       # Shared JavaScript utilities
-│   └── utils/                    # Environment configuration
+│   ├── app.js                                    # Application entry point
+│   │
+│   ├── start/                                    # Bootstrap & initialization
+│   │   ├── constructor.js                        # Main constructor & global setup
+│   │   ├── browser.js                            # Device/browser detection
+│   │   └── firstload.js                          # Initial content loading
+│   │
+│   ├── main                                      # Core Animation logic
+│   │   ├── anims.js                              # Text Splitting & Animation
+│   │   ├── events.js                             # Event handling
+│   │   ├── index.js                              # Main entry point
+│   │   ├── pop.js                                # Page transitions
+│   │   └── view.js                               # View management
+│   │
+│   ├── components                                # UI components
+│   │   ├── Loader.js
+│   │   ├── Mouse.js
+│   │   └── Nav.js
+│   │
+│   ├── gl                                        # WebGL configuration
+│   │   ├── create.js                             # Builds OGL graphical elements
+│   │   ├── els.js                                # Loads assets, defines OGL elements
+│   │   ├── events.js                             # Handles canvas interactions, loading
+│   │   ├── gl.js                                 # Manages main OGL WebGL context
+│   │   ├── ios.js                                # Tracks OGL element visibility, loads
+│   │   │                                         # WebGL components
+│   │   ├── Bg
+│   │   │   ├── base.js
+│   │   │   ├── Bg.fragment.main.glsl
+│   │   │   ├── Bg.vertex.main.glsl
+│   │   │   └── position.js
+│   │   ├── Loader
+│   │   │   ├── base.js
+│   │   │   ├── Loader.fragment.main.glsl
+│   │   │   ├── Loader.vertex.main.glsl
+│   │   │   └── position.js
+│   │   ├── Media
+│   │   │   ├── base.js
+│   │   │   ├── base.js.backup
+│   │   │   ├── Media.fragment.main.glsl
+│   │   │   ├── Media.vertex.main.glsl
+│   │   │   └── position.js
+│   │   ├── Pg                                    # Pg component (Playground page)
+│   │   │   ├── base.js
+│   │   │   ├── Pg.fragment.main.glsl
+│   │   │   ├── Pg.vertex.main.glsl
+│   │   │   └── position.js
+│   │   ├── Roll                                  # Roll component (Index page)
+│   │   │   ├── base.js
+│   │   │   ├── position.js
+│   │   │   ├── Roll.fragment.single.glsl
+│   │   │   └── Roll.vertex.single.glsl
+│   │   ├── Slider                                # Slider component (Index page)
+│   │   │   ├── base.js
+│   │   │   ├── position.js
+│   │   │   ├── Slider.fragment.main.glsl
+│   │   │   ├── Slider.fragment.parent.glsl
+│   │   │   └── Slider.vertex.main.glsl
+│   │   ├── Tt                                    # Tt MSDF component
+│   │   │   ├── base.js
+│   │   │   ├── position.js
+│   │   │   ├── Tt.fragment.msdf.glsl
+│   │   │   └── Tt.vertex.msdf.glsl
+│   │   ├── TtA                                   # TtA (About page) MSDF component
+│   │   │   ├── base.js
+│   │   │   ├── position.js
+│   │   │   ├── TtA.fragment.msdf.glsl
+│   │   │   └── TtA.fragment.parent.glsl
+│   │   └── TtF                                   # TtF (footer) MSDF component
+│   │       ├── base.js
+│   │       ├── position.js
+│   │       ├── TtF.fragment.msdf.glsl
+│   │       └── TtF.fragment.parent.glsl
+│   │
+│   ├── ios                                       # Lazy loading
+│   │   ├── lazyImg.js                            # Lazy loads images on viewport entry
+│   │   └── lazyVideo.js                          # Lazy loads & controls video playback
+│   │
+│   ├── js                                        # Page management scripts
+│   │   ├── comps.js
+│   │   ├── create.js
+│   │   ├── events.js
+│   │   ├── ios.js
+│   │   ├── loads.js
+│   │   ├── pagemain.js
+│   │   ├── scroll.js
+│   │   └── showhide.js
+│   │
+│   ├── types                                     # Type definitions
+│   │   └── global.d.ts
+│   ├── utils                                     # Environment configuration
+│   │   └── env.js
+│   │
+│   └── views                                     # Page-specific view controllers
+│       ├── About
+│       │   ├── 0Intro
+│       │   │   └── index.js
+│       │   ├── 1Dual
+│       │   │   └── io.js
+│       │   └── about.js
+│       ├── Error
+│       │   ├── 0Intro
+│       │   │   └── index.js
+│       │   └── error.js
+│       ├── Home
+│       │   ├── 0Intro
+│       │   │   └── index.js
+│       │   └── home.js
+│       ├── Playground
+│       │   ├── 0Intro
+│       │   │   └── index.js
+│       │   └── playground.js
+│       ├── Project
+│       │   ├── 0Intro
+│       │   │   ├── index.js
+│       │   │   ├── io.js
+│       │   │   └── ioin.js
+│       │   └── project.js
+│       └── Projects                             # Index page
+│           ├── 0Intro
+│           │   └── index.js
+│           └── projects.js
+│   
 │
-├── reference-original/           # ⚠️ READ-ONLY original WordPress theme
-│   └── wp-content/themes/src/   # Reference implementation (emoji folders)
+├── reference-original/                       # ⚠️ READ-ONLY original WordPress export
 │
-├── index.html                    # SPA shell
-├── index.css                     # Global styles
-├── vite.config.js                # Build configuration
-├── package.json                  # Dependencies
-├── jsconfig.json                 # JS/TS configuration
-└── claude.md                     # This file
+│   ├── wp-content/
+│   │   ├── themes/
+│   │   │   ├── csskiller_wp/
+│   │   │   │   ├── index.css
+│   │   │   │   └── public/
+│   │   │   │       ├── fonts/ → public/fonts/
+│   │   │   │       │   ├── montreal.woff2
+│   │   │   │       │   └── montrealbook.woff2
+│   │   │   │       ├── PPNeueMontreal-Medium.png → public/PPNeueMontreal-Medium.png
+│   │   │   │       └── PPNeueMontreal-Medium.json → public/PPNeueMontreal-Medium.json
+│   │   │   └── src/ → src/
+│   │   │       ├── app.js → src/app.js
+│   │   │       ├── components🦾🦾🦾/ → src/components/
+│   │   │       │   ├── Loader⏳/index.js → Loader.js
+│   │   │       │   ├── Mouse🐭/index.js → Mouse.js
+│   │   │       │   └── Nav🌤️/index.js → Nav.js
+│   │   │       ├── gl🌊🌊🌊/ → src/gl/
+│   │   │       │   ├── ⌛️/ → Loader/
+│   │   │       │   │   ├── base.js → base.js
+│   │   │       │   │   ├── position.js → position.js
+│   │   │       │   │   ├── 🧪main.glsl → Loader.fragment.main.glsl
+│   │   │       │   │   └── 🩻main.glsl → Loader.vertex.main.glsl
+│   │   │       │   ├── 🎞️/ → Slider/
+│   │   │       │   │   ├── base.js → base.js
+│   │   │       │   │   ├── position.js → position.js
+│   │   │       │   │   ├── 🧪main.glsl → Slider.fragment.main.glsl
+│   │   │       │   │   ├── 🧪parent.glsl → Slider.fragment.parent.glsl
+│   │   │       │   │   └── 🩻main.glsl → Slider.vertex.main.glsl
+│   │   │       │   ├── 🎢/ → Roll/
+│   │   │       │   │   ├── base.js → base.js
+│   │   │       │   │   ├── position.js → position.js
+│   │   │       │   │   ├── 🧪single.glsl → Roll.fragment.single.glsl
+│   │   │       │   │   └── 🩻single.glsl → Roll.vertex.single.glsl
+│   │   │       │   ├── 🏜️/ → Bg/
+│   │   │       │   │   ├── base.js → base.js
+│   │   │       │   │   ├── position.js → position.js
+│   │   │       │   │   ├── 🧪main.glsl → Bg.fragment.main.glsl
+│   │   │       │   │   └── 🩻main.glsl → Bg.vertex.main.glsl
+│   │   │       │   ├── 🧮/ → Pg/
+│   │   │       │   │   ├── base.js → base.js
+│   │   │       │   │   ├── position.js → position.js
+│   │   │       │   │   ├── 🧪main.glsl → Pg.fragment.main.glsl
+│   │   │       │   │   └── 🩻main.glsl → Pg.vertex.main.glsl
+│   │   │       │   ├── 🖼️/ → Media/
+│   │   │       │   │   ├── base.js → base.js
+│   │   │       │   │   ├── position.js → position.js
+│   │   │       │   │   ├── 🧪main.glsl → Media.fragment.main.glsl
+│   │   │       │   │   └── 🩻main.glsl → Media.vertex.main.glsl
+│   │   │       │   ├── 💬/ → Tt/
+│   │   │       │   │   ├── base.js → base.js
+│   │   │       │   │   ├── position.js → position.js
+│   │   │       │   │   ├── 🧪msdf.glsl → Tt.fragment.msdf.glsl
+│   │   │       │   │   └── 🩻msdf.glsl → Tt.vertex.msdf.glsl
+│   │   │       │   ├── 🔥/ → TtF/
+│   │   │       │   │   ├── base.js → base.js
+│   │   │       │   │   ├── position.js → position.js
+│   │   │       │   │   ├── 🧪msdf.glsl → TtF.fragment.msdf.glsl
+│   │   │       │   │   └── 🧪parent.glsl → TtF.fragment.parent.glsl
+│   │   │       │   ├── 👩‍⚖️/ → TtA/
+│   │   │       │   │   ├── base.js → base.js
+│   │   │       │   │   ├── position.js → position.js
+│   │   │       │   │   ├── 🧪msdf.glsl → TtA.fragment.msdf.glsl
+│   │   │       │   │   └── 🧪parent.glsl → TtA.fragment.parent.glsl
+│   │   │       │   ├── create.js → create.js
+│   │   │       │   ├── els.js → els.js
+│   │   │       │   ├── events.js → events.js
+│   │   │       │   ├── gl.js → gl.js
+│   │   │       │   └── ios.js → ios.js
+│   │   │       ├── ios⛓️⛓️⛓️/ → src/ios/
+│   │   │       │   ├── lazyImg/index.js → lazyImg.js
+│   │   │       │   └── lazyVideo/index.js → lazyVideo.js
+│   │   │       ├── js🧠🧠🧠/page👁️/ → src/js/
+│   │   │       │   ├── comps.js
+│   │   │       │   ├── create.js
+│   │   │       │   ├── events.js
+│   │   │       │   ├── ios.js
+│   │   │       │   ├── loads.js
+│   │   │       │   ├── pagemain.js
+│   │   │       │   ├── scroll.js
+│   │   │       │   └── showhide.js
+│   │   │       ├── main🐙🐙🐙/ → src/main/
+│   │   │       │   ├── 👁️.js → view.js
+│   │   │       │   ├── anims.js
+│   │   │       │   ├── events.js
+│   │   │       │   ├── index.js
+│   │   │       │   └── pop.js
+│   │   │       ├── start🏁🏁🏁/ → src/start/
+│   │   │       │   ├── browser🕸️.js → browser.js
+│   │   │       │   ├── constructor🫀.js → constructor.js
+│   │   │       │   └── firstload📊.js → firstload.js
+│   │   │       └── views👁️👁️👁️/ → src/views/
+│   │   │           ├── ⚪Home/ → Home/
+│   │   │           ├── 🟢About/ → About/
+│   │   │           ├── 🟡Playground/ → Playground/
+│   │   │           ├── 🔵Project/ → Project/
+│   │   │           ├── 🔵🔵🔵Projects/ → Projects/
+│   │   │           └── 🚫Error/ → Error/
+│   │   └── uploads/ → public/uploads/
+│   │
+│   ├── index.html → index.html
+│   ├── about/ → about/
+│   │   └── about.html → about.html
+│   ├── error/ → error/
+│   │   └── error.html → error.html
+│   ├── index/ → index/ 
+│   │   └── index.html → index.html
+│   ├── playground/ → playground/
+│   │   └── playground.html → playground.html
+│   ├── project/ → project/
+│   │   ├── banjo/ → banjo/
+│   │   │   └── index.html → index.html
+│   │   ├── … (remaining project pages follow same pattern)
+│   └── wp-json/ → content/
+│       ├── csskiller/v1/options.json → content/options.json
+│       └── wp/v2/
+│           ├── pages/ → content/pages/
+│           │   ├── 2.json → 2.json
+│           │   ├── 55.json → 55.json
+│           │   ├── 240.json → 240.json
+│           │   └── 308.json → 308.json
+│           └── project/ → content/project/
+│               ├── 44.json → 44.json
+│               ├── 82.json → 82.json
+│               └── …
+│
+│   # Notes:
+│   # - csskiller/v1 and wp/v2 subfolders are flattened in content/.
+│   # - HTML pages retain identical paths under /about, /project/[slug], etc.
+│   # - JS and GLSL mappings preserve file names unless specifically renamed.
+│   # End Mapping Summary
+
 ```
 
 ---
@@ -170,9 +388,9 @@ const isTouch =
 ### 3. Content Loading System
 
 **JSON Structure:**
-- `content/options.json` — Global UI elements (loader, nav, footer)
-- `content/pages/[id].json` — Page-specific content
-- `content/project/[id].json` — Project details
+- `content/options.json` — Global UI elements (nav, loader, Mbg)
+- `content/pages/[id].json` — Page-specific, main class, content 
+- `content/project/[id].json` — Project page, main class, content
 
 **Loading Process:**
 ```javascript
@@ -241,22 +459,33 @@ for (const [i, a] of this.chars.entries()) {
 
 ## Critical Implementation Details
 
-### Event Listener Pattern
+## Event Configuration and Listener Patterns
 
-**⚠️ IMPORTANT:** The codebase uses **direct property assignment** for event handlers, NOT `addEventListener()`:
+Event listeners define how the application responds to user actions, custom signals, or system events.  
+Using consistent listener patterns improves modularity, performance, and maintainability.
 
-```javascript
-// ✅ CORRECT (matches reference)
-element.onmouseenter = (e) => handler(e);
+---
 
-// ❌ WRONG (causes issues)
-element.addEventListener('mouseenter', handler);
+### Event Binding Methods
+
+| Method | Description | Use Case |
+|--------|--------------|----------|
+| `element.on<Event> = handler` | Assigns a single handler to the DOM event property. | Simple, single-purpose logic or small scripts. |
+| `element.addEventListener(eventType, handler, options?)` | Adds one or multiple event listeners with optional configuration. | Preferred in all modular, scalable, or complex apps. |
+
+---
+
+### Event Configuration Options
+
+Event listeners accept an optional **configuration object** to refine behavior:
+
+```js
+element.addEventListener('scroll', handler, {
+  capture: false,
+  once: true,
+  passive: true
+});
 ```
-
-**Why?** The original CSS Killer codebase uses this pattern throughout, and mixing patterns can cause:
-- Duplicate event listeners
-- Touch events on desktop browsers
-- Mouse events on mobile devices
 
 ### Text Splitting with SplitType
 
@@ -304,149 +533,6 @@ window.clamp(min, max, num)     // Value clamping
 window.waiter(ms)               // Promise-based delay
 ```
 
-### CSS Custom Properties
-
-```css
-/* Responsive scaling */
---ck_multiL: /* Landscape multiplier */;
---ck_multiP: /* Portrait multiplier */;
-
-/* Viewport heights */
---ck_hvar: /* Variable height (innerHeight) */;
---ck_hscr: /* Screen height */;
---ck_hmin: /* Minimum height */;
-
-/* Colors */
---ck_accent: #fff;
---ck_other: #050505;
-```
-
-### Responsive Design System
-
-```javascript
-global.design = {
-  L: {                    // Landscape/Desktop
-    w: 1440,
-    h: 800,
-    multi: 0.4,
-    ratio: 5.56,
-    wide: /* calculated */
-  },
-  P: {                    // Portrait/Mobile
-    w: 390,
-    h: 640,
-    multi: 0.4
-  }
-}
-```
-
----
-
-## Reference Implementation
-
-### Original WordPress Theme
-
-Located at `/reference-original/wp-content/themes/src/`
-
-**Folder naming convention:**
-- Original uses **emoji folders** (e.g., `gl🌊🌊🌊/`, `💬/`, `components🦾🦾🦾/`)
-- Current project uses **English names** (e.g., `gl/`, `Tt/`, `components/`)
-
-**Emoji to English Mapping:**
-
-```
-reference-original:                current project:
-├── gl🌊🌊🌊/                      ├── gl/
-│   ├── 💬/           →           │   ├── Tt/
-│   ├── 🎞️/                       │   ├── Media/
-│   ├── 🏜️/                       │   ├── Bg/
-│   └── ...                       │   └── ...
-├── components🦾🦾🦾/              ├── components/
-│   ├── Mouse🐭/      →           │   ├── Mouse.js
-│   └── ...                       │   └── ...
-├── start🏁🏁🏁/                  ├── start/
-│   ├── browser🕸️.js →           │   ├── browser.js
-│   └── ...                       │   └── ...
-└── ...                           └── ...
-```
-
-**When debugging:** Always check the reference implementation for correct patterns and behavior.
-
----
-
-## Recent Bug Fixes
-
-### 1. Touch Events on Desktop (FIXED - Oct 12, 2025)
-
-**Problem:**
-- Desktop Safari showed `touchstart`, `touchend`, `touchmove` instead of `mouseenter`, `mouseleave`, `mousemove`
-- `.char` elements had BOTH mouse AND touch events attached
-
-**Root Cause:**
-- Using `addEventListener()` instead of direct property assignment
-- Not checking `this.touch` value before attaching char events
-
-**Solution:**
-```javascript
-// src/gl/Tt/base.js lines 220-232
-if (this.touch == 0) {
-  if (this.tt) {
-    this.tt.onmouseenter = (e) => this.inFn(e);
-    this.tt.onmousemove = (e) => this.mvFn(e);
-    this.tt.onmouseleave = (e) => this.lvFn(e);
-  }
-} else {
-  if (this.tt) {
-    this.tt.ontouchstart = (e) => this.inFn(e);
-    this.tt.ontouchmove = (e) => this.mvFn(e);
-    this.tt.ontouchend = (e) => this.lvFn(e);
-  }
-}
-
-// Character events (lines 244-250)
-if (this.chars) {
-  for (const [i, a] of this.chars.entries()) {
-    if (this.touch == 0) {
-      a.onmouseenter = (e) => this.charFn(e, i);
-    } else {
-      a.ontouchstart = (e) => this.charFn(e, i);
-    }
-  }
-}
-```
-
-### 2. Text Character Splitting (FIXED - Oct 12, 2025)
-
-**Problem:**
-- "Chris" was being split into 4 characters instead of 5
-
-**Root Cause:**
-- `content/pages/2.json` had duplicate "Hall" in both first and last name fields
-
-**Solution:**
-- Updated JSON to have correct first/last name values
-- SplitType now correctly splits "Chris" into 5 chars and "Hall" into 4 chars
-
----
-
-## Known Issues & TODO
-
-### Current Issues
-✅ Hero text event listeners (FIXED)
-✅ Character splitting (FIXED)
-⚠️ WebGL canvas sizing on some devices (needs testing)
-⚠️ Performance optimization needed for complex animations
-
-### To Do
-- [ ] Complete About page implementation
-- [ ] Projects grid and detail pages
-- [ ] Playground page features
-- [ ] Mobile optimization and testing
-- [ ] Cross-browser compatibility testing
-- [ ] Performance audit (FCP, LCP, WebGL frame rate)
-- [ ] SEO meta tags and social sharing
-- [ ] Accessibility improvements (keyboard navigation, screen readers)
-
 ---
 
 ## Development Workflow
@@ -480,217 +566,6 @@ Vite automatically watches:
 - JSON content → Manual reload required
 
 ---
-
-## Debugging Guide
-
-### WebGL Issues
-
-**Check for WebGL support:**
-```javascript
-// In console:
-document.documentElement.classList.contains('AND') // true = WebGL disabled
-global.webgl // 0 = disabled, 1 = WebGL1, 2 = WebGL2
-```
-
-**Common WebGL Errors:**
-1. **Shader compilation errors** → Check console for GLSL syntax
-2. **Texture loading failures** → Verify MSDF .png and .json files exist
-3. **Context loss** → Check `renderer.gl.getExtension('WEBGL_lose_context')`
-
-**Debug Tools:**
-```javascript
-// src/gl/Tt/base.js:
-console.log('[Tt base.js] this.touch value:', this.touch, 'for element:', this.text);
-```
-
-### Device Detection
-
-**Check device type:**
-```javascript
-// In console:
-global.isTouch       // 0 = desktop/mouse, 1 = touch device
-global.device        // -1, 0, 1, 2, 3
-global.deviceclass   // 'desktop', 'mobile', 'tabletL', 'tabletS'
-```
-
-**Browser checks:**
-```javascript
-navigator.platform          // 'MacIntel', 'Win32', etc.
-navigator.maxTouchPoints    // 0 on non-touch, >0 on touch devices
-navigator.userAgent         // Full UA string
-```
-
-### Content Loading
-
-**Monitor JSON loading:**
-```javascript
-// Network tab → Filter by 'json'
-// Check: content/options.json, content/pages/2.json, etc.
-```
-
-**Verify content structure:**
-```javascript
-// In console after page load:
-document.querySelector('#content').dataset.template // 'home', 'about', etc.
-document.querySelector('#content').dataset.id       // '2', '55', etc.
-```
-
-### Animation Debugging
-
-**GSAP timeline inspection:**
-```javascript
-// In console:
-window.gsap.globalTimeline.getChildren()
-window.gsap.utils.toArray('.animated-element').forEach(el => {
-  console.log(el, gsap.getProperty(el, 'x'), gsap.getProperty(el, 'opacity'));
-});
-```
-
-**Lenis scroll state:**
-```javascript
-// In console:
-document.documentElement.classList.contains('lenis-smooth')   // Smooth scroll active
-document.documentElement.classList.contains('lenis-stopped')  // Scroll locked
-window.lenis.dimensions                                       // Scroll dimensions
-```
-
-### Safari-specific Debugging
-
-**Event listeners inspection:**
-- Open Safari DevTools → Elements tab
-- Click on element in DOM tree
-- Look for "Event" badges next to elements
-- Click badge to see attached event handlers
-
----
-
-## Code Style & Conventions
-
-### JavaScript
-
-```javascript
-// Class naming: PascalCase
-class HomePage extends Page {}
-
-// File naming: camelCase for utilities, PascalCase for components
-src/js/pagemain.js
-src/views/Home/home.js
-src/components/Mouse.js
-
-// Use 'const' for immutable, 'let' for mutable
-const config = { ... };
-let currentIndex = 0;
-
-// Arrow functions for callbacks
-element.onclick = (e) => this.handler(e);
-
-// Template literals for strings with variables
-console.log(`Loading page: ${id}`);
-
-// Object property shorthand
-return { isTouch, device, webgl };
-
-// Async/await for promises
-async create() {
-  const data = await this.loadContent();
-}
-```
-
-### CSS
-
-```css
-/* BEM-like naming */
-.home_hero {}
-.home_hero-title {}
-.cnt_hold {}
-
-/* Custom properties for theming */
-:root {
-  --ck_accent: #fff;
-  --ck_other: #050505;
-}
-
-/* Responsive with custom properties */
-font-size: calc(var(--ck_multiL) * 1rem);
-```
-
-### GLSL
-
-```glsl
-// Shader files: .glsl, .vs, .fs extensions
-// Imported via vite-plugin-glsl
-
-// Vertex shader
-attribute vec2 uv;
-varying vec2 vUv;
-
-void main() {
-  vUv = uv;
-  gl_Position = /* ... */;
-}
-
-// Fragment shader
-precision highp float;
-uniform sampler2D tMap;
-varying vec2 vUv;
-
-void main() {
-  gl_FragColor = texture2D(tMap, vUv);
-}
-```
-
----
-
-## Performance Best Practices
-
-### WebGL Optimization
-
-1. **Reuse geometries and materials**
-   ```javascript
-   // ✅ Good
-   const geometry = new Plane(gl);
-   const material = new Program(gl, { ... });
-   
-   // ❌ Bad - creating new geometry for each instance
-   ```
-
-2. **Batch render calls**
-   ```javascript
-   // Render once per frame in update loop
-   if (this.stopt === 0) {
-     this.renderer.render({ scene: this.scene, camera: this.camera });
-   }
-   ```
-
-3. **Dispose unused resources**
-   ```javascript
-   removeEvents() {
-     this.renderer.gl.getExtension('WEBGL_lose_context')?.loseContext();
-     this.canvas?.remove();
-   }
-   ```
-
-### Animation Performance
-
-1. **Use GSAP's quickTo for frequent updates**
-   ```javascript
-   this.lightX = gsap.quickTo('.mouse', 'x', { duration: 0.05 });
-   // Update without creating new tweens
-   this.lightX(targetX);
-   ```
-
-2. **Pause timelines when not visible**
-   ```javascript
-   this.animin?.pause();
-   this.animout?.pause();
-   ```
-
-3. **Use `will-change` sparingly**
-   ```css
-   .animated-element {
-     will-change: transform, opacity;
-   }
-   ```
 
 ### Asset Loading
 
@@ -738,34 +613,29 @@ void main() {
 ### When Debugging
 
 1. **Always check `/reference-original/`** first for correct implementation
-2. **Compare event listener patterns** - use direct property assignment, not `addEventListener()`
-3. **Verify `this.touch` value** - ensure correct device detection
-4. **Check WebGL context** - confirm textures and shaders load properly
-5. **Test with both WebGL enabled and disabled** - ensure graceful fallbacks
+2. **Verify `this.touch` value** - ensure correct device detection
+3. **Check WebGL context** - confirm textures and shaders load properly
+4. **Test with both WebGL enabled and disabled** - ensure graceful fallbacks
 
 ### When Adding Features
 
 1. **Follow existing patterns** from reference implementation
 2. **Use vanilla JS** - no frameworks or heavy abstractions
 3. **Maintain performance** - 60fps target for animations
-4. **Test on touch and mouse devices** - separate event handlers
+4. **Test on mobile, touch and mouse devices** - separate event handlers
 5. **Preserve MSDF text rendering** - don't break WebGL text system
 
 ### Code Modifications
 
-1. **Read the relevant SKILL.md** if working with specific file types
-2. **Preserve existing animations and transitions**
-3. **Match the original CSS Killer visual quality**
-4. **Keep code readable** - add comments for complex WebGL/animation logic
-5. **Test changes immediately** - use `bun run dev` and reload
+1. **Preserve existing animations and transitions**
+2. **Match the original CSS visual quality**
+3. **Test changes immediately** - use `bun run dev` and reload
 
 ### Content Updates
 
-1. **⚠️ DO NOT regenerate `content/options.json`** unless absolutely necessary
-2. **Keep relative URLs** - all paths use `/index/`, `/about/`, etc. (not absolute URLs)
-3. **Maintain "CHRIS HALL" branding** throughout
-4. **Preserve JSON structure**
-5. **Verify `data-text` attributes** match actual text content for proper character splitting
+1. **Maintain "CHRIS HALL" branding** throughout
+2. **Preserve JSON structure**
+3. **Verify `data-text` attributes** match actual text content for proper character splitting
 
 ---
 
@@ -791,32 +661,40 @@ void main() {
 
 ---
 
-## Project Status
+## Recent Updates: Localizing for Non-WordPress
 
-**Current Phase:** Fast-track to deployment - Save $240/year!  
-**Last Major Update:** Oct 12, 2025 - Fixed event listener bugs, created deployment roadmap  
-**Next Milestone:** Deploy v1.0 within 2-3 weeks
+### Changes Made (October 14, 2025)
 
----
+The project has been updated to work without WordPress dependencies:
 
-## 🚀 Fast-Track Deployment Strategy
+1. **`src/start/firstload.js`** - Modified `loadAppData()` function to return simple config object without REST API calls
+2. **`src/start/constructor.js`** - Uses the localized `loadAppData` function
+3. **`src/js/loads.js`** - Changed `loadRestApi` to `loadAppData` to remove WordPress references while maintaining functionality
+4. **`src/js/pagemain.js`** - Already using `loadAppData` in imports and prototypes
+5. **`src/views/Home/home.js`** - Already using `this.loadAppData()`
+6. **`src/main/index.js`** - Fixed Lenis import issue (importing directly instead of relying on window.Lenis)
 
-### Motivation
-**Current Cost:** $60/quarter ($240/year) for InMotion hosting + WordPress  
-**Target Cost:** $0/year (Vercel free tier)  
-**Savings:** $240/year starting immediately after deployment!
+### Key Function Changes
 
-### Timeline Overview
+The main loading function was renamed from `loadRestApi` to `loadAppData` throughout the codebase to remove WordPress/REST API references. The function now simply returns configuration data:
 
+```javascript
+// Old WordPress version
+export async function loadRestApi(url,id='',temp=''){
+  // Made REST API calls to WordPress
+}
+
+// New localized version
+export async function loadAppData(url,id='',temp=''){
+  return {
+    device:this.main.device,
+    webp:this.main.webp,
+    webgl:this.main.webgl,
+    template:temp
+  }
+}
 ```
-Week 1-2: Build core pages (Index + 3 Projects)
-   ↓
-Week 3: Deploy to Vercel (FREE hosting)
-   ↓
-Week 4: Migrate domains, cancel InMotion hosting
-   ↓
-Result: SAVE $240/year! 🎉
-```
+
 
 ---
 
@@ -826,12 +704,13 @@ Result: SAVE $240/year! 🎉
 
 **Priority: Get to MVP as fast as possible**
 
-#### ✅ 1. Homepage + Loader (COMPLETE)
-- [x] Loader animation working
-- [x] Hero section with WebGL text
-- [x] 5/9 WebGL components functional
-- [x] Fixed touch/mouse event bugs
-- [x] Character splitting working correctly
+#### 1. Homepage + Loader (COMPLETE)
+- [ ] Loader animation working
+- [ ] Hero section with WebGL text
+- [ ] 5/9 WebGL components functional
+- [ ] Fixed touch/mouse event bugs
+- [ ] Character splitting working correctly
+- [ ] Device detection and responsive design implementation working correctly
 
 #### 🔨 2. Index/Projects Listing Page (CURRENT FOCUS)
 **File:** `src/views/Projects/` or `src/views/Index/`  
