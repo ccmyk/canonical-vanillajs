@@ -12,6 +12,12 @@ class Home extends Page {
     super.create(content, main);
     if (temp != undefined) {
       document.querySelector('#content').insertAdjacentHTML('afterbegin', temp);
+    } else {
+      // Load page data when navigating (temp is undefined)
+      // Reference uses: loadRestApi(url, id, template)
+      // We pass url as first param (for compatibility), id as second, template as third
+      const data = await this.loadAppData('', content.dataset.id, content.dataset.template);
+      document.querySelector('#content').insertAdjacentHTML('afterbegin', data.csskfields.main);
     }
     this.el = document.querySelector('main');
 
