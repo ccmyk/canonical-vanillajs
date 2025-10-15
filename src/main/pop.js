@@ -15,6 +15,7 @@ export function onPopState(e) {
 
 export async function onChange({ url = null, link = null }) {
   url = url.replace(window.location.origin, '');
+  console.log('[pop.js onChange] Navigating to URL:', url);
   if (this.isload == 1 || this.url === url) return;
   this.lenis.stop();
   this.issame = 0;
@@ -39,7 +40,11 @@ export async function onChange({ url = null, link = null }) {
     },
   });
 
+  console.log('[pop.js onChange] Fetch response URL:', request.url);
+  console.log('[pop.js onChange] Fetch response status:', request.status);
+
   const response = await request.text();
+  console.log('[pop.js onChange] Response HTML (first 500 chars):', response.substring(0, 500));
   var push = true;
 
   if (this.gl) {
@@ -82,6 +87,9 @@ export async function onRequest({ push, response, url }) {
   }
   this.content = html.querySelector('#content');
 
+  console.log('[pop.js onRequest] #content element:', this.content);
+  console.log('[pop.js onRequest] #content dataset:', this.content?.dataset);
+
   if (push) {
     window.history.pushState({}, document.title, url);
   }
@@ -91,7 +99,11 @@ export async function onRequest({ push, response, url }) {
   this.page.DOM.el.remove();
 
   this.template = this.content.dataset.template;
+  console.log('[pop.js onRequest] Extracted template:', this.template, 'from content:', this.content);
+  console.log('[pop.js onRequest] Extracted id:', this.content.dataset.id);
+  console.log('[pop.js onRequest] Available pages:', Array.from(this.pages.keys()));
   this.newpage = this.pages.get(this.template);
+  console.log('[pop.js onRequest] Selected page:', this.newpage);
   this.newpage.id = this.content.dataset.id;
 
   this.newpage.ispop = 1;
