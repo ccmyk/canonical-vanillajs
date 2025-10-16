@@ -103,7 +103,9 @@ export default class {
       if (this.isloaded == 1) {
         if (this.touch == 0) {
           this.DOM.video.play().catch((e) => {
-            console.warn('Video play failed:', e);
+            if (e?.name !== 'AbortError') {
+              console.warn('Video play failed:', e);
+            }
           });
         } else {
           this.DOM.video.setAttribute('autoplay', 'true');
@@ -115,7 +117,9 @@ export default class {
           this.DOM.video.src = videoSrc;
           if (this.touch == 0) {
             this.DOM.video.play().catch((e) => {
-              console.warn('Video play failed for:', videoSrc, e);
+              if (e?.name !== 'AbortError') {
+                console.warn('Video play failed for:', videoSrc, e);
+              }
             });
           } else {
             this.DOM.video.setAttribute('autoplay', 'true');

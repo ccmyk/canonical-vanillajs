@@ -81,7 +81,14 @@ function browserCheck() {
     video.remove();
   };
   if (isTouch != true) {
-    video.play();
+    video
+      .play()
+      .then(() => {
+        // autoplay supported
+      })
+      .catch((err) => {
+        console.warn('[browserCheck] Autoplay detection video play interrupted:', err.name || err);
+      });
   } else {
     video.setAttribute('autoplay', 'true');
   }
