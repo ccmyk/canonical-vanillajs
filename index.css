@@ -4714,7 +4714,7 @@ body {
   top: 0;
   left: 0;
   width: 10px;
-  background: yellow;
+  background: transparent;
   position: absolute;
 }
 .project_intro .cnt {
