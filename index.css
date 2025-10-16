@@ -3854,6 +3854,10 @@ body {
   background: red;
   opacity: 0.1;
 }
+.dev .projects_intro .cnt_el .Oi {
+  background: transparent;
+  opacity: 1;
+}
 @media (orientation: portrait) and (min-width: 744px) {
   :root.T .projects_intro .cnt_el .Oi {
     height: 30vw;
@@ -4945,7 +4949,6 @@ body {
   top: 0;
   height: 50vh;
   width: 10px;
-  background: blue;
 }
 .project_nxt .top {
   position: absolute;
