@@ -797,11 +797,11 @@ export async function loadAppData(url, id = '', temp = '') {
 
 #### 1. Homepage + Loader (COMPLETE)
 
-- [ ] Loader animation working
-- [ ] Hero section with WebGL text
-- [ ] 5/9 WebGL components functional
+- [x] Loader animation working
+- [x] Hero section with WebGL text
+- [x] 5/9 WebGL components functional
 - [ ] Fixed touch/mouse event bugs
-- [ ] Character splitting working correctly
+- [x] Character splitting working correctly
 - [ ] Device detection and responsive design implementation working correctly
 
 #### 🔨 2. Index/Projects Listing Page (CURRENT FOCUS)
@@ -812,18 +812,18 @@ export async function loadAppData(url, id = '', temp = '') {
 **Components to Build:**
 
 - [ ] **gl/Roll/** - Horizontal scrolling project carousel
-  - Horizontal image/video roll
-  - Click to navigate to project detail
-  - Smooth WebGL-powered scrolling
+  - [ ] Horizontal image/video roll
+  - [ ] Click to navigate to project detail
+  - [ ] Smooth WebGL-powered scrolling
 - [ ] **gl/Slider/** - Vertical project slider
-  - Vertical project display
-  - Smooth transitions between projects
-  - WebGL effects integration
+  - [ ] Vertical project display
+  - [ ] Smooth transitions between projects
+  - [ ] WebGL effects integration
 - [ ] **Project Grid/Listing**
-  - Responsive grid layout
-  - Mix of images and videos
-  - Interactive hover states
-  - Links to project detail pages
+  - [ ] Responsive grid layout
+  - [ ] Mix of images and videos
+  - [ ] Interactive hover states
+  - [ ] Links to project detail pages
 
 #### 🔨 3. Project Detail Pages (3 minimum for v1.0)
 
