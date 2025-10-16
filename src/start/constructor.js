@@ -74,6 +74,15 @@ if (global.isTouch == 1) {
   document.documentElement.style.setProperty('--ck_hmin', window.innerHeight + 'px');
 }
 
+const LOADER_FLAG_KEY = 'ch_loader_seen';
+try {
+  global.loaderFlagKey = LOADER_FLAG_KEY;
+  global.hasSeenLoader = window.sessionStorage.getItem(LOADER_FLAG_KEY) === '1';
+} catch (error) {
+  global.loaderFlagKey = LOADER_FLAG_KEY;
+  global.hasSeenLoader = false;
+}
+
 let content = document.querySelector('#content');
 Promise.all([
   loadAppData.loadAppData({

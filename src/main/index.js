@@ -112,16 +112,22 @@ class App {
 
     this.createScrollCheck();
     //Loader
-    let time = 1400;
-    if (IS_DEV) {
+    const hasLoaderTemplate = typeof temps.loader === 'string' && temps.loader.trim().length > 0;
+    const shouldRunLoader = hasLoaderTemplate && !this.main.hasSeenLoader;
+    let time = shouldRunLoader ? 1400 : 0;
+    if (IS_DEV && shouldRunLoader) {
       time = 1400;
     }
     this.template = this.content.dataset.template;
 
     console.log('[App] temps.loader:', temps.loader);
-    this.loader = new Loader(this.main, temps.loader, this.main.device);
-    await this.loader.create();
-    this.loader.start();
+    if (shouldRunLoader) {
+      this.loader = new Loader(this.main, temps.loader, this.main.device);
+      await this.loader.create();
+      this.loader.start();
+    } else {
+      this.loader = null;
+    }
 
     let firsttemp = undefined;
     if (temps.main) {
@@ -182,14 +188,29 @@ class App {
     }
 
     await this.timeout(11);
-    await this.loader.hideIntro(this.template);
-    if (this.gl) {
+    if (this.loader) {
+      await this.loader.hideIntro(this.template);
+    }
+    if (this.gl && this.gl.loader && this.gl.loader.animstart) {
       this.gl.loader.animstart.play();
     }
-    await this.timeout(820);
+    const postLoaderDelay = this.loader ? 820 : 0;
+    await this.timeout(postLoaderDelay);
 
     if (this.gl) {
       this.gl.show();
+    }
+
+    if (!this.main.hasSeenLoader) {
+      this.main.hasSeenLoader = true;
+      const storageKey = this.main.loaderFlagKey || 'ch_loader_seen';
+      try {
+        window.sessionStorage.setItem(storageKey, '1');
+      } catch (error) {
+        if (IS_DEV) {
+          console.warn('[App] Unable to persist loader flag:', error);
+        }
+      }
     }
 
     //State es para diferenciar entre el firstView y un PopState
