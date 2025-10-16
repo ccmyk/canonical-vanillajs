@@ -10,16 +10,24 @@ class Home extends Page {
 
   async create(content, main, temp = undefined) {
     super.create(content, main);
-    if (temp != undefined) {
+    const hasTempContent = typeof temp === 'string' ? temp.trim().length > 0 : temp != null;
+    if (hasTempContent) {
       document.querySelector('#content').insertAdjacentHTML('afterbegin', temp);
     } else {
-      // Load page data when navigating (temp is undefined)
-      // Reference uses: loadRestApi(url, id, template)
-      // We pass url as first param (for compatibility), id as second, template as third
-      const data = await this.loadAppData('', content.dataset.id, content.dataset.template);
+      // Load page data when navigating (temp is null or undefined)
+      // Reference uses: loadRestApi(url, id, template); we now map to static JSON lookup
+      const data = await this.loadAppData({
+        id: content.dataset.id,
+        template: content.dataset.template,
+      });
       document.querySelector('#content').insertAdjacentHTML('afterbegin', data.csskfields.main);
     }
-    this.el = document.querySelector('main');
+    // Use the freshly injected content when navigating without inline HTML
+    this.el = document.querySelector('#content main') || document.querySelector('main');
+    if (!this.el) {
+      console.error('[Projects] Missing <main> element in loaded content');
+      return;
+    }
 
     this.DOM = {
       el: this.el,

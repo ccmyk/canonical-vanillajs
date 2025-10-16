@@ -96,6 +96,12 @@ export async function onRequest({ push, response, url }) {
   this.lenis.scrollTo(0, { immediate: true, lock: true, force: true });
   this.page.DOM.el.remove();
 
+  const contentTarget = document.querySelector('#content');
+  if (contentTarget) {
+    contentTarget.dataset.template = this.content.dataset.template || '';
+    contentTarget.dataset.id = this.content.dataset.id || '';
+  }
+
   this.template = this.content.dataset.template;
   console.log('[pop.js onRequest] Extracted template:', this.template, 'from content:', this.content);
   console.log('[pop.js onRequest] Extracted id:', this.content.dataset.id);
@@ -105,7 +111,8 @@ export async function onRequest({ push, response, url }) {
   this.newpage.id = this.content.dataset.id;
 
   this.newpage.ispop = 1;
-  await this.newpage.create(this.content, this.main, null);
+  // Pass the HTML content from the fetched page as the third parameter
+  await this.newpage.create(this.content, this.main, this.content.innerHTML);
   if (this.gl) {
     await this.gl.createTemp(this.template);
   }
