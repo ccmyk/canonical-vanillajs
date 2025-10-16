@@ -1,10 +1,4 @@
-#version 300 es
 precision highp float;
-#define varying in
-#define texture2D texture
-#define gl_FragColor FragColor
-out vec4 FragColor;
-
 uniform sampler2D tMap;
 uniform float uTime;
 uniform float uStart;

@@ -1,13 +1,5 @@
-#version 300 es
 precision highp float;
-#define varying in
-#define texture2D texture
-#define gl_FragColor FragColor
-out vec4 FragColor;
 
-// Default uniform for previous pass is 'tMap'.
-// Can change this using the 'textureUniform' property
-// when adding a pass.
 uniform sampler2D tMap;
 
 uniform float uTime;
