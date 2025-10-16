@@ -10,37 +10,37 @@ class Home extends Page {
 
   async create(content, main, temp = undefined) {
     super.create(content, main);
-    if (temp != undefined) {
+    const hasTempContent = typeof temp === 'string' ? temp.trim().length > 0 : temp != null;
+    if (hasTempContent) {
       document.querySelector('#content').insertAdjacentHTML('afterbegin', temp);
     } else {
-      // Use fallback HTML instead of WordPress REST API
+      const data = await this.loadAppData({
+        id: content.dataset.id,
+        template: content.dataset.template,
+      });
+
       const fallbackHTML = `
         <main>
           <section class="playground">
             <h1>Playground</h1>
             <p>Experimental projects and creative explorations</p>
-            <div class="experiments-grid">
-              <div class="experiment-card">
-                <h3>WebGL Experiment</h3>
-                <p>Interactive 3D graphics</p>
-              </div>
-              <div class="experiment-card">
-                <h3>Animation Study</h3>
-                <p>Motion graphics exploration</p>
-              </div>
-            </div>
           </section>
         </main>
       `;
-      document.querySelector('#content').insertAdjacentHTML('afterbegin', fallbackHTML);
+
+      document
+        .querySelector('#content')
+        .insertAdjacentHTML('afterbegin', data.csskfields?.main || fallbackHTML);
     }
-    this.el = document.querySelector('main');
+    this.el = document.querySelector('#content main') || document.querySelector('main');
+    if (!this.el) {
+      console.error('[Playground] Missing <main> element in loaded content');
+      return;
+    }
 
     this.DOM = {
       el: this.el,
     };
-
-    console.log(this.main.device);
 
     if (this.main.webgl == 0 || this.main.device > 0) {
       document.documentElement.classList.add('NOGL');
