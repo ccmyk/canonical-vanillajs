@@ -144,9 +144,6 @@ export async function newView() {
   this.lenis.start();
 }
 
-//CHECKS
-////3.tener en cuenta menú abierto o modales
-
 export function resetLinks() {
   const links = document.querySelectorAll('a');
 
@@ -159,8 +156,6 @@ export function resetLinks() {
     const isAnchor = link.href.indexOf('#') > -1;
 
     if (link.dataset.type && !isAnchor) {
-      // In production, data-type is used for WordPress routing
-      // In dev, we keep the existing href instead of rewriting to /[data-type]/
       // because our static HTML files are at their original paths (e.g., /index/ not /projects/)
       if (IS_DEV) {
         isLocal = true;
