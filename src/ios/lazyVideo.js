@@ -102,16 +102,27 @@ export default class {
       this.start();
       if (this.isloaded == 1) {
         if (this.touch == 0) {
-          this.DOM.video.play();
+          this.DOM.video.play().catch((e) => {
+            console.warn('Video play failed:', e);
+          });
         } else {
           this.DOM.video.setAttribute('autoplay', 'true');
         }
       } else {
-        this.DOM.video.src = this.DOM.video.dataset.lazy;
-        if (this.touch == 0) {
-          this.DOM.video.play();
+        // Validate video source before setting
+        const videoSrc = this.DOM.video.dataset.lazy;
+        if (videoSrc && typeof videoSrc == 'string' && videoSrc.trim() != '') {
+          this.DOM.video.src = videoSrc;
+          if (this.touch == 0) {
+            this.DOM.video.play().catch((e) => {
+              console.warn('Video play failed for:', videoSrc, e);
+            });
+          } else {
+            this.DOM.video.setAttribute('autoplay', 'true');
+          }
         } else {
-          this.DOM.video.setAttribute('autoplay', 'true');
+          console.warn('Invalid video source:', videoSrc);
+          return false;
         }
       }
     } else {

@@ -13,7 +13,7 @@ class Home extends Page {
   async create(content, main, temp = undefined) {
     super.create(content, main);
     const base = (window.__BASE_PATH__ || import.meta.env.BASE_URL || '/').replace(/\/$/, '');
-    if (temp !== undefined) {
+    if (temp != undefined) {
       document.querySelector('#content').insertAdjacentHTML('afterbegin', temp);
     } else {
       // Use fallback HTML instead of WordPress REST API
@@ -65,10 +65,7 @@ class Home extends Page {
   async createComps() {
     await super.createComps();
     if (this.DOM.el.querySelector('.project_intro')) {
-      this.components.intro = new Intro(
-        this.DOM.el.querySelector('.project_intro'),
-        this.main.device,
-      );
+      this.components.intro = new Intro(this.DOM.el.querySelector('.project_intro'), this.main.device);
     }
   }
 

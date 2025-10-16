@@ -1,7 +1,6 @@
-async function loadAppData({device=0, webp=0, id='', template='', logged=0, visible=0, webgl=1}){
-
-  if(import.meta.env.DEV == true){
-    console.log('Loading app data:', {device, id, webp, template, logged, visible, webgl})
+async function loadAppData({ device = 0, webp = 0, id = '', template = '', logged = 0, visible = 0, webgl = 1 }) {
+  if (import.meta.env.DEV == true) {
+    console.log('Loading app data:', { device, id, webp, template, logged, visible, webgl });
   }
 
   // Load BOTH options.json AND the initial page data
@@ -47,9 +46,9 @@ async function loadAppData({device=0, webp=0, id='', template='', logged=0, visi
       // Fields for base URL and template
       fields: {
         base: optionsData.fields?.base || window.location.origin,
-        template: template || optionsData.fields?.template || ''
-      }
-    }
+        template: template || optionsData.fields?.template || '',
+      },
+    };
   } catch (error) {
     console.error('Error loading app data:', error);
     // Return minimal data to prevent complete failure
@@ -68,10 +67,10 @@ async function loadAppData({device=0, webp=0, id='', template='', logged=0, visi
       textures: {},
       fields: {
         base: window.location.origin,
-        template: template || ''
-      }
-    }
+        template: template || '',
+      },
+    };
   }
 }
 
-export default { loadAppData }
+export default { loadAppData };

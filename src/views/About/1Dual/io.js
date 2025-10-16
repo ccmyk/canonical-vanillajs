@@ -28,12 +28,7 @@ export default class {
     let spty = new window.SplitType(this.el.parentNode.querySelectorAll('p'), { types: 'lines' });
 
     for (let [i, a] of spty.lines.entries()) {
-      this.anim.fromTo(
-        a,
-        { y: 1.2 + 'rem', opacity: 0 },
-        { y: 0 + 'rem', opacity: 1, duration: 0.3 },
-        i * 0.2,
-      );
+      this.anim.fromTo(a, { y: 1.2 + 'rem', opacity: 0 }, { y: 0 + 'rem', opacity: 1, duration: 0.3 }, i * 0.2);
     }
     // this.anim.paused()
     this.onResize();

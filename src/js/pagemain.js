@@ -3,27 +3,9 @@ import { create, createComps, cleanP, cleanWysi } from './create.js';
 //Comps
 import { startComps, stopComps } from './comps.js';
 //Events
-import {
-  onResize,
-  resizeLimit,
-  onScroll,
-  onTouchDown,
-  onTouchMove,
-  onTouchUp,
-  onWheel,
-} from './events.js';
+import { onResize, resizeLimit, onScroll, onTouchDown, onTouchMove, onTouchUp, onWheel } from './events.js';
 //ios
-import {
-  buildThresholdList,
-  checkIo,
-  callIos,
-  createIos,
-  newIos,
-  iOpage,
-  iO,
-  inViewAddClass,
-  showIos,
-} from './ios.js';
+import { buildThresholdList, checkIo, callIos, createIos, newIos, iOpage, iO, inViewAddClass, showIos } from './ios.js';
 //loads
 import {
   timeout,

@@ -1,12 +1,6 @@
 import { check, start, stop, updateX, updateY, updateScale } from './position.js';
 
-import {
-  Vec2,
-  Renderer,
-  Mesh,
-  Transform,
-  Camera
-} from 'ogl';
+import { Vec2, Renderer, Mesh, Transform, Camera } from 'ogl';
 
 class Title {
   /**
@@ -76,7 +70,7 @@ class Title {
    * @param {number} time
    */
   update(time) {
-    if (!this.renderer || this.active === 2) {
+    if (!this.renderer || this.active == 2) {
       return;
     } else {
       this.end[0] = lerp(this.end[0], this.norm[0], this.lerp);
@@ -89,7 +83,7 @@ class Title {
 
     this.mesh.program.uniforms.uPowers.value = this.positioncur;
 
-    if (this.stopt === 0) {
+    if (this.stopt == 0) {
       this.renderer.render({ scene: this.scene, camera: this.camera });
     }
   }
@@ -106,7 +100,8 @@ class Title {
 
     this.positioncur = this.lerpArr(this.positioncur, this.positiontar, 1);
 
-    gsap.timeline({
+    gsap
+      .timeline({
         onUpdate: () => {
           this.calcChars(0, -0.5);
 
@@ -130,16 +125,18 @@ class Title {
           duration: 0.6,
           ease: 'power2.inOut',
         },
-        0,
+        0
       );
   }
   initEvents() {
     //ANIM MOUSE IN
-    this.animin = gsap.timeline({ paused: true }).to(
-      this.mesh.program.uniforms.uPower,
-      { value: 1, duration: 0.36, ease: 'power4.inOut', onComplete: () => {} },
-      0,
-    );
+    this.animin = gsap
+      .timeline({ paused: true })
+      .to(
+        this.mesh.program.uniforms.uPower,
+        { value: 1, duration: 0.36, ease: 'power4.inOut', onComplete: () => {} },
+        0
+      );
 
     //ANIMOUT
     this.animout = gsap.timeline({ paused: true }).to(
@@ -152,12 +149,12 @@ class Title {
           this.mesh.program.uniforms.uKey.value = -1;
         },
       },
-      0,
+      0
     );
 
     if (this.el.parentNode) {
       this.tt = this.el.parentNode.querySelector('.Oiel');
-      if (this.tt) new (window).SplitType(this.tt, { types: 'chars,words' });
+      if (this.tt) new window.SplitType(this.tt, { types: 'chars,words' });
     }
 
     this.getChars();
@@ -291,7 +288,7 @@ class Title {
     this.lastx = x;
     const arr = [];
     let tot = 0;
-    if (out !== undefined) {
+    if (out != undefined) {
       for (let i = 0; i < (this.chars?.length ?? 0); i++) {
         arr.push(out);
       }
@@ -342,7 +339,7 @@ class Title {
    * @param {any} [out]
    */
   lerpArr(value1, value2, t, out) {
-    if (typeof value1 === 'number' && typeof value2 === 'number') return lerp(value1, value2, t);
+    if (typeof value1 == 'number' && typeof value2 == 'number') return lerp(value1, value2, t);
     else {
       //assume array
       const len = Math.min(value1.length, value2.length);

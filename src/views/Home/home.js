@@ -15,6 +15,7 @@ class Home extends Page {
     } else {
       let data = await this.loadAppData({
         id: content.dataset.id,
+        template: content.dataset.template,
       });
       document.querySelector('#content').insertAdjacentHTML('afterbegin', data.csskfields.main);
     }

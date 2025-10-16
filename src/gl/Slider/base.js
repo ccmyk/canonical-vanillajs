@@ -66,14 +66,9 @@ class Slides {
               }
             },
           },
-          0,
+          0
         )
-        .fromTo(
-          this.post.passes[0].program.uniforms.uStart,
-          { value: 1.5 },
-          { value: 0, duration: 0.45 },
-          0,
-        );
+        .fromTo(this.post.passes[0].program.uniforms.uStart, { value: 1.5 }, { value: 0, duration: 0.45 }, 0);
     } else {
       //INTRO 1
       this.animin = gsap
@@ -100,7 +95,7 @@ class Slides {
           this.post.passes[0].program.uniforms.uStart,
           { value: 1.5 },
           { value: 0, duration: 0.6, ease: 'power2.inOut' },
-          0,
+          0
         );
 
       this.animin
@@ -117,13 +112,13 @@ class Slides {
               }
             },
           },
-          0.8,
+          0.8
         )
         .fromTo(
           this.post.passes[0].program.uniforms.uStart,
           { value: 1.5 },
           { value: 0, duration: 2, ease: 'power4.inOut' },
-          0.6,
+          0.6
         );
     }
 
@@ -140,7 +135,7 @@ class Slides {
           }
         },
       },
-      0.95,
+      0.95
     );
 
     this.animsinglectr = gsap.timeline({ paused: true });
@@ -161,7 +156,7 @@ class Slides {
       this.animhover.to(
         this.post.passes[0].program.uniforms.uHover,
         { value: 1, duration: 1, ease: 'power2.inOut', onComplete: () => {} },
-        0,
+        0
       );
     } else {
     }
@@ -194,16 +189,8 @@ class Slides {
     });
     if (this.device < 3) {
       animout
-        .to(
-          this.post.passes[0].program.uniforms.uStart,
-          { value: 1.5, duration: 1, ease: 'power2.inOut' },
-          0,
-        )
-        .to(
-          this.post.passes[0].program.uniforms.uHover,
-          { value: 1, duration: 1, ease: 'power2.inOut' },
-          0,
-        );
+        .to(this.post.passes[0].program.uniforms.uStart, { value: 1.5, duration: 1, ease: 'power2.inOut' }, 0)
+        .to(this.post.passes[0].program.uniforms.uHover, { value: 1, duration: 1, ease: 'power2.inOut' }, 0);
     }
     animout
       .to(
@@ -218,7 +205,7 @@ class Slides {
             }
           },
         },
-        0,
+        0
       )
       .to(
         this.post.passes[0].program.uniforms.uStart,
@@ -227,7 +214,7 @@ class Slides {
           duration: 1,
           ease: 'power2.inOut',
         },
-        0,
+        0
       );
   }
 
@@ -309,9 +296,7 @@ class Slides {
         this.posmeshes[i] = (this.wel + this.space) * i;
 
         a.position.x =
-          -(this.viewport[0] / 2) +
-          a.scale.x / 2 +
-          (this.posmeshes[i] / this.screen[0]) * this.viewport[0];
+          -(this.viewport[0] / 2) + a.scale.x / 2 + (this.posmeshes[i] / this.screen[0]) * this.viewport[0];
       }
     };
 
@@ -349,7 +334,7 @@ class Slides {
     this.space = parseFloat(
       window
         .getComputedStyle(this.el.parentNode.parentNode.querySelector('.nfo_t'), null)
-        .getPropertyValue('padding-left'),
+        .getPropertyValue('padding-left')
     );
 
     this.firstpos = 0;
@@ -419,7 +404,7 @@ class Slides {
           this.post.passes[0].program.uniforms.uTime,
           { value: 0 },
           { value: 1, duration: 1, ease: 'power2.inOut' },
-          0,
+          0
         )
         .to(
           this.post.passes[0].program.uniforms.uStart,
@@ -431,7 +416,7 @@ class Slides {
               this.renderer.gl.canvas.classList.add('hideme');
             },
           },
-          0,
+          0
         )
         .to(
           this.objpos,
@@ -446,7 +431,7 @@ class Slides {
               }
             },
           },
-          0,
+          0
         )
         .to(map.get('n'), { x: +59 + 'rem', duration: 1.8, ease: 'power2.inOut' }, 0)
         .to(map.get('t'), { x: +46.6 + 'rem', duration: 1.6, ease: 'power2.inOut' }, 0)
@@ -458,7 +443,7 @@ class Slides {
             duration: 0.6,
             ease: 'power2.inOut',
           },
-          0.4,
+          0.4
         )
         .to(
           parent,
@@ -472,7 +457,7 @@ class Slides {
               this.animctr.progress(0);
             },
           },
-          0,
+          0
         )
         .to(
           parent,
@@ -484,7 +469,7 @@ class Slides {
               parent.classList.add('cnt_el-singlemod');
             },
           },
-          0,
+          0
         );
 
       await animout.play();
@@ -533,7 +518,7 @@ class Slides {
                     this.post.passes[0].program.uniforms.uStart,
                     { value: 1.5 },
                     { value: 0.5, duration: 0.8, ease: 'power2.inOut' },
-                    0,
+                    0
                   )
                   .fromTo(
                     this.objpos,
@@ -548,13 +533,13 @@ class Slides {
                         }
                       },
                     },
-                    0.8,
+                    0.8
                   )
                   .fromTo(
                     this.post.passes[0].program.uniforms.uStart,
                     { value: 1.5 },
                     { value: 0, duration: 0.8 },
-                    0.8,
+                    0.8
                   );
               }
             },
@@ -577,7 +562,7 @@ class Slides {
               //Calculo de posición
             },
           },
-          0.8,
+          0.8
         );
 
       animin.play();

@@ -1,12 +1,4 @@
-import {
-  create,
-  createScene,
-  createCamera,
-  cleanTemp,
-  createTemp,
-  createIos,
-  show,
-} from './create.js';
+import { create, createScene, createCamera, cleanTemp, createTemp, createIos, show } from './create.js';
 
 import { createEls, createMSDF, createTex, createAssets } from './els.js';
 

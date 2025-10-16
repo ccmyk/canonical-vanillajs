@@ -42,7 +42,7 @@ export async function loadImage(url) {
 
     // For MSDF font textures, we need special handling
     const isMSDFTexture = url.includes('PPNeueMontreal-Medium');
-    
+
     img.onload = () => {
       if (isMSDFTexture) {
         console.log('MSDF texture loaded successfully:', url);
@@ -78,8 +78,7 @@ function cleanVid(elem) {
   elem.onplay = null;
   elem.currentTime = 0;
 
-  let isPlaying =
-    elem.currentTime > 0 && !elem.paused && !elem.ended && elem.readyState > elem.HAVE_CURRENT_DATA;
+  let isPlaying = elem.currentTime > 0 && !elem.paused && !elem.ended && elem.readyState > elem.HAVE_CURRENT_DATA;
 
   elem.pause();
 }

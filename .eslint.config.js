@@ -7,20 +7,13 @@ import path from 'node:path';
 
 export default defineConfig([
   {
-    ignores: [
-      'dist/',
-      'build/',
-      'reference-original/',
-      'scripts/',
-      'node_modules/',
-      '.vite/',
-    ],
+    ignores: ['dist/', 'build/', 'reference-original/', 'scripts/', 'node_modules/', '.vite/'],
   },
   {
-    files: ["**/*.js"],
+    files: ['**/*.js'],
     languageOptions: {
-      ecmaVersion: "latest",
-      sourceType: "module",
+      ecmaVersion: 'latest',
+      sourceType: 'module',
       globals: globals.browser,
     },
     plugins: {
@@ -34,10 +27,10 @@ export default defineConfig([
         },
       },
     },
-    extends: [js.configs.recommended, "plugin:prettier/recommended"],
+    extends: [js.configs.recommended, 'plugin:prettier/recommended'],
     rules: {
-      "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
-      "prettier/prettier": "error"
+      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      'prettier/prettier': 'error',
     },
   },
 ]);

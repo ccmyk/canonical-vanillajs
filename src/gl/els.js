@@ -1,5 +1,4 @@
-import {  Camera, Plane, Triangle,  Mesh, Geometry, Texture, Text, Renderer, Transform, Program,Post, Vec2 } from 'ogl';
-
+import { Camera, Plane, Triangle, Mesh, Geometry, Texture, Text, Renderer, Transform, Program, Post, Vec2 } from 'ogl';
 
 import Loader from './Loader/base.js';
 import LoaderF from './Loader/Loader.fragment.main.glsl?raw';
@@ -40,12 +39,8 @@ import PGv from './Pg/Pg.vertex.main.glsl?raw';
 
 export async function createMSDF() {
   const assetRoot = this.main.assetRoot || '';
-  const mapTexSrc = assetRoot
-    ? `${assetRoot}/PPNeueMontreal-Medium.png` 
-    : '/PPNeueMontreal-Medium.png';
-  const jsonTexSrc = assetRoot
-    ? `${assetRoot}/PPNeueMontreal-Medium.json` 
-    : '/PPNeueMontreal-Medium.json';
+  const mapTexSrc = assetRoot ? `${assetRoot}/PPNeueMontreal-Medium.png` : '/PPNeueMontreal-Medium.png';
+  const jsonTexSrc = assetRoot ? `${assetRoot}/PPNeueMontreal-Medium.json` : '/PPNeueMontreal-Medium.json';
 
   let rt = [];
 
@@ -57,15 +52,12 @@ export async function createMSDF() {
 }
 
 export async function createAssets(texs) {
-
   const fntAss = await this.createMSDF();
 
   this.fontMSDF = fntAss[0];
 
   const assetRoot = this.main.assetRoot || '';
-  const mapTexSrc = assetRoot
-    ? `${assetRoot}/PPNeueMontreal-Medium.png` 
-    : '/PPNeueMontreal-Medium.png';
+  const mapTexSrc = assetRoot ? `${assetRoot}/PPNeueMontreal-Medium.png` : '/PPNeueMontreal-Medium.png';
   this.fontTex = await this.loadImage(mapTexSrc);
 
   const video = document.createElement('video');
@@ -81,7 +73,7 @@ export async function createAssets(texs) {
 
   // Helper function to safely load a video with fallback
   const safeLoadVideo = async (vidElement, src) => {
-    if (!src || typeof src !== 'string') {
+    if (!src || typeof src != 'string') {
       console.warn('safeLoadVideo: a valid video source was not provided.');
       return this.loadImage('/public/favicon.svg'); // Fallback to a static image
     }
@@ -135,7 +127,6 @@ export async function createEls(el = null) {
   const pos = el.dataset.oi;
 
   if (temp == 'tt' || temp == 'foot' || temp == 'about') {
-
     const canvasContainer = el.parentNode.querySelector('.cCover');
 
     const containerBounds = canvasContainer.getBoundingClientRect();
@@ -145,7 +136,8 @@ export async function createEls(el = null) {
       dpr: Math.min(Math.max(window.devicePixelRatio, 1), 2),
       width: containerBounds.width,
       height: containerBounds.height,
-    });    const { gl } = renderer;
+    });
+    const { gl } = renderer;
 
     gl.canvas.classList.add('glF');
     canvasContainer.appendChild(gl.canvas);
@@ -231,14 +223,14 @@ export async function createEls(el = null) {
       // Get the innerHTML length with a safer approach
       const oielElement = el.parentNode.querySelector('.Oiel');
       const charCount = oielElement ? oielElement.innerHTML.length : 10; // Fallback to 10 if element not found
-      
+
       // Ensure we have a valid character count
       const safeCharCount = Math.max(1, charCount);
-      
+
       let shaderMod = textFF;
       // Replace the placeholder with the character count
       shaderMod = shaderMod.replaceAll('PITO', safeCharCount);
-      
+
       console.log(`Initializing foot shader with ${safeCharCount} characters`);
 
       program = new Program(gl, {
@@ -257,16 +249,16 @@ export async function createEls(el = null) {
       // Get the innerHTML length with a safer approach
       const oielElement = el.parentNode.querySelector('.Oiel');
       const charCount = oielElement ? oielElement.innerHTML.length : 10; // Fallback to 10 if element not found
-      
+
       // Ensure we have a valid character count
       const safeCharCount = Math.max(1, charCount);
-      
+
       let shaderMod = textFA;
       // Replace the placeholder with the character count
       shaderMod = shaderMod.replaceAll('PITO', safeCharCount);
-      
+
       console.log(`Initializing about shader with ${safeCharCount} characters`);
-      
+
       program = new Program(gl, {
         vertex: textV,
         fragment: shaderMod,
@@ -281,18 +273,17 @@ export async function createEls(el = null) {
         depthWrite: false,
       });
     } else {
-
       const oielElement = el.parentNode.querySelector('.Oiel');
       const charCount = oielElement ? oielElement.innerHTML.length : 10; // Fallback to 10 if element not found
 
       const safeCharCount = Math.max(1, charCount);
-      
+
       let shaderMod = textF;
 
       shaderMod = shaderMod.replaceAll('PITO', safeCharCount);
-      
+
       console.log(`Initializing title shader with ${safeCharCount} characters`);
-      
+
       program = new Program(gl, {
         vertex: textV,
         fragment: shaderMod,
@@ -376,7 +367,6 @@ export async function createEls(el = null) {
       return new Tt(obj);
     }
   } else if (temp == 'bg' || temp == 'loader') {
-
     const renderer = new Renderer({
       alpha: true,
       dpr: Math.min(window.devicePixelRatio, 2),
@@ -424,10 +414,10 @@ export async function createEls(el = null) {
       const mbgElement = document.querySelector('.Mbg');
 
       mbgElement.parentNode.insertBefore(gl.canvas, mbgElement.nextSibling);
-  
+
       const mbgBounds = mbgElement.getBoundingClientRect();
       renderer.setSize(mbgBounds.width, mbgBounds.height);
-      
+
       const program = new Program(gl, {
         vertex: BgV,
         fragment: BgF,
@@ -486,7 +476,7 @@ export async function createEls(el = null) {
 
       let url = a.dataset.src || a.dataset.oi;
       console.log(`[Roll] Attempting to load media: ${url}`);
-      if (!url || typeof url !== 'string') {
+      if (!url || typeof url != 'string') {
         console.warn('No valid source found for element:', a);
         continue; // Skip this iteration if the url is invalid
       }
@@ -542,7 +532,7 @@ export async function createEls(el = null) {
     //SliderSliderSliderSliderSliderSliderSliderSliderSliderSliderSliderSliderSliderSliderSlider
 
     //Inits
-    
+
     // Get the canvas container (.cCover) for proper sizing
     const canvasContainer = el.parentNode.querySelector('.cCover');
     const containerBounds = canvasContainer.getBoundingClientRect();
@@ -584,7 +574,7 @@ export async function createEls(el = null) {
 
       let url = a.dataset.src || a.dataset.oi;
       console.log(`[Slider] Attempting to load media: ${url}`);
-      if (!url || typeof url !== 'string') {
+      if (!url || typeof url != 'string') {
         console.warn('No valid source found for element:', a);
         continue; // Skip this iteration if the url is invalid
       }
@@ -731,7 +721,7 @@ export async function createEls(el = null) {
 
     let url = el.dataset.src;
     console.log(`[Media] Attempting to load media: ${url}`);
-    if (!url || typeof url !== 'string') {
+    if (!url || typeof url != 'string') {
       console.warn('No valid source found for element:', el);
       // Create a placeholder texture to avoid a crash
       const canvas = document.createElement('canvas');

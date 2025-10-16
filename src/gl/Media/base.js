@@ -57,7 +57,7 @@ class Base {
           this.el.classList.add('act');
         },
       },
-      0,
+      0
     );
   }
 
@@ -152,7 +152,7 @@ class Base {
           duration: 0.6,
           ease: 'power2.inOut',
         },
-        0.4,
+        0.4
       );
   }
   onResize(viewport, screen) {

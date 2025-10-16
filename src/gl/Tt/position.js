@@ -17,11 +17,11 @@ export function check(entry) {
  * @this {import('./base.js').default}
  */
 export function start() {
-  if (this.active === 1) {
+  if (this.active == 1) {
     return;
   }
 
-  if (this.active === -1) {
+  if (this.active == -1) {
     let arr = [0.8, 2, 2];
     if (this.el.dataset.nome) {
       arr = [0.8, 2, 2];
@@ -36,7 +36,7 @@ export function start() {
           duration: arr[0],
           ease: 'power4.inOut',
         },
-        0,
+        0
       )
       .fromTo(
         this.mesh.program.uniforms.uPower,
@@ -46,7 +46,7 @@ export function start() {
           duration: arr[1],
           ease: 'power2.inOut',
         },
-        0,
+        0
       )
       .set(
         this.mesh.program.uniforms.uKey,
@@ -59,7 +59,7 @@ export function start() {
             this.actualChar = -1;
           },
         },
-        '>',
+        '>'
       );
 
     this.animstart.play();
@@ -72,7 +72,7 @@ export function start() {
  */
 export function stop() {
   if (this.animstart) {
-    if (this.animstart.progress() !== 1) {
+    if (this.animstart.progress() != 1) {
       return;
     }
   }

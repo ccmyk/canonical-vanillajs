@@ -4,17 +4,17 @@ export function addEvents() {
     stopscroll: new Event('stopscroll'),
     scrollto: new CustomEvent('scrollto', {
       bubbles: true,
-      detail: { id: '' }
+      detail: { id: '' },
     }),
     anim: new CustomEvent('anim', {
-      detail: { el: '', state: 0, style: 0, params: [0] }
+      detail: { el: '', state: 0, style: 0, params: [0] },
     }),
     nextprj: new CustomEvent('nextprj', {
-      detail: { el: '', url: '' }
+      detail: { el: '', url: '' },
     }),
     newlinks: new Event('newlinks'),
     openmenu: new Event('openmenu'),
-    closemenu: new Event('closemenu')
+    closemenu: new Event('closemenu'),
   };
 
   document.addEventListener('startscroll', () => this.controlScroll(1));
@@ -35,21 +35,21 @@ export function addEvents() {
     this.lenis.stop();
     this.lenis.scrollTo(this.page.DOM.el.querySelector('.project_nxt'), {
       duration: 0.3,
-      force: true
+      force: true,
     });
     await window.waiter(300);
 
     this.onChange({
       url: e.detail.url,
-      link: e.detail.el
+      link: e.detail.el,
     });
   });
 
   document.addEventListener('anim', async (e) => {
-    if (e.detail.style === 0) {
+    if (e.detail.style == 0) {
       if (e.detail.el.classList.contains('nono')) return false;
       this.writeFn(e.detail.el, e.detail.state);
-    } else if (e.detail.style === 1) {
+    } else if (e.detail.style == 1) {
       this.lenis.scrollTo(0);
       await window.waiter(600);
       this.controlScroll(0);
@@ -60,8 +60,8 @@ export function addEvents() {
   });
 
   document.addEventListener('visibilitychange', () => {
-    if (this.isload === 1) return false;
-    if (document.visibilityState === 'hidden') {
+    if (this.isload == 1) return false;
+    if (document.visibilityState == 'hidden') {
       this.lenis.stop();
       window.cancelAnimationFrame(this.upid);
     } else {
@@ -71,7 +71,7 @@ export function addEvents() {
   });
 
   window.addEventListener('popstate', (e) => this.onPopState(e), {
-    passive: true
+    passive: true,
   });
 
   window.addEventListener(
@@ -91,16 +91,12 @@ export function addEvents() {
 }
 
 export function onResize() {
-  this.main.design.L.total =
-    (this.main.design.L.w / window.innerWidth) * 10;
-  this.main.design.L.total =
-    10 - (10 - this.main.design.L.total) * this.main.design.L.multi;
+  this.main.design.L.total = (this.main.design.L.w / window.innerWidth) * 10;
+  this.main.design.L.total = 10 - (10 - this.main.design.L.total) * this.main.design.L.multi;
   this.main.design.L.total = Math.min(10, this.main.design.L.total);
 
-  this.main.design.P.total =
-    (this.main.design.P.w / window.innerWidth) * 10;
-  this.main.design.P.total =
-    10 - (10 - this.main.design.P.total) * this.main.design.P.multi;
+  this.main.design.P.total = (this.main.design.P.w / window.innerWidth) * 10;
+  this.main.design.P.total = 10 - (10 - this.main.design.P.total) * this.main.design.P.multi;
   this.main.design.P.total = Math.min(10, this.main.design.P.total);
 
   document.documentElement.style.setProperty('--ck_multiL', this.main.design.L.total);
@@ -113,7 +109,7 @@ export function onResize() {
 
     const isTouch =
       /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
-      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      (navigator.platform == 'MacIntel' && navigator.maxTouchPoints > 1);
 
     if (!isTouch) location.reload();
   } else {
@@ -123,7 +119,7 @@ export function onResize() {
 
     const isTouch =
       /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
-      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      (navigator.platform == 'MacIntel' && navigator.maxTouchPoints > 1);
 
     if (isTouch) location.reload();
   }

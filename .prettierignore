@@ -8,3 +8,8 @@ content/
 wp-json/
 scripts/
 reference-original/
+
+# GLSL shader files (no GLSL parser available in Prettier)
+*.glsl
+*.vs
+*.fs

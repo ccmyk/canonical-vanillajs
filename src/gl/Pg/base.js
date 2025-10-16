@@ -1,13 +1,4 @@
-import {
-  check,
-  checkEl,
-  start,
-  stop,
-  updateX,
-  updateY,
-  updateScale,
-  updateAnim,
-} from './position.js';
+import { check, checkEl, start, stop, updateX, updateY, updateScale, updateAnim } from './position.js';
 
 import PGs from './Pg.fragment.main.glsl';
 import PGv from './Pg.vertex.main.glsl';
@@ -77,7 +68,7 @@ class Base {
 
       const qck = gsap.utils.pipe(
         gsap.utils.clamp(-2, 2),
-        gsap.quickTo(mesh.program.uniforms.uMouse, 'value', { duration: 0.8, ease: 'power1' }),
+        gsap.quickTo(mesh.program.uniforms.uMouse, 'value', { duration: 0.8, ease: 'power1' })
       );
       this.meshes.push({
         mesh,
@@ -145,10 +136,7 @@ class Base {
       if (path.tagName == 'IMG') {
         src = await this.loadImage(url);
         this.meshes[i].loaded = 1;
-        this.meshes[i].mesh.program.uniforms.uTextureSize.value = [
-          src.naturalWidth,
-          src.naturalHeight,
-        ];
+        this.meshes[i].mesh.program.uniforms.uTextureSize.value = [src.naturalWidth, src.naturalHeight];
         this.meshes[i].texture.image = src;
         this.meshes[i].mesh.program.uniforms.tMap.value = this.meshes[i].texture;
       } else if (path.tagName == 'VIDEO') {
@@ -160,11 +148,8 @@ class Base {
         this.meshes[i].vid = vidclone;
         this.meshes[i].texture.image = src;
 
-        if (
-          this.meshes[i].texture.image.readyState >= this.meshes[i].texture.image.HAVE_ENOUGH_DATA
-        ) {
-          if (!this.meshes[i].texture.image)
-            this.meshes[i].texture.image = this.meshes[i].texture.image;
+        if (this.meshes[i].texture.image.readyState >= this.meshes[i].texture.image.HAVE_ENOUGH_DATA) {
+          if (!this.meshes[i].texture.image) this.meshes[i].texture.image = this.meshes[i].texture.image;
 
           this.meshes[i].texture.needsUpdate = true;
         }
@@ -225,20 +210,12 @@ class Base {
       if (this.onsel != undefined) {
         this.onanim = 0;
         animsel
-          .to(
-            this.meshes[this.onsel].mesh.program.uniforms.uZoom,
-            { value: 1, duration: 0.9, ease: 'power2.inOut' },
-            0,
-          )
-          .to(
-            this.meshes[this.onsel],
-            { multx: 1, multy: 1, duration: 0.9, ease: 'power2.inOut' },
-            0,
-          )
+          .to(this.meshes[this.onsel].mesh.program.uniforms.uZoom, { value: 1, duration: 0.9, ease: 'power2.inOut' }, 0)
+          .to(this.meshes[this.onsel], { multx: 1, multy: 1, duration: 0.9, ease: 'power2.inOut' }, 0)
           .to(
             this.meshes[this.onsel].el,
             { '--scx': 1, '--scy': 1, xPercent: 0, duration: 0.9, ease: 'power2.inOut' },
-            0,
+            0
           );
 
         animsel;
@@ -247,46 +224,22 @@ class Base {
         } else {
           if (this.meshes[this.onsel].id == 0) {
             if (this.meshes[this.onsel + 1])
-              animsel.to(
-                this.meshes[this.onsel + 1].el,
-                { xPercent: 0, duration: 0.6, ease: 'power2.inOut' },
-                0,
-              );
+              animsel.to(this.meshes[this.onsel + 1].el, { xPercent: 0, duration: 0.6, ease: 'power2.inOut' }, 0);
             if (this.meshes[this.onsel + 2])
-              animsel.to(
-                this.meshes[this.onsel + 2].el,
-                { xPercent: 0, duration: 0.6, ease: 'power2.inOut' },
-                0,
-              );
+              animsel.to(this.meshes[this.onsel + 2].el, { xPercent: 0, duration: 0.6, ease: 'power2.inOut' }, 0);
           } else if (
             this.meshes[this.onsel].id == 1 ||
             this.meshes[this.onsel].id == 4 ||
             this.meshes[this.onsel].id == 5
           ) {
             if (this.meshes[this.onsel + 1])
-              animsel.to(
-                this.meshes[this.onsel + 1].el,
-                { xPercent: 0, duration: 0.9, ease: 'power2.inOut' },
-                0,
-              );
+              animsel.to(this.meshes[this.onsel + 1].el, { xPercent: 0, duration: 0.9, ease: 'power2.inOut' }, 0);
           } else if ((this.meshes[this.onsel].id == 2) | (this.meshes[this.onsel].id == 9)) {
-            animsel.to(
-              this.meshes[this.onsel - 1].el,
-              { xPercent: 0, duration: 0.9, ease: 'power2.inOut' },
-              0,
-            );
+            animsel.to(this.meshes[this.onsel - 1].el, { xPercent: 0, duration: 0.9, ease: 'power2.inOut' }, 0);
           } else if (this.meshes[this.onsel].id == 3) {
             animsel
-              .to(
-                this.meshes[this.onsel - 1].el,
-                { xPercent: 0, duration: 0.9, ease: 'power2.inOut' },
-                0,
-              )
-              .to(
-                this.meshes[this.onsel - 2].el,
-                { xPercent: 0, duration: 0.9, ease: 'power2.inOut' },
-                0,
-              );
+              .to(this.meshes[this.onsel - 1].el, { xPercent: 0, duration: 0.9, ease: 'power2.inOut' }, 0)
+              .to(this.meshes[this.onsel - 2].el, { xPercent: 0, duration: 0.9, ease: 'power2.inOut' }, 0);
           } else if (this.meshes[this.onsel].id == 6 || this.meshes[this.onsel].id == 7) {
           }
         }
@@ -325,28 +278,20 @@ class Base {
           if (this.onsel != -1 && this.meshes[this.onsel].row == this.meshes[i].row) {
             if (this.onsel != i) {
               animsel
-                .set(
-                  this.meshes[i].el,
-                  { marginBottom: 16.725 * 1.26 + 'rem', ease: 'power2.inOut' },
-                  0,
-                )
+                .set(this.meshes[i].el, { marginBottom: 16.725 * 1.26 + 'rem', ease: 'power2.inOut' }, 0)
                 .set(this.meshes[i].el, { marginBottom: '', ease: 'power2.inOut' }, 2.4);
             }
             animsel
               .to(
                 this.meshes[this.onsel].mesh.program.uniforms.uZoom,
                 { value: 1, duration: 0.9, ease: 'power2.inOut' },
-                0,
+                0
               )
-              .to(
-                this.meshes[this.onsel],
-                { multx: 1, multy: 1, duration: 0.9, ease: 'power2.inOut' },
-                0,
-              )
+              .to(this.meshes[this.onsel], { multx: 1, multy: 1, duration: 0.9, ease: 'power2.inOut' }, 0)
               .to(
                 this.meshes[this.onsel].el,
                 { '--scx': 1, '--scy': 1, xPercent: 0, duration: 0.9, ease: 'power2.inOut' },
-                0,
+                0
               );
 
             wait = 0.45;
@@ -356,63 +301,35 @@ class Base {
               .to(
                 this.meshes[this.onsel].mesh.program.uniforms.uZoom,
                 { value: 1, duration: 0.9, ease: 'power2.inOut' },
-                0,
+                0
               )
-              .to(
-                this.meshes[this.onsel],
-                { multx: 1, multy: 1, duration: 0.9, ease: 'power2.inOut' },
-                0,
-              )
+              .to(this.meshes[this.onsel], { multx: 1, multy: 1, duration: 0.9, ease: 'power2.inOut' }, 0)
               .to(
                 this.meshes[this.onsel].el,
                 { '--scx': 1, '--scy': 1, xPercent: 0, duration: 0.9, ease: 'power2.inOut' },
-                0,
+                0
               );
           }
           if (this.device > 1) {
           } else {
             if (this.meshes[this.onsel].id == 0) {
               if (this.meshes[this.onsel + 1])
-                animsel.to(
-                  this.meshes[this.onsel + 1].el,
-                  { xPercent: 0, duration: 0.6, ease: 'power2.inOut' },
-                  0,
-                );
+                animsel.to(this.meshes[this.onsel + 1].el, { xPercent: 0, duration: 0.6, ease: 'power2.inOut' }, 0);
               if (this.meshes[this.onsel + 2])
-                animsel.to(
-                  this.meshes[this.onsel + 2].el,
-                  { xPercent: 0, duration: 0.6, ease: 'power2.inOut' },
-                  0,
-                );
+                animsel.to(this.meshes[this.onsel + 2].el, { xPercent: 0, duration: 0.6, ease: 'power2.inOut' }, 0);
             } else if (
               this.meshes[this.onsel].id == 1 ||
               this.meshes[this.onsel].id == 4 ||
               this.meshes[this.onsel].id == 5
             ) {
               if (this.meshes[this.onsel + 1])
-                animsel.to(
-                  this.meshes[this.onsel + 1].el,
-                  { xPercent: 0, duration: 0.9, ease: 'power2.inOut' },
-                  0,
-                );
+                animsel.to(this.meshes[this.onsel + 1].el, { xPercent: 0, duration: 0.9, ease: 'power2.inOut' }, 0);
             } else if ((this.meshes[this.onsel].id == 2) | (this.meshes[this.onsel].id == 9)) {
-              animsel.to(
-                this.meshes[this.onsel - 1].el,
-                { xPercent: 0, duration: 0.9, ease: 'power2.inOut' },
-                0,
-              );
+              animsel.to(this.meshes[this.onsel - 1].el, { xPercent: 0, duration: 0.9, ease: 'power2.inOut' }, 0);
             } else if (this.meshes[this.onsel].id == 3) {
               animsel
-                .to(
-                  this.meshes[this.onsel - 1].el,
-                  { xPercent: 0, duration: 0.9, ease: 'power2.inOut' },
-                  0,
-                )
-                .to(
-                  this.meshes[this.onsel - 2].el,
-                  { xPercent: 0, duration: 0.9, ease: 'power2.inOut' },
-                  0,
-                );
+                .to(this.meshes[this.onsel - 1].el, { xPercent: 0, duration: 0.9, ease: 'power2.inOut' }, 0)
+                .to(this.meshes[this.onsel - 2].el, { xPercent: 0, duration: 0.9, ease: 'power2.inOut' }, 0);
             } else if (this.meshes[this.onsel].id == 6 || this.meshes[this.onsel].id == 7) {
             }
           }
@@ -431,11 +348,7 @@ class Base {
                 delete this.isload;
               },
             })
-            .to(
-              this.meshes[i].mesh.program.uniforms.uZoom,
-              { value: 2, duration: 0.9, ease: 'power2.inOut' },
-              wait,
-            )
+            .to(this.meshes[i].mesh.program.uniforms.uZoom, { value: 2, duration: 0.9, ease: 'power2.inOut' }, wait)
             .to(this.meshes[i], { mult: -6, duration: 0.25, ease: 'none' }, wait)
             .to(this.meshes[i], { mult: 1, duration: 0.35, ease: 'none' }, wait + 0.25);
 
@@ -457,7 +370,7 @@ class Base {
                   duration: 1.2,
                   ease: 'power2.inOut',
                 },
-                wait * multi,
+                wait * multi
               )
               .to(
                 this.meshes[i].el,
@@ -468,7 +381,7 @@ class Base {
                   duration: 1.2,
                   ease: 'power2.inOut',
                 },
-                wait * multi,
+                wait * multi
               );
           } else {
             if (this.meshes[i].id == 0) {
@@ -481,7 +394,7 @@ class Base {
                     duration: 1.2,
                     ease: 'power2.inOut',
                   },
-                  wait * multi,
+                  wait * multi
                 )
                 .to(
                   this.meshes[i].el,
@@ -491,21 +404,13 @@ class Base {
                     duration: 1.2,
                     ease: 'power2.inOut',
                   },
-                  wait * multi,
+                  wait * multi
                 );
 
               if (this.meshes[i + 1])
-                anim.to(
-                  this.meshes[i + 1].el,
-                  { xPercent: 52, duration: 0.9, ease: 'power2.inOut' },
-                  wait,
-                );
+                anim.to(this.meshes[i + 1].el, { xPercent: 52, duration: 0.9, ease: 'power2.inOut' }, wait);
               if (this.meshes[i + 2])
-                anim.to(
-                  this.meshes[i + 2].el,
-                  { xPercent: 52, duration: 0.9, ease: 'power2.inOut' },
-                  wait,
-                );
+                anim.to(this.meshes[i + 2].el, { xPercent: 52, duration: 0.9, ease: 'power2.inOut' }, wait);
             } else if (this.meshes[i].id == 1 || this.meshes[i].id == 4) {
               anim
                 .to(
@@ -516,7 +421,7 @@ class Base {
                     duration: 1.2,
                     ease: 'power2.inOut',
                   },
-                  wait * multi,
+                  wait * multi
                 )
                 .to(
                   this.meshes[i].el,
@@ -527,15 +432,11 @@ class Base {
                     duration: 1.2,
                     ease: 'power2.inOut',
                   },
-                  wait * multi,
+                  wait * multi
                 );
 
               if (this.meshes[i + 1])
-                anim.to(
-                  this.meshes[i + 1].el,
-                  { xPercent: 50, duration: 0.9, ease: 'power2.inOut' },
-                  wait,
-                );
+                anim.to(this.meshes[i + 1].el, { xPercent: 50, duration: 0.9, ease: 'power2.inOut' }, wait);
             } else if (this.meshes[i].id == 2) {
               anim
                 .to(
@@ -546,7 +447,7 @@ class Base {
                     duration: 1.2,
                     ease: 'power2.inOut',
                   },
-                  wait * multi,
+                  wait * multi
                 )
                 .to(
                   this.meshes[i].el,
@@ -557,14 +458,10 @@ class Base {
                     duration: 1.2,
                     ease: 'power2.inOut',
                   },
-                  wait * multi,
+                  wait * multi
                 )
 
-                .to(
-                  this.meshes[i - 1].el,
-                  { xPercent: -104, duration: 0.9, ease: 'power2.inOut' },
-                  wait,
-                );
+                .to(this.meshes[i - 1].el, { xPercent: -104, duration: 0.9, ease: 'power2.inOut' }, wait);
             } else if (this.meshes[i].id == 3) {
               anim
                 .to(
@@ -575,7 +472,7 @@ class Base {
                     duration: 1.2,
                     ease: 'power2.inOut',
                   },
-                  wait * multi,
+                  wait * multi
                 )
                 .to(
                   this.meshes[i].el,
@@ -586,19 +483,11 @@ class Base {
                     duration: 1.2,
                     ease: 'power2.inOut',
                   },
-                  wait * multi,
+                  wait * multi
                 )
 
-                .to(
-                  this.meshes[i - 2].el,
-                  { xPercent: -52, duration: 0.9, ease: 'power2.inOut' },
-                  wait,
-                )
-                .to(
-                  this.meshes[i - 1].el,
-                  { xPercent: -52, duration: 0.9, ease: 'power2.inOut' },
-                  wait,
-                );
+                .to(this.meshes[i - 2].el, { xPercent: -52, duration: 0.9, ease: 'power2.inOut' }, wait)
+                .to(this.meshes[i - 1].el, { xPercent: -52, duration: 0.9, ease: 'power2.inOut' }, wait);
             } else if (this.meshes[i].id == 5) {
               anim
                 .to(
@@ -609,7 +498,7 @@ class Base {
                     duration: 1.2,
                     ease: 'power2.inOut',
                   },
-                  wait * multi,
+                  wait * multi
                 )
                 .to(
                   this.meshes[i].el,
@@ -619,15 +508,11 @@ class Base {
                     duration: 1.2,
                     ease: 'power2.inOut',
                   },
-                  wait * multi,
+                  wait * multi
                 );
 
               if (this.meshes[i + 1])
-                anim.to(
-                  this.meshes[i + 1].el,
-                  { xPercent: 50, duration: 0.9, ease: 'power2.inOut' },
-                  wait,
-                );
+                anim.to(this.meshes[i + 1].el, { xPercent: 50, duration: 0.9, ease: 'power2.inOut' }, wait);
             } else if (this.meshes[i].id == 6 || this.meshes[i].id == 11) {
               anim
                 .to(
@@ -638,7 +523,7 @@ class Base {
                     duration: 1.2,
                     ease: 'power2.inOut',
                   },
-                  wait * multi,
+                  wait * multi
                 )
                 .to(
                   this.meshes[i].el,
@@ -649,7 +534,7 @@ class Base {
                     duration: 1.2,
                     ease: 'power2.inOut',
                   },
-                  wait * multi,
+                  wait * multi
                 );
             } else if (this.meshes[i].id == 7 || this.meshes[i].id == 10) {
               anim
@@ -661,7 +546,7 @@ class Base {
                     duration: 1.2,
                     ease: 'power2.inOut',
                   },
-                  wait * multi,
+                  wait * multi
                 )
                 .to(
                   this.meshes[i].el,
@@ -671,7 +556,7 @@ class Base {
                     duration: 1.2,
                     ease: 'power2.inOut',
                   },
-                  wait * multi,
+                  wait * multi
                 );
             } else if (this.meshes[i].id == 8) {
               anim
@@ -683,7 +568,7 @@ class Base {
                     duration: 1.2,
                     ease: 'power2.inOut',
                   },
-                  wait * multi,
+                  wait * multi
                 )
                 .to(
                   this.meshes[i].el,
@@ -694,7 +579,7 @@ class Base {
                     duration: 1.2,
                     ease: 'power2.inOut',
                   },
-                  wait * multi,
+                  wait * multi
                 );
             } else if (this.meshes[i].id == 9) {
               anim
@@ -706,7 +591,7 @@ class Base {
                     duration: 1.2,
                     ease: 'power2.inOut',
                   },
-                  wait * multi,
+                  wait * multi
                 )
                 .to(
                   this.meshes[i].el,
@@ -717,13 +602,9 @@ class Base {
                     duration: 1.2,
                     ease: 'power2.inOut',
                   },
-                  wait * multi,
+                  wait * multi
                 )
-                .to(
-                  this.meshes[i - 1].el,
-                  { xPercent: -52, duration: 0.9, ease: 'power2.inOut' },
-                  wait,
-                );
+                .to(this.meshes[i - 1].el, { xPercent: -52, duration: 0.9, ease: 'power2.inOut' }, wait);
             }
           }
           if (this.onsel != undefined) {
@@ -764,8 +645,7 @@ class Base {
         qck(0);
       };
 
-      a.querySelector('.el_md .cv').onmouseenter = (e) =>
-        this.enFn(a.querySelector('.el_md .cv'), e, i);
+      a.querySelector('.el_md .cv').onmouseenter = (e) => this.enFn(a.querySelector('.el_md .cv'), e, i);
       a.querySelector('.el_md .cv').onmousemove = (e) => this.mvFn(this.meshes[i].qck, e);
       a.querySelector('.el_md .cv').onmouseleave = (e) => this.lvFn(this.meshes[i].qck, e);
 
@@ -785,7 +665,7 @@ class Base {
           .to(
             n,
             { opacity: 1, duration: times[0], immediateRender: false, ease: 'power4.inOut' },
-            h * times[1] + params[0],
+            h * times[1] + params[0]
           );
 
         for (let [z, f] of c.querySelectorAll('.f').entries()) {
@@ -801,7 +681,7 @@ class Base {
                 duration: times[2],
                 ease: 'power4.inOut',
               },
-              params[0] + (h * times[3] + (1 + z) * times[4]),
+              params[0] + (h * times[3] + (1 + z) * times[4])
             )
             .set(f, { display: 'none' }, '>');
         }
@@ -837,11 +717,7 @@ class Base {
     });
 
     for (let [i, a] of this.mmap.entries()) {
-      anim.to(
-        this.meshes[a].mesh.program.uniforms.uMouse,
-        { value: -1.5, duration: 1, ease: 'power2.inOut' },
-        0,
-      );
+      anim.to(this.meshes[a].mesh.program.uniforms.uMouse, { value: -1.5, duration: 1, ease: 'power2.inOut' }, 0);
       this.meshes[a].el.classList.remove('act');
     }
     anim.to(
@@ -853,7 +729,7 @@ class Base {
         duration: 0.6,
         ease: 'power2.inOut',
       },
-      0.4,
+      0.4
     );
   }
   onResize(viewport, screen) {

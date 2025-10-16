@@ -24,8 +24,6 @@ class Base {
     };
     this.initEvents();
   }
-  
-
 
   update(time, speed, pos) {
     if (!this.renderer) {
@@ -61,49 +59,19 @@ class Base {
       .fromTo('.home_about .cnt_tp', { opacity: 1 }, { opacity: 0, duration: 0.15 }, 0.9)
 
       //MUY POQUITA MONTAÑA, MI OPCIÓN, SI LE QUITO EL MULTIX, SE NOTA UN PELÍN MÁS la montaña
-      .fromTo(
-        this.program.uniforms.uStart0,
-        { value: 0 },
-        { value: 1, duration: 0.6, ease: 'power2.inOut' },
-        0,
-      )
-      .fromTo(
-        this.program.uniforms.uStartX,
-        { value: 0 },
-        { value: -0.1, duration: 2, ease: 'power2.inOut' },
-        0,
-      )
-      .fromTo(
-        this.program.uniforms.uMultiX,
-        { value: -0.4 },
-        { value: 0.1, duration: 2, ease: 'power2.inOut' },
-        0,
-      )
+      .fromTo(this.program.uniforms.uStart0, { value: 0 }, { value: 1, duration: 0.6, ease: 'power2.inOut' }, 0)
+      .fromTo(this.program.uniforms.uStartX, { value: 0 }, { value: -0.1, duration: 2, ease: 'power2.inOut' }, 0)
+      .fromTo(this.program.uniforms.uMultiX, { value: -0.4 }, { value: 0.1, duration: 2, ease: 'power2.inOut' }, 0)
 
-      .fromTo(
-        this.program.uniforms.uStartY,
-        { value: 0.1 },
-        { value: 0.95, duration: 2, ease: 'power2.inOut' },
-        0,
-      )
-      .fromTo(
-        this.program.uniforms.uMultiY,
-        { value: 0.45 },
-        { value: 0.3, duration: 2, ease: 'power2.inOut' },
-        0,
-      )
-      .fromTo(
-        this.program.uniforms.uStart2,
-        { value: 1 },
-        { value: 0, duration: 1, ease: 'power2.inOut' },
-        0.6,
-      )
+      .fromTo(this.program.uniforms.uStartY, { value: 0.1 }, { value: 0.95, duration: 2, ease: 'power2.inOut' }, 0)
+      .fromTo(this.program.uniforms.uMultiY, { value: 0.45 }, { value: 0.3, duration: 2, ease: 'power2.inOut' }, 0)
+      .fromTo(this.program.uniforms.uStart2, { value: 1 }, { value: 0, duration: 1, ease: 'power2.inOut' }, 0.6)
 
       .fromTo(
         '.nav',
         { '--dark': '#F8F6F2', '--gray': '#8A8A8A', '--light': '#000' },
         { '--dark': '#000', '--gray': '#8A8A8A', '--light': '#F8F6F2', duration: 0.5 },
-        0.1,
+        0.1
       );
     this.animstart.progress(1);
   }
@@ -137,7 +105,7 @@ class Base {
     let bound = this.el.getBoundingClientRect();
     const mbgElement = document.querySelector('.Mbg');
     const mbgBounds = mbgElement ? mbgElement.getBoundingClientRect() : bound;
-    
+
     this.bound = [bound.x, bound.y, bound.width, bound.height];
     let calc = 0;
 

@@ -37,19 +37,19 @@ class Footer {
         this.post.passes[0].program.uniforms.uTime,
         { value: 0 },
         { value: 2, duration: 0.3, immediateRender: false, ease: 'power2.inOut' },
-        0,
+        0
       )
       .fromTo(
         this.post.passes[0].program.uniforms.uTime,
         { value: 2 },
         { value: 0, duration: 0.3, immediateRender: false, ease: 'power2.inOut' },
-        0.7,
+        0.7
       )
       .fromTo(
         this.post.passes[0].program.uniforms.uStart,
         { value: 0.39 },
         { value: 0.8, duration: 1, immediateRender: false, ease: 'power2.inOut' },
-        0,
+        0
       );
     this.change = 0;
     this.stopt = 0;
@@ -65,19 +65,19 @@ class Footer {
         this.post.passes[0].program.uniforms.uMouseT,
         { value: 0.2 },
         { value: 2, duration: 0.3, immediateRender: false, ease: 'power2.inOut' },
-        0.1,
+        0.1
       )
       .fromTo(
         this.post.passes[0].program.uniforms.uMouseT,
         { value: 2 },
         { value: 0, duration: 0.3, immediateRender: false, ease: 'power2.inOut' },
-        0.7,
+        0.7
       )
       .fromTo(
         this.post.passes[0].program.uniforms.uMouse,
         { value: 0.39 },
         { value: 0.8, duration: 0.9, immediateRender: false, ease: 'none' },
-        0.1,
+        0.1
       );
     this.animmouse.progress(0);
 
@@ -105,7 +105,7 @@ class Footer {
           duration: 1,
           ease: 'power2.inOut',
         },
-        0,
+        0
       )
       .to(
         this.canvas,
@@ -114,7 +114,7 @@ class Footer {
           duration: 0.8,
           ease: 'none',
         },
-        0.2,
+        0.2
       );
   }
 

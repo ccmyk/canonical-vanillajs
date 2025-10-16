@@ -25,7 +25,7 @@ export function start() {
         duration: 4,
         ease: 'power2.inOut',
       },
-      0,
+      0
     );
 
     this.animstart.play();

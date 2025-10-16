@@ -16,7 +16,7 @@ export function onPopState(e) {
 export async function onChange({ url = null, link = null }) {
   url = url.replace(window.location.origin, '');
   console.log('[pop.js onChange] Navigating to URL:', url);
-  if (this.isload == 1 || this.url === url) return;
+  if (this.isload == 1 || this.url == url) return;
   this.lenis.stop();
   this.issame = 0;
   this.page.isVisible = false;
@@ -55,9 +55,7 @@ export async function onChange({ url = null, link = null }) {
 
   if (Array.isArray(checkout)) {
     time = 0;
-    document
-      .querySelector('body')
-      .insertAdjacentHTML('afterbegin', '<div class="faketit c-vw nfo"></div>');
+    document.querySelector('body').insertAdjacentHTML('afterbegin', '<div class="faketit c-vw nfo"></div>');
     let faketit = document.querySelector('.faketit');
     faketit.appendChild(checkout[0].cloneNode(true));
     faketit.appendChild(checkout[1].cloneNode(true));
@@ -185,7 +183,7 @@ export function resetLinks() {
           }
         }
       };
-    } else if (link.href.indexOf('mailto') === -1 && link.href.indexOf('tel') === -1) {
+    } else if (link.href.indexOf('mailto') == -1 && link.href.indexOf('tel') == -1) {
       link.rel = 'noopener';
       link.target = '_blank';
     }

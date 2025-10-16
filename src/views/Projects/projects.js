@@ -46,10 +46,7 @@ class Home extends Page {
   async createComps() {
     await super.createComps();
     if (this.DOM.el.querySelector('.projects_intro')) {
-      this.components.intro = new Intro(
-        this.DOM.el.querySelector('.projects_intro'),
-        this.main.device,
-      );
+      this.components.intro = new Intro(this.DOM.el.querySelector('.projects_intro'), this.main.device);
     }
     this.components.accordion = this.DOM.el.querySelector('.toAc');
     this.components.list = this.DOM.el.querySelector('.toLs');

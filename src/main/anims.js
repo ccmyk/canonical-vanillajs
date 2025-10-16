@@ -36,7 +36,7 @@ export async function writeFn(parent, state = 0) {
           a,
           { opacity: 0, yPercent: 50 },
           { opacity: 1, duration: 0.6, yPercent: 0, ease: 'power4.inOut' },
-          i * 0.1,
+          i * 0.1
         );
       }
       anim.play();
@@ -88,7 +88,7 @@ export async function writeFn(parent, state = 0) {
             immediateRender: false,
             ease: 'power4.inOut',
           },
-          i * times[1] + params[0],
+          i * times[1] + params[0]
         );
 
         for (let [u, f] of a.querySelectorAll('.f').entries()) {
@@ -104,7 +104,7 @@ export async function writeFn(parent, state = 0) {
                 duration: times[2],
                 ease: 'power4.inOut',
               },
-              params[0] + (i * times[3] + (1 + u) * times[4]),
+              params[0] + (i * times[3] + (1 + u) * times[4])
             )
             .set(f, { display: 'none' }, '>');
         }
@@ -144,7 +144,7 @@ export async function writeFn(parent, state = 0) {
               immediateRender: false,
               ease: 'power4.inOut',
             },
-            i * 0.04,
+            i * 0.04
           )
           .to(
             a,
@@ -154,7 +154,7 @@ export async function writeFn(parent, state = 0) {
               immediateRender: false,
               ease: 'power4.inOut',
             },
-            i * 0.04,
+            i * 0.04
           );
       }
 
@@ -166,7 +166,7 @@ export async function writeFn(parent, state = 0) {
           immediateRender: false,
           ease: 'power4.inOut',
         },
-        0.4,
+        0.4
       );
     } else if (parent.classList.contains('Atext') || parent.classList.contains('Aline')) {
       parent.classList.remove('ivi');
@@ -186,7 +186,7 @@ export async function writeFn(parent, state = 0) {
             immediateRender: false,
             ease: 'power4.inOut',
           },
-          i * 0.04,
+          i * 0.04
         );
       }
 
@@ -198,7 +198,7 @@ export async function writeFn(parent, state = 0) {
           immediateRender: false,
           ease: 'power4.inOut',
         },
-        0.4,
+        0.4
       );
     } else {
       parent.classList.remove('inview');
@@ -243,10 +243,7 @@ export async function writeCt(el, l = 2) {
       let rnd = 0;
       for (let u = 0; u < l; u++) {
         rnd = this.getRnd(fakeslength);
-        a.insertAdjacentHTML(
-          'afterbegin',
-          '<span class="f" aria-hidden="true">' + fakes[rnd] + '</span>',
-        );
+        a.insertAdjacentHTML('afterbegin', '<span class="f" aria-hidden="true">' + fakes[rnd] + '</span>');
       }
     }
 

@@ -86,19 +86,19 @@ class Roll {
                 this.checkVid(0, 1);
               },
             },
-            del,
+            del
           )
           .fromTo(
             this.mesh.program.uniforms.uStart,
             { value: 0 },
             { value: 0.4, duration: 0.6, ease: 'power2.inOut' },
-            del,
+            del
           )
           .fromTo(
             this.mesh.program.uniforms.uEnd,
             { value: 0.4 },
             { value: 0, duration: 0.6, ease: 'power2.inOut' },
-            del,
+            del
           );
       } else {
         del = 0.4;
@@ -129,7 +129,7 @@ class Roll {
               }
             },
           },
-          i + del,
+          i + del
         );
         if (this.textures[i + 1]) {
           this.animctr
@@ -137,19 +137,19 @@ class Roll {
               this.mesh.program.uniforms.uChange,
               { value: 0 },
               { value: 1, duration: 0.6, ease: 'power2.inOut' },
-              i + del,
+              i + del
             )
             .fromTo(
               this.mesh.program.uniforms.uStart,
               { value: 0 },
               { value: 0.4, duration: 0.6, ease: 'power2.inOut' },
-              i + del,
+              i + del
             )
             .fromTo(
               this.mesh.program.uniforms.uEnd,
               { value: 0.4 },
               { value: 0, duration: 0.6, ease: 'power2.inOut' },
-              i + del,
+              i + del
             );
         } else {
         }
@@ -196,10 +196,7 @@ class Roll {
   initEvents() {
     this.searchTex = (i, u) => {
       if (this.medias[i].tagName == 'VIDEO') {
-        this.mesh.program.uniforms.uTextureSize.value = [
-          this.medias[i].width,
-          this.medias[i].height,
-        ];
+        this.mesh.program.uniforms.uTextureSize.value = [this.medias[i].width, this.medias[i].height];
       } else {
         this.mesh.program.uniforms.uTextureSize.value = [
           this.textures[i].image.naturalWidth,
@@ -208,10 +205,7 @@ class Roll {
       }
 
       if (this.medias[u].tagName == 'VIDEO') {
-        this.mesh.program.uniforms.uTextureSize2.value = [
-          this.medias[u].width,
-          this.medias[u].height,
-        ];
+        this.mesh.program.uniforms.uTextureSize2.value = [this.medias[u].width, this.medias[u].height];
       } else {
         this.mesh.program.uniforms.uTextureSize2.value = [
           this.textures[u].image.naturalWidth,
@@ -271,7 +265,7 @@ class Roll {
           duration: 1,
           ease: 'power2.inOut',
         },
-        0,
+        0
       )
 
       .to(
@@ -281,7 +275,7 @@ class Roll {
           duration: 0.6,
           ease: 'power2.inOut',
         },
-        0.4,
+        0.4
       );
   }
 
@@ -310,12 +304,7 @@ class Roll {
     if (n == 1) {
       const animin = gsap
         .timeline()
-        .fromTo(
-          this.mesh.program.uniforms.uStart,
-          { value: 1.2 },
-          { value: 0, duration: 1, ease: 'power2.inOut' },
-          0,
-        )
+        .fromTo(this.mesh.program.uniforms.uStart, { value: 1.2 }, { value: 0, duration: 1, ease: 'power2.inOut' }, 0)
         .fromTo(
           this.mesh.program.uniforms.uEnd,
           { value: 1.2 },
@@ -331,7 +320,7 @@ class Roll {
               this.renderer.gl.canvas.classList.remove('hideme');
             },
           },
-          0,
+          0
         );
     } else {
       this.renderer.gl.canvas.classList.add('hideme');

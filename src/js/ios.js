@@ -132,7 +132,7 @@ export async function newIos(fromel = null) {
   let oldios = Array.prototype.slice.call(this.DOM.ios);
 
   for (let [i, a] of this.DOM.ios.entries()) {
-    let foundio = newios.find((element) => element === a);
+    let foundio = newios.find((element) => element == a);
 
     if (foundio == undefined) {
       let pos = a.dataset.io;
@@ -156,10 +156,10 @@ export async function newIos(fromel = null) {
     }
   }
 
-  this.ios = this.ios.filter((x) => x !== undefined);
+  this.ios = this.ios.filter((x) => x != undefined);
 
   for (let [i, a] of newios.entries()) {
-    let foundio = oldios.find((element) => element === a);
+    let foundio = oldios.find((element) => element == a);
 
     if (foundio == undefined) {
       let newindex = this.ios.length;

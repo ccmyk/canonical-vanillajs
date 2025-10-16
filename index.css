@@ -3335,13 +3335,7 @@ body {
   top: 25vh;
   width: 100vw;
   height: 40vh;
-  background: radial-gradient(
-    83% 50%,
-    rgb(0, 0, 0) 0%,
-    rgb(0, 0, 0) 0%,
-    rgb(0, 0, 0) 76%,
-    rgba(0, 0, 0, 0) 100%
-  );
+  background: radial-gradient(83% 50%, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 76%, rgba(0, 0, 0, 0) 100%);
 }
 :root.AND .home_about .cnt {
   background: black;

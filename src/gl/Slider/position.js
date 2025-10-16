@@ -88,8 +88,7 @@ export function updateX(sum = 0) {
       this.posmeshes[i] = this.statepos + this.maxpos + this.space;
     }
 
-    a.position.x =
-      -(this.viewport[0] / 2) + a.scale.x / 2 + (x / this.screen[0]) * this.viewport[0];
+    a.position.x = -(this.viewport[0] / 2) + a.scale.x / 2 + (x / this.screen[0]) * this.viewport[0];
   }
 }
 export function updateY(y = 0, state = 0) {

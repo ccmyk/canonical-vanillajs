@@ -27,7 +27,7 @@ class App {
       hasTexs: info[1] && !!info[1].texs,
       hasTextures: info[1] && !!info[1].textures,
     });
-    
+
     // Bind methods manually instead of using auto-bind
     this.onPopState = this.onPopState.bind(this);
     this.onRequest = this.onRequest.bind(this);
@@ -38,7 +38,7 @@ class App {
     this.content = document.querySelector('#content');
     this.main = info[0];
     const fields = info[1]?.fields ?? {};
-    const fallbackBaseRaw = typeof fields.base === 'string' ? fields.base : '';
+    const fallbackBaseRaw = typeof fields.base == 'string' ? fields.base : '';
     const trimmedFallback = fallbackBaseRaw.replace(/\/+$/, '');
     const isAbsoluteFallback = /^https?:\/\//.test(trimmedFallback);
     const normalizedFallback = isAbsoluteFallback
@@ -54,10 +54,8 @@ class App {
       (isAbsoluteFallback ? normalizedFallback : `${window.location.origin}${normalizedFallback}`);
 
     this.main.base = resolvedBase;
-    this.main.pathPrefix =
-      typeof this.main.pathPrefix === 'string' ? this.main.pathPrefix : normalizedFallback;
-    this.main.apiRoot =
-      typeof this.main.apiRoot === 'string' ? this.main.apiRoot : normalizedFallback;
+    this.main.pathPrefix = typeof this.main.pathPrefix == 'string' ? this.main.pathPrefix : normalizedFallback;
+    this.main.apiRoot = typeof this.main.apiRoot == 'string' ? this.main.apiRoot : normalizedFallback;
     this.main.assetRoot = this.main.pathPrefix || '';
     this.main.origin = window.location.origin;
     this.main.template = this.main.assetRoot || fields.template;
@@ -84,8 +82,11 @@ class App {
       console.log('[App] Adding texs from textures for backward compatibility');
       info[1].texs = info[1].textures;
     }
-    
-    console.log('[App] Initializing with texs:', info[1].texs ? Object.keys(info[1].texs).length + ' textures' : 'undefined');
+
+    console.log(
+      '[App] Initializing with texs:',
+      info[1].texs ? Object.keys(info[1].texs).length + ' textures' : 'undefined'
+    );
     this.initApp(info[1], info[1].texs);
   }
 
@@ -117,10 +118,10 @@ class App {
     }
     this.template = this.content.dataset.template;
 
-  console.log('[App] temps.loader:', temps.loader);
-  this.loader = new Loader(this.main, temps.loader, this.main.device);
-  await this.loader.create();
-  this.loader.start();
+    console.log('[App] temps.loader:', temps.loader);
+    this.loader = new Loader(this.main, temps.loader, this.main.device);
+    await this.loader.create();
+    this.loader.start();
 
     let firsttemp = undefined;
     if (temps.main) {
@@ -159,7 +160,7 @@ class App {
       funcgl = this.gl.create(texs);
     }
 
-    if (!this.main.isTouch && typeof Mouse === 'function') {
+    if (!this.main.isTouch && typeof Mouse == 'function') {
       this.mouse = new Mouse(this.main);
     }
 

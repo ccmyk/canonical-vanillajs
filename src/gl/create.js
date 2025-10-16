@@ -1,16 +1,4 @@
-import {
-  Camera,
-  Plane,
-  Triangle,
-  Mesh,
-  Geometry,
-  Texture,
-  Text,
-  RenderTarget,
-  Transform,
-  Program,
-  Vec2,
-} from 'ogl';
+import { Camera, Plane, Triangle, Mesh, Geometry, Texture, Text, RenderTarget, Transform, Program, Vec2 } from 'ogl';
 
 // import imurl from './e.jpeg?url'
 

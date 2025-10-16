@@ -11,35 +11,11 @@ class Home extends Page {
 
   async create(content, main, temp = undefined) {
     super.create(content, main);
-    const base = (window.__BASE_PATH__ || import.meta.env.BASE_URL || '/').replace(/\/$/, '');
-    if (temp !== undefined) {
+    if (temp != undefined) {
       document.querySelector('#content').insertAdjacentHTML('afterbegin', temp);
     } else {
-      // Use fallback HTML instead of WordPress REST API
-      const fallbackHTML = `
-        <main>
-          <section class="about">
-            <h1>About Me</h1>
-            <div class="about-content">
-              <div class="about-text">
-                <p>I'm a passionate designer and developer creating engaging digital experiences.</p>
-                <h3>Skills</h3>
-                <ul>
-                  <li>Interactive Design</li>
-                  <li>Web Development</li>
-                  <li>Animation</li>
-                  <li>UX/UI</li>
-                </ul>
-                <p><strong>Experience:</strong> 5+ years designing and developing interactive websites</p>
-              </div>
-              <div class="about-image">
-                <img src="${base}/public/placeholder-image.svg" alt="About Image" />
-              </div>
-            </div>
-          </section>
-        </main>
-      `;
-      document.querySelector('#content').insertAdjacentHTML('afterbegin', fallbackHTML);
+      let data = await this.loadAppData('', content.dataset.id, content.dataset.template);
+      document.querySelector('#content').insertAdjacentHTML('afterbegin', data.csskfields.main);
     }
     this.el = document.querySelector('main');
 
@@ -47,7 +23,7 @@ class Home extends Page {
       el: this.el,
     };
 
-    if (this.main.webgl === 0) {
+    if (this.main.webgl == 0) {
       await this.loadImages();
       await this.loadVideos();
     }
@@ -67,10 +43,7 @@ class Home extends Page {
   async createComps() {
     await super.createComps();
     if (this.DOM.el.querySelector('.about_intro')) {
-      this.components.intro = new Intro(
-        this.DOM.el.querySelector('.about_intro'),
-        this.main.device,
-      );
+      this.components.intro = new Intro(this.DOM.el.querySelector('.about_intro'), this.main.device);
     }
 
     const i = this.DOM.el.querySelector('.about_list .Awrite i');

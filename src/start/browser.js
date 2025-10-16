@@ -5,7 +5,7 @@ function browserCheck() {
 
   const isTouch =
     /Mobi|Andrdoid|Tablet|iPad|iPhone/.test(navigator.userAgent) ||
-    ('MacIntel' === navigator.platform && 1 < navigator.maxTouchPoints);
+    ('MacIntel' == navigator.platform && 1 < navigator.maxTouchPoints);
   const w = window.innerWidth;
   const h = window.innerHeight;
   let devnum = 0;
@@ -44,7 +44,7 @@ function browserCheck() {
   let isWebgl = false;
   let file = '';
   if (element.getContext && element.getContext('2d')) {
-    isWebPCheck = element.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+    isWebPCheck = element.toDataURL('image/webp').indexOf('data:image/webp') == 0;
   }
 
   let isWebMCheck = true;

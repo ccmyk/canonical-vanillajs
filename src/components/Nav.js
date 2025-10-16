@@ -1,5 +1,3 @@
-
-
 class Nav {
   constructor(main) {
     this.main = main;
@@ -11,16 +9,16 @@ class Nav {
       console.error('[Nav] No navigation HTML template provided');
       return;
     }
-    
+
     try {
       document.querySelector('body').insertAdjacentHTML('afterbegin', temp);
-      
+
       let el = document.querySelector('.nav');
       if (!el) {
         console.error('[Nav] Could not find .nav element after injection');
         return;
       }
-      
+
       this.DOM = {
         el: el,
         burger: el.querySelector('.nav_burger'),
@@ -29,11 +27,9 @@ class Nav {
         c: el.querySelector('.nav_logo'),
         h: el.querySelector('.nav_clock_h'),
         m: el.querySelector('.nav_clock_m'),
-        a: el.querySelector('.nav_clock_a')
+        a: el.querySelector('.nav_clock_a'),
       };
-      
 
-      
       // Verify critical elements
       if (!this.DOM.c) console.warn('[Nav] Missing nav_logo element');
       if (!this.DOM.h || !this.DOM.m || !this.DOM.a) console.warn('[Nav] Missing clock elements');
@@ -87,20 +83,20 @@ class Nav {
   }
   setTime(hour = null, minute = null) {
     console.log('setTime called with:', hour, minute);
-    
+
     let m = minute;
     if (minute == null) {
       console.log('Trying to read minute from DOM...');
       const charElements = this.DOM.m.querySelectorAll('.char');
       console.log('Found', charElements.length, 'char elements in minute element');
-      
+
       if (charElements.length < 2) {
         console.log('Not enough char elements, using current time');
         m = new Date().getMinutes();
       } else {
         m = parseInt(
           this.DOM.m.querySelectorAll('.char')[0].querySelector('.n').innerHTML +
-            this.DOM.m.querySelectorAll('.char')[1].querySelector('.n').innerHTML,
+            this.DOM.m.querySelectorAll('.char')[1].querySelector('.n').innerHTML
         );
         m++;
 
@@ -129,7 +125,7 @@ class Nav {
 
     console.log('Setting minute to:', m);
     const minuteCharElements = this.DOM.m.querySelectorAll('.char');
-    
+
     if (minuteCharElements.length >= 2) {
       console.log('Updating minute char elements');
       this.DOM.m.querySelectorAll('.char')[0].querySelector('.n').classList.add('eee1');
@@ -169,7 +165,7 @@ class Nav {
 
     const actualh = parseInt(
       this.DOM.h.querySelectorAll('.char')[0].querySelector('.n').innerHTML +
-        this.DOM.h.querySelectorAll('.char')[1].querySelector('.n').innerHTML,
+        this.DOM.h.querySelectorAll('.char')[1].querySelector('.n').innerHTML
     );
 
     this.DOM.h.querySelectorAll('.char')[0].querySelector('.n').innerHTML = h.toString()[0];
