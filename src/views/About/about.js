@@ -11,13 +11,21 @@ class Home extends Page {
 
   async create(content, main, temp = undefined) {
     super.create(content, main);
-    if (temp != undefined) {
+    const hasTempContent = typeof temp === 'string' ? temp.trim().length > 0 : temp != null;
+    if (hasTempContent) {
       document.querySelector('#content').insertAdjacentHTML('afterbegin', temp);
     } else {
-      let data = await this.loadAppData('', content.dataset.id, content.dataset.template);
+      let data = await this.loadAppData({
+        id: content.dataset.id,
+        template: content.dataset.template,
+      });
       document.querySelector('#content').insertAdjacentHTML('afterbegin', data.csskfields.main);
     }
-    this.el = document.querySelector('main');
+    this.el = document.querySelector('#content main') || document.querySelector('main');
+    if (!this.el) {
+      console.error('[About] Missing <main> element in loaded content');
+      return;
+    }
 
     this.DOM = {
       el: this.el,
