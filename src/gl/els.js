@@ -342,8 +342,15 @@ export async function createEls(el = null) {
     } else {
       mesh.position.y = text.height * 0.58;
     }
+
+    // Determine text color based on background
+    // Check if page has black background (Bg component exists)
+    const hasBgComponent = document.querySelector('.Oi[data-temp="bg"]') !== null;
+
     if (el.dataset.white) {
-      program.uniforms.uColor.value = 1;
+      // If data-white is set, use white (1) when there's a black background
+      // Otherwise use black (0) for default light background
+      program.uniforms.uColor.value = hasBgComponent ? 1 : 0;
     }
 
     const obj = {
