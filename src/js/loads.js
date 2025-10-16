@@ -2,22 +2,45 @@ export function timeout(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export async function loadAppData({
-  device = 0,
-  webp = 0,
-  id = '',
-  template = '',
-  logged = 0,
-  visible = 0,
-  webgl = 1,
-} = {}) {
-  if (import.meta.env.DEV == true) {
-    console.log('Loading page data for ID:', id);
+export async function loadAppData(config = {}, legacyId, legacyTemplate) {
+  // Allow calls that still use the legacy signature loadAppData('', id, template)
+  if (config == null || typeof config !== 'object' || Array.isArray(config)) {
+    config = {};
   }
+  if (typeof config.id === 'undefined' && typeof legacyId !== 'undefined') {
+    config.id = legacyId;
+  }
+  if (typeof config.template === 'undefined' && typeof legacyTemplate !== 'undefined') {
+    config.template = legacyTemplate;
+  }
+
+  const {
+    device = this.main?.device || 0,
+    webp = this.main?.webp || 0,
+    id = '',
+    template = '',
+    logged = 0,
+    visible = 0,
+    webgl = this.main?.webgl ?? 1,
+  } = config;
 
   // Fetch the page-specific JSON content
   try {
-    const response = await fetch(`/content/pages/${id}.json`);
+    if (!id) {
+      throw new Error('Missing page id for loadAppData()');
+    }
+
+    const basePath = this.main?.assetRoot || '';
+    const normalizedBase = basePath.endsWith('/') ? basePath.slice(0, -1) : basePath;
+    const fetchUrl =
+      normalizedBase && normalizedBase !== '/'
+        ? `${normalizedBase}/content/pages/${id}.json`
+        : `/content/pages/${id}.json`;
+
+    const response = await fetch(fetchUrl);
+    if (import.meta.env.DEV == true) {
+      console.log('Loading page data for ID:', id, 'from', fetchUrl);
+    }
     if (!response.ok) {
       throw new Error(`Failed to load page ${id}: ${response.status}`);
     }
@@ -27,18 +50,18 @@ export async function loadAppData({
     // The original returned: { csskfields: { main: "...", textures: {...} }, ... }
     return {
       ...pageData,
-      device: this.main?.device || 0,
-      webp: this.main?.webp || 0,
-      webgl: this.main?.webgl || 1,
+      device,
+      webp,
+      webgl,
       template: template || pageData.template || '',
     };
   } catch (error) {
     console.error('Error loading page data:', error);
     // Return minimal data to prevent complete failure
     return {
-      device: this.main?.device || 0,
-      webp: this.main?.webp || 0,
-      webgl: this.main?.webgl || 1,
+      device,
+      webp,
+      webgl,
       template: template || '',
       csskfields: {
         main: '',
