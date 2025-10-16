@@ -1,14 +1,13 @@
 // vite.config.js
 import { defineConfig } from 'vite';
 import glsl from 'vite-plugin-glsl';
-import { prettierFormat } from 'vite-plugin-prettier-format';
 
 export default defineConfig({
   root: '.',
   server: {
     port: 3000,
     host: true,
-    open: true,
+    open: false,
   },
   build: {
     outDir: 'dist',
@@ -36,6 +35,5 @@ export default defineConfig({
       warnDuplicatedImports: false,
       compress: false,
     }),
-    prettierFormat(),
   ],
 });
