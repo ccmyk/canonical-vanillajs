@@ -124,3 +124,6 @@ desktop.ini
 
 # Generated types
 src/types/
+
+# Equality backup directories
+equality-backup*/
