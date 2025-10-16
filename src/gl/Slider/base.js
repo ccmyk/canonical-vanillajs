@@ -90,13 +90,56 @@ class Slides {
             delete this.animin;
           },
         })
+        .fromTo(
+          this.canvas,
+          {
+            webkitFilter: 'blur(' + 6 + 'px)',
+            filter: 'blur(' + 6 + 'px)',
+          },
+          {
+            webkitFilter: 'blur(' + 0 + 'px)',
+            filter: 'blur(' + 0 + 'px)',
+            duration: 0.8,
+            ease: 'power2.inOut',
+          },
+          0
+        )
 
         .fromTo(
-          this.post.passes[0].program.uniforms.uStart,
-          { value: 1.5 },
-          { value: 0, duration: 0.6, ease: 'power2.inOut' },
+          this.canvas,
+          {
+            opacity: 0,
+          },
+          {
+            opacity: 1,
+            duration: 0.6,
+            ease: 'power2.inOut',
+          },
           0
         );
+
+      this.animin.fromTo(
+        this.objpos,
+        { timer: 0 },
+        {
+          timer: 1,
+          duration: 0.9,
+          ease: 'none',
+          onUpdate: () => {
+            if (this.slideanim) {
+              this.slideanim.timeScale(this.objpos.timer);
+            }
+          },
+        },
+        0.8
+      );
+
+      this.animin.fromTo(
+        this.post.passes[0].program.uniforms.uStart,
+        { value: 1.5 },
+        { value: 0, duration: 2, ease: 'power4.inOut' },
+        0.6
+      );
 
       this.animin
         .fromTo(
