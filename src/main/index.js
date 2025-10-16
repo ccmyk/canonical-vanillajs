@@ -114,6 +114,7 @@ class App {
     //Loader
     const hasLoaderTemplate = typeof temps.loader === 'string' && temps.loader.trim().length > 0;
     const shouldRunLoader = hasLoaderTemplate && !this.main.hasSeenLoader;
+    this.shouldRunLoader = shouldRunLoader;
     let time = shouldRunLoader ? 1400 : 0;
     if (IS_DEV && shouldRunLoader) {
       time = 1400;
@@ -121,10 +122,14 @@ class App {
     this.template = this.content.dataset.template;
 
     console.log('[App] temps.loader:', temps.loader);
-    if (shouldRunLoader) {
+    if (hasLoaderTemplate) {
       this.loader = new Loader(this.main, temps.loader, this.main.device);
       await this.loader.create();
-      this.loader.start();
+      if (shouldRunLoader) {
+        this.loader.start();
+      } else {
+        this.loader.skip();
+      }
     } else {
       this.loader = null;
     }
@@ -188,13 +193,13 @@ class App {
     }
 
     await this.timeout(11);
-    if (this.loader) {
+    if (this.shouldRunLoader && this.loader) {
       await this.loader.hideIntro(this.template);
     }
     if (this.gl && this.gl.loader && this.gl.loader.animstart) {
       this.gl.loader.animstart.play();
     }
-    const postLoaderDelay = this.loader ? 820 : 0;
+    const postLoaderDelay = this.shouldRunLoader ? 820 : 0;
     await this.timeout(postLoaderDelay);
 
     if (this.gl) {

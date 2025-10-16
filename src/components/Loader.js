@@ -101,6 +101,13 @@ class Loader {
     }
   }
 
+  skip() {
+    if (!this.DOM?.el) {
+      return;
+    }
+    this.DOM.el.remove();
+  }
+
   async hideIntro(template = '') {
     this.anim.pause();
 
