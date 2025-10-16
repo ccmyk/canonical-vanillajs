@@ -1,7 +1,7 @@
 import { check, checkEl, start, stop, updateX, updateY, updateScale, updateAnim } from './position.js';
 
-import PGs from './Pg.fragment.main.glsl';
-import PGv from './Pg.vertex.main.glsl';
+import PGs from './Pg.fragment.main.glsl?raw';
+import PGv from './Pg.vertex.main.glsl?raw';
 
 import { Triangle, Program, Mesh, Vec2, Texture } from 'ogl';
 
