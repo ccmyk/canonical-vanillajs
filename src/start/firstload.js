@@ -16,7 +16,9 @@ async function loadAppData({ device = 0, webp = 0, id = '', template = '', logge
     let pageData = null;
     if (id) {
       try {
-        const pageResponse = await fetch(`/content/pages/${id}.json`);
+        const templateKey = typeof template === 'string' ? template.toLowerCase() : '';
+        const collection = templateKey === 'project' ? 'project' : 'pages';
+        const pageResponse = await fetch(`/content/${collection}/${id}.json`);
         if (pageResponse.ok) {
           pageData = await pageResponse.json();
         }

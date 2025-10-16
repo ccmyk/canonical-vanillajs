@@ -32,14 +32,16 @@ export async function loadAppData(config = {}, legacyId, legacyTemplate) {
 
     const basePath = this.main?.assetRoot || '';
     const normalizedBase = basePath.endsWith('/') ? basePath.slice(0, -1) : basePath;
+    const templateKey = typeof template === 'string' ? template.toLowerCase() : '';
+    const collection = templateKey === 'project' ? 'project' : 'pages';
     const fetchUrl =
       normalizedBase && normalizedBase !== '/'
-        ? `${normalizedBase}/content/pages/${id}.json`
-        : `/content/pages/${id}.json`;
+        ? `${normalizedBase}/content/${collection}/${id}.json`
+        : `/content/${collection}/${id}.json`;
 
     const response = await fetch(fetchUrl);
     if (import.meta.env.DEV == true) {
-      console.log('Loading page data for ID:', id, 'from', fetchUrl);
+      console.log('Loading page data for ID:', id, 'template:', templateKey || '<none>', 'from', fetchUrl);
     }
     if (!response.ok) {
       throw new Error(`Failed to load page ${id}: ${response.status}`);
