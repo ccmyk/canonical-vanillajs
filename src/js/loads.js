@@ -47,6 +47,20 @@ export async function loadAppData(config = {}, legacyId, legacyTemplate) {
       throw new Error(`Failed to load page ${id}: ${response.status}`);
     }
     const pageData = await response.json();
+    if (pageData?.csskfields) {
+      const sharedTextures = (this.main?.sharedTextures) || {};
+      const refs = Array.isArray(pageData.csskfields.textureRefs) ? pageData.csskfields.textureRefs : [];
+      const pageTextures = { ...(pageData.csskfields.textures || {}) };
+      for (const ref of refs) {
+        if (sharedTextures[ref] && !pageTextures[ref]) {
+          pageTextures[ref] = sharedTextures[ref];
+        }
+      }
+      pageData.csskfields = {
+        ...pageData.csskfields,
+        textures: pageTextures,
+      };
+    }
 
     // Return the page data matching the structure the original WordPress version returned
     // The original returned: { csskfields: { main: "...", textures: {...} }, ... }

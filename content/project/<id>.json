@@ -1,0 +1,13 @@
+{
+  "id": 444,
+  "slug": "new-project",
+  "title": { "rendered": "New Project" },
+  "csskfields": {
+    "mainPath": "/content/templates/project/new-project.html",
+    "textureRefs": [
+      "prjs0",
+      "prjs1",
+      "home2"
+    ]
+  }
+}

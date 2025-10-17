@@ -1,0 +1,24 @@
+{
+  "id": 1,
+  "title": {
+    "rendered": "Error"
+  },
+  "csskfields": {
+    "main": "<main class=\"error\"><section class=\"error_hero\"><div class=\"c-vw cnt\"><div class=\"cnt_hold\"><h2 class=\"cnt_tt\"><div class=\"Atitle\"><div class=\"Oi Oi-tt\" data-temp=\"tt\" data-length=\"3\" data-w=\".6\" data-s=\".24\" data-l=\"-0.02\" data-m=\"5\" data-text=\"Error\"></div><div class=\"ttj Oiel\">Error</div><div class=\"cCover\"></div></div><div class=\"Atitle\"><div class=\"Oi Oi-tt\" data-temp=\"tt\" data-length=\"3\" data-w=\".6\" data-s=\".24\" data-l=\"-.019\" data-m=\"5\" data-text=\"404\"></div><div class=\"ttj Oiel\">404</div><div class=\"cCover\"></div></div></h2></div><div class=\"cnt_bt\"><a class=\"Awrite Awrite-inv\" data-params=\"0,1\" href=\"/\" data-type=\"index\" aria-label=\"Back to home\"><div class=\"iO iO-std\"></div>Back to home</a></div><div class=\"cnt_bp\"><div class=\"Atext\"><div class=\"iO iO-std\"></div><p class=\"Atext_el\">\u00a92025_all rights reserved</p></div></div></div></section></main>",
+    "textureRefs": [
+      "about0",
+      "home0",
+      "home1",
+      "home2",
+      "home3",
+      "prjs0",
+      "prjs1",
+      "prjs2",
+      "prjs3",
+      "prjs4",
+      "prjs5",
+      "prjs6",
+      "prjs7"
+    ]
+  }
+}

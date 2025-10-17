@@ -37,6 +37,9 @@ class App {
 
     this.content = document.querySelector('#content');
     this.main = info[0];
+    if (info[1]?.textures) {
+      this.main.sharedTextures = info[1].textures;
+    }
     const fields = info[1]?.fields ?? {};
     const fallbackBaseRaw = typeof fields.base == 'string' ? fields.base : '';
     const trimmedFallback = fallbackBaseRaw.replace(/\/+$/, '');
