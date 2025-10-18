@@ -85,6 +85,29 @@ export async function onRequest({ push, response, url }) {
   }
   this.content = html.querySelector('#content');
 
+  if (!this.content || !this.content.dataset?.template || !this.pages.has(this.content.dataset.template)) {
+    console.warn('[pop.js onRequest] Missing or unknown template; loading error fallback', this.content);
+    try {
+      const errorResponse = await fetch('/error/index.html', {
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+      });
+      if (errorResponse.ok) {
+        const errorHtml = document.createElement('div');
+        errorHtml.innerHTML = await errorResponse.text();
+        const fallbackContent = errorHtml.querySelector('#content');
+        if (fallbackContent) {
+          this.content = fallbackContent;
+        }
+      } else {
+        console.warn('[pop.js onRequest] Error fallback fetch failed:', errorResponse.status);
+      }
+    } catch (fallbackError) {
+      console.error('[pop.js onRequest] Error loading fallback content:', fallbackError);
+    }
+  }
+
   console.log('[pop.js onRequest] #content element:', this.content);
   console.log('[pop.js onRequest] #content dataset:', this.content?.dataset);
 
@@ -107,6 +130,13 @@ export async function onRequest({ push, response, url }) {
   console.log('[pop.js onRequest] Extracted id:', this.content.dataset.id);
   console.log('[pop.js onRequest] Available pages:', Array.from(this.pages.keys()));
   this.newpage = this.pages.get(this.template);
+  if (!this.newpage) {
+    console.warn('[pop.js onRequest] Template not registered, falling back to error view:', this.template);
+    this.template = 'error';
+    this.content.dataset.template = 'error';
+    this.content.dataset.id = this.content.dataset.id || '1';
+    this.newpage = this.pages.get(this.template);
+  }
   console.log('[pop.js onRequest] Selected page:', this.newpage);
   this.newpage.id = this.content.dataset.id;
 
